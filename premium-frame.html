@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Premium Frame — Story Frames</title>
+  <meta name="description" content="Premium Frame — Story Frames. We turn your photo into a short video and embed it in the product. PayPal or COD in Bulgaria." />
+
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="i18n.js"></script>
+
+  <style>
+    .wrap{display:grid; grid-template-columns: 1.1fr .9fr; gap:14px; align-items:start}
+    .box{border:1px solid var(--line); border-radius:24px; background: rgba(255,255,255,.04); box-shadow: var(--shadow); padding:18px}
+    .muted{color:var(--muted)}
+    .grid3{display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; margin-top:12px}
+    .thumb{border:1px solid var(--line); border-radius:16px; overflow:hidden; background: rgba(0,0,0,.18); cursor:pointer}
+    .thumb img{width:100%; height:170px; object-fit:cover; display:block}
+    @media (max-width: 920px){.wrap{grid-template-columns:1fr}.grid3{grid-template-columns:1fr}}
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header class="top">
+      <a class="brand" href="index.html">
+        <div class="logo"><img src="logo.png" alt="Story Frames"></div>
+        <div>
+          <strong>Story Frames</strong>
+          <small data-i18n="tagline">Crafting stories from photos</small>
+        </div>
+      </a>
+
+      <nav class="topnav">
+        <a href="index.html" data-i18n="nav_home">Home</a>
+        <a href="index.html#products" data-i18n="nav_products">Products</a>
+        <a class="pill" href="https://facebook.com/Storyframesvarna/" target="_blank" rel="noopener noreferrer">Facebook</a>
+
+        <div class="lang" aria-label="Language">
+          <button class="langbtn" data-lang="en">EN</button>
+          <button class="langbtn" data-lang="bg">BG</button>
+        </div>
+      </nav>
+    </header>
+
+    <div class="wrap">
+      <div class="box">
+        <h1 data-i18n="p2_title">Premium Frame</h1>
+        <p class="muted" data-i18n="p2_desc">A clean, premium digital frame for memories that deserve a spotlight.</p>
+
+        <div class="grid3">
+          <div class="thumb" onclick="openLightbox('frame-1.jpg')"><img src="frame-1.jpg" alt="Frame 1"></div>
+          <div class="thumb" onclick="openLightbox('frame-2.jpg')"><img src="frame-2.jpg" alt="Frame 2"></div>
+          <div class="thumb" onclick="openLightbox('frame-3.jpg')"><img src="frame-3.jpg" alt="Frame 3"></div>
+        </div>
+
+        <div class="actions" style="margin-top:14px">
+          <a class="btn" href="index.html" data-i18n="back_home">Back to home</a>
+        </div>
+      </div>
+
+      <div class="box">
+        <div class="price">€49.99</div>
+        <div class="tiny" data-i18n="pay_physical">PayPal (card) • Bulgaria COD</div>
+
+        <div class="actions" style="margin-top:12px">
+          <button class="btn primary" data-i18n="buy_paypal" onclick="payPalBuy('Premium Frame', 49.99)">Pay with PayPal</button>
+          <button class="btn gold" data-i18n="buy_cod" onclick="codOrder('Premium Frame', 49.99)">Bulgaria COD</button>
+        </div>
+
+        <div style="margin-top:14px" class="muted" data-i18n="what_you_get"></div>
+
+        <div class="actions" style="margin-top:14px">
+          <a class="btn" href="mailto:Sviievmla@gmail.com?subject=Story%20Frames%20Order%20-%20Premium%20Frame">Email</a>
+          <a class="btn" href="https://facebook.com/Storyframesvarna/" target="_blank" rel="noopener noreferrer">Facebook</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <img id="lightboxImg" alt="Expanded image" />
+  </div>
+
+  <script>
+    const PAYPAL_EMAIL = "Sviievmla@gmail.com";
+    const CONTACT_EMAIL = "Sviievmla@gmail.com";
+
+    function payPalBuy(item, amount){
+      const url =
+        "https://www.paypal.com/cgi-bin/webscr" +
+        "?cmd=_xclick" +
+        "&business=" + encodeURIComponent(PAYPAL_EMAIL) +
+        "&item_name=" + encodeURIComponent(item) +
+        "&amount=" + encodeURIComponent(Number(amount).toFixed(2)) +
+        "&currency_code=EUR" +
+        "&no_note=1";
+      window.open(url, "_blank", "noopener,noreferrer");
+    }
+
+    function codOrder(item, amount){
+      const subject = `Story Frames COD Order — ${item}`;
+      const body = [
+        "New COD Order (Bulgaria)",
+        "",
+        `Product: ${item}`,
+        `Price: €${Number(amount).toFixed(2)}`,
+        "",
+        "Name:",
+        "Phone:",
+        "City / Address:",
+        "",
+        "Photo link / notes (optional):",
+        "",
+        "Please reply to confirm delivery details."
+      ].join("\n");
+      window.location.href = `mailto:${encodeURIComponent(CONTACT_EMAIL)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    }
+
+    function openLightbox(src){
+      document.getElementById("lightboxImg").src = src;
+      document.getElementById("lightbox").style.display = "flex";
+      document.body.style.overflow = "hidden";
+    }
+    function closeLightbox(){
+      document.getElementById("lightbox").style.display = "none";
+      document.body.style.overflow = "";
+    }
+  </script>
+</body>
+</html>
