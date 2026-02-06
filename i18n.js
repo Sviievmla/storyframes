@@ -219,17 +219,21 @@ const translations = {
     
     // Add click handlers to language buttons
     document.querySelectorAll('.langbtn').forEach(btn => {
-      btn.addEventListener('click', function() {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
         const lang = this.getAttribute('data-lang');
-        applyTranslations(lang);
+        if (lang && (lang === 'en' || lang === 'bg')) {
+          applyTranslations(lang);
+        }
       });
     });
   }
   
-  // Run initialization
+  // Run initialization - ensure it runs after DOM is fully loaded
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initTranslations);
   } else {
+    // DOM already loaded, run immediately
     initTranslations();
   }
   

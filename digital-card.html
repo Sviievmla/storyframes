@@ -25,6 +25,9 @@
 
 <body>
   <div class="container">
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay" onclick="toggleMobileMenu()"></div>
+    
     <header class="top">
       <a class="brand" href="index.html">
         <div class="logo"><img src="logo.png" alt="Story Frames"></div>
@@ -34,7 +37,14 @@
         </div>
       </a>
 
-      <nav class="topnav">
+      <!-- Mobile Menu Toggle -->
+      <button class="mobile-menu-toggle" id="mobileMenuToggle" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="topnav" id="mobileNav">
         <a href="index.html" data-i18n="nav_home">Home</a>
         <a href="index.html#products" data-i18n="nav_products">Products</a>
         <a class="cart-icon" href="index.html#cart" id="cartIcon">
@@ -71,18 +81,19 @@
         </div>
       </div>
 
-      <div class="box">
-        <div class="price">€29</div>
-        <div class="tiny" data-i18n="pay_digital">PayPal (card) • Instant delivery</div>
+      <div class="box" style="position:sticky;top:90px;">
+        <div class="price" style="font-size:32px;margin-bottom:8px;">€29</div>
+        <div class="tiny" data-i18n="pay_digital" style="margin-bottom:16px;">PayPal (card) • Instant delivery</div>
 
         <!-- PayPal Smart Payment Buttons -->
-        <div id="paypal-button-container" style="margin-top:12px"></div>
+        <div id="paypal-button-container" style="margin-bottom:12px"></div>
 
         <div style="margin-top:14px" class="muted" data-i18n="what_you_get"></div>
 
         <div class="actions" style="margin-top:14px">
-          <a class="btn" href="mailto:Sviievmla@gmail.com?subject=Story%20Frames%20Order%20-%20Digital%20Card">Email</a>
-          <a class="btn" href="https://facebook.com/Storyframesvarna/" target="_blank" rel="noopener noreferrer">Facebook</a>
+          <div style="font-size:13px;font-weight:700;margin-bottom:10px;color:var(--text);text-align:center;">✉️ Questions? Contact us:</div>
+          <a class="btn" href="mailto:Sviievmla@gmail.com?subject=Story%20Frames%20Order%20-%20Digital%20Card" style="flex:1;font-size:13px;padding:10px;">Email</a>
+          <a class="btn" href="https://facebook.com/Storyframesvarna/" target="_blank" rel="noopener noreferrer" style="flex:1;font-size:13px;padding:10px;">Facebook</a>
         </div>
       </div>
     </div>
@@ -94,6 +105,37 @@
 
   <script>
     const PAYPAL_EMAIL = "Sviievmla@gmail.com";
+
+    // Mobile Menu Toggle
+    function toggleMobileMenu() {
+      const nav = document.getElementById('mobileNav');
+      const toggle = document.getElementById('mobileMenuToggle');
+      const overlay = document.getElementById('mobileMenuOverlay');
+      
+      nav.classList.toggle('active');
+      toggle.classList.toggle('active');
+      overlay.classList.toggle('active');
+      
+      if (nav.classList.contains('active')) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+      }
+    }
+    
+    // Close mobile menu when clicking on a link
+    document.querySelectorAll('#mobileNav a').forEach(link => {
+      link.addEventListener('click', function() {
+        const nav = document.getElementById('mobileNav');
+        const toggle = document.getElementById('mobileMenuToggle');
+        const overlay = document.getElementById('mobileMenuOverlay');
+        
+        nav.classList.remove('active');
+        toggle.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+    });
 
     // Update cart badge on page load
     function updateCartBadge() {
