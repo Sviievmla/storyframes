@@ -1,0 +1,61 @@
+.docs {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 1em;
+}
+
+/* Mobile Optimization */
+@media only screen and (max-width: 768px) {
+  body {
+    font-size: 16px;
+    padding: 0;
+  }
+  .shopping-cart {
+    width: 100%;
+    padding: 10px;
+  }
+}
+
+/* Shopping Cart */
+.shopping-cart {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  margin: 20px 0;
+  padding: 15px;
+}
+.shopping-cart-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+}
+.shopping-cart-item img {
+  max-width: 100px;
+  height: auto;
+}
+
+/* Checkout Page */
+.checkout-page {
+  padding: 20px;
+  background-color: #ffffff;
+}
+.checkout-form {
+  display: flex;
+  flex-direction: column;
+}
+.checkout-form input {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+}
+
+/* Responsive Design */
+@media only screen and (max-width: 480px) {
+  .checkout-page {
+    padding: 10px;
+  }
+  .checkout-form input {
+    padding: 5px;
+  }
+}
