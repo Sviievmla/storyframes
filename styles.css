@@ -6,8 +6,8 @@
   --bg:#836475;
   --panel: rgba(255,255,255,.06);
   --panel2: rgba(0,0,0,.25);
-  --text:#faf7f9;         /* Lighter text */
-  --muted: rgba(250,247,249,.80); /* Lighter muted text */
+  --text:#fcfbfc;         /* Even lighter text for better readability */
+  --muted: rgba(252,251,252,.85); /* Even lighter muted text for better readability */
   --line: rgba(255,255,255,.14);
 
   --rose:#ff4d7d;
@@ -24,6 +24,7 @@ html,body{height:100%}
 body{
   margin:0;
   font-family: "Manrope", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+  font-size: 16px; /* Slightly increased base font size */
   color:var(--text);
   background:
     linear-gradient(180deg, rgba(131,100,117,.95) 0%, rgba(131,100,117,.98) 100%),
@@ -32,7 +33,7 @@ body{
     radial-gradient(900px 520px at 88% 0%, rgba(193, 166, 113, 0.18), transparent 55%),
     radial-gradient(900px 640px at 50% 115%, rgba(255,134,173,.12), transparent 62%),
     var(--bg);
-  line-height:1.6;
+  line-height:1.65; /* Slightly increased line height for better readability */
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
 }
@@ -213,8 +214,8 @@ section{margin-top:22px}
 .card .img{height:240px; background: rgba(0,0,0,.18); position:relative; z-index:1;}
 .card .img img{width:100%; height:100%; object-fit:cover; display:block; filter:saturate(1.05) contrast(1.03)}
 .card .body{padding:16px; position:relative; z-index:1;}
-.card h3{margin:0 0 6px; font-size:23px}
-.card p{margin:0; color:var(--muted); font-size:15px;}
+.card h3{margin:0 0 6px; font-size:24px} /* Slightly larger */
+.card p{margin:0; color:var(--muted); font-size:15.5px;} /* Slightly larger */
 .meta{
   margin-top:auto;
   padding: 14px 16px 16px;
@@ -522,6 +523,47 @@ footer a:hover{color:var(--text)}
 .cart-item-price {
   color: var(--muted);
   font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.quantity-btn {
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,.08);
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--text);
+  font-weight: 900;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.quantity-btn:hover {
+  background: rgba(255,77,125,.2);
+  border-color: rgba(255,77,125,.35);
+}
+
+.quantity-input {
+  width: 50px;
+  text-align: center;
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,.04);
+  border-radius: 8px;
+  padding: 4px 8px;
+  color: var(--text);
+  font-weight: 700;
+  font-size: 14px;
 }
 
 .remove-item {
@@ -550,8 +592,41 @@ footer a:hover{color:var(--text)}
 .cart-total-row {
   display: flex;
   justify-content: space-between;
-  font-size: 18px;
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.cart-total-row:last-child {
+  margin-bottom: 0;
+  font-size: 20px;
   font-weight: 900;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  margin-top: 8px;
+}
+
+.checkout-button {
+  width: 100%;
+  padding: 14px 18px;
+  border: 1px solid rgba(255,77,125,.55);
+  background: linear-gradient(180deg, rgba(255,77,125,.30), rgba(255,255,255,.05));
+  border-radius: 14px;
+  color: var(--text);
+  font-weight: 900;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: var(--shadow2);
+  text-decoration: none;
+  display: block;
+  text-align: center;
+  margin-bottom: 12px;
+  transition: all 0.2s ease;
+}
+
+.checkout-button:hover {
+  transform: translateY(-1px);
+  background: linear-gradient(180deg, rgba(255,77,125,.38), rgba(255,255,255,.08));
 }
 
 .cart-actions {

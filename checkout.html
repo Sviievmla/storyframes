@@ -1,1 +1,495 @@
-<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Checkout Page</title>\n    <style>\n        body { font-family: Arial, sans-serif; }\n        .container { max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 10px; }\n        .cart-items { list-style-type: none; padding: 0; }\n        .cart-item { border-bottom: 1px solid #eee; padding: 10px 0; }\n        .total { font-weight: bold; }\n    </style>\n</head>\n<body>\n    <div class=\"container\">\n        <h1>Checkout</h1>\n        <form id=\"checkout-form\">\n            <h2>Customer Details</h2>\n            <label for=\"name\">Name:</label>\n            <input type=\"text\" id=\"name\" required>\n            <label for=\"email\">Email:</label>\n            <input type=\"email\" id=\"email\" required>\n            <label for=\"address\">Address:</label>\n            <input type=\"text\" id=\"address\" required>\n            <h2>Shopping Cart Review</h2>\n            <ul class=\"cart-items\">\n                <li class=\"cart-item\">Item 1 - $10.00</li>\n                <li class=\"cart-item\">Item 2 - $15.00</li>\n                <li class=\"cart-item total\">Total: $25.00</li>\n            </ul>\n            <h2>Payment</h2>\n            <div id=\"paypal-button-container\"></div>\n            <button type=\"submit\">Submit Order</button>\n        </form>\n    </div>\n    <script src=\"https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID\"></script>\n    <script>\n        paypal.Buttons({\n            createOrder: function(data, actions) {\n                return actions.order.create({\n                    purchase_units: [{\n                        amount: { value: '25.00' }\n                    }]\n                });\n            },\n            onApprove: function(data, actions) {\n                return actions.order.capture().then(function(details) {\n                    alert('Transaction completed by ' + details.payer.name.given_name);\n                });\n            }\n        }).render('#paypal-button-container');\n    </script>\n</body>\n</html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Checkout — Story Frames</title>
+  <meta name="description" content="Complete your Story Frames order. Secure checkout with PayPal." />
+  
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="i18n.js"></script>
+  <!-- PayPal SDK - supports both PayPal and card payments -->
+  <script src="https://www.paypal.com/sdk/js?client-id=AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUed2TK-uhjVCt_b&currency=EUR&intent=capture"></script>
+  
+  <style>
+    .checkout-container {
+      max-width: 900px;
+      margin: 20px auto;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 20px;
+      align-items: start;
+    }
+    
+    .checkout-section {
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: rgba(255,255,255,.04);
+      box-shadow: var(--shadow);
+      padding: 24px;
+    }
+    
+    .checkout-section h2 {
+      margin: 0 0 20px;
+      font-size: 24px;
+    }
+    
+    .form-group {
+      margin-bottom: 18px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      font-size: 15px;
+      font-family: inherit;
+    }
+    
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: rgba(255,77,125,.55);
+      background: rgba(255,255,255,.08);
+    }
+    
+    .form-group textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+    
+    .order-item {
+      display: flex;
+      gap: 12px;
+      padding: 12px;
+      margin-bottom: 10px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      align-items: center;
+    }
+    
+    .order-item-image {
+      width: 60px;
+      height: 60px;
+      border-radius: 10px;
+      object-fit: cover;
+      border: 1px solid var(--line);
+    }
+    
+    .order-item-details {
+      flex: 1;
+    }
+    
+    .order-item-name {
+      font-weight: 700;
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+    
+    .order-item-price {
+      color: var(--muted);
+      font-size: 14px;
+    }
+    
+    .order-summary-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      font-size: 15px;
+    }
+    
+    .order-summary-row.total {
+      border-top: 1px solid var(--line);
+      margin-top: 10px;
+      padding-top: 14px;
+      font-size: 20px;
+      font-weight: 900;
+    }
+    
+    .empty-checkout {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--muted);
+    }
+    
+    .payment-buttons {
+      margin-top: 20px;
+    }
+    
+    .cod-info {
+      margin-top: 16px;
+      padding: 14px;
+      background: rgba(231,194,122,.12);
+      border: 1px solid rgba(231,194,122,.35);
+      border-radius: 14px;
+      color: var(--text);
+      font-size: 14px;
+    }
+    
+    @media (max-width: 920px) {
+      .checkout-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header class="top">
+      <a class="brand" href="index.html">
+        <div class="logo"><img src="logo.png" alt="Story Frames"></div>
+        <div>
+          <strong>Story Frames</strong>
+          <small data-i18n="tagline">Crafting stories from photos</small>
+        </div>
+      </a>
+
+      <nav class="topnav">
+        <a href="index.html" data-i18n="nav_home">Home</a>
+        <a href="index.html#products" data-i18n="nav_products">Products</a>
+        <a class="pill" href="https://facebook.com/Storyframesvarna/" target="_blank" rel="noopener noreferrer">Facebook</a>
+
+        <div class="lang" aria-label="Language">
+          <button class="langbtn" data-lang="en">EN</button>
+          <button class="langbtn" data-lang="bg">BG</button>
+        </div>
+      </nav>
+    </header>
+
+    <section style="margin-top: 20px;">
+      <h1 data-i18n="checkout_title">Checkout</h1>
+      <p data-i18n="checkout_subtitle" style="color:var(--muted);margin-top:8px;">Complete your order</p>
+    </section>
+
+    <div id="emptyCheckout" class="empty-checkout" style="display:none;">
+      <div class="empty-cart-icon">🛒</div>
+      <p data-i18n="cart_empty">Your cart is empty</p>
+      <div class="actions" style="margin-top:16px;justify-content:center;">
+        <a href="index.html#products" class="btn primary" data-i18n="continue_shopping">Continue Shopping</a>
+      </div>
+    </div>
+
+    <div id="checkoutContainer" class="checkout-container">
+      <!-- Customer Details Form -->
+      <div class="checkout-section">
+        <h2 data-i18n="customer_details">Customer Details</h2>
+        <form id="checkout-form">
+          <div class="form-group">
+            <label for="fullName" data-i18n="full_name">Full Name</label>
+            <input type="text" id="fullName" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="email" data-i18n="email">Email Address</label>
+            <input type="email" id="email" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="phone" data-i18n="phone">Phone Number</label>
+            <input type="tel" id="phone" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="address" data-i18n="address">Shipping Address</label>
+            <input type="text" id="address" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="city" data-i18n="city">City</label>
+            <input type="text" id="city" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="postalCode" data-i18n="postal_code">Postal Code</label>
+            <input type="text" id="postalCode">
+          </div>
+          
+          <div class="form-group">
+            <label for="country" data-i18n="country">Country</label>
+            <select id="country" required>
+              <option value="BG">Bulgaria</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="notes" data-i18n="order_notes">Order Notes (Optional)</label>
+            <textarea id="notes" data-i18n="order_notes_placeholder" placeholder="Special instructions, delivery preferences, etc."></textarea>
+          </div>
+        </form>
+      </div>
+
+      <!-- Order Summary -->
+      <div class="checkout-section">
+        <h2 data-i18n="order_summary">Order Summary</h2>
+        <div id="orderItems"></div>
+        
+        <div style="margin-top: 16px;">
+          <div class="order-summary-row">
+            <span data-i18n="subtotal">Subtotal:</span>
+            <span id="orderSubtotal">€0.00</span>
+          </div>
+          <div class="order-summary-row total">
+            <span data-i18n="total">Total:</span>
+            <span id="orderTotal">€0.00</span>
+          </div>
+        </div>
+        
+        <div class="payment-buttons">
+          <h3 style="font-size:18px;margin:0 0 12px;" data-i18n="payment_method">Payment Method</h3>
+          
+          <!-- PayPal Buttons -->
+          <div id="paypal-button-container"></div>
+          
+          <!-- COD Button for Bulgaria -->
+          <div id="codButton" style="display:none;">
+            <button class="btn gold" style="width:100%;margin-top:12px;" onclick="submitCODOrder()" data-i18n="buy_cod">Bulgaria COD</button>
+            <div class="cod-info">
+              💡 Cash on Delivery available for Bulgaria orders only. We'll contact you to confirm delivery details.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div>© <span id="year"></span> Story Frames</div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;">
+      <a href="mailto:Sviievmla@gmail.com">Sviievmla@gmail.com</a>
+      <a href="https://facebook.com/Storyframesvarna/" target="_blank" rel="noopener noreferrer">Facebook</a>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+    
+    // Load cart from localStorage
+    let cart = JSON.parse(localStorage.getItem('storyframesCart') || '[]');
+    
+    function displayCheckout() {
+      const emptyCheckout = document.getElementById('emptyCheckout');
+      const checkoutContainer = document.getElementById('checkoutContainer');
+      const orderItems = document.getElementById('orderItems');
+      const orderSubtotal = document.getElementById('orderSubtotal');
+      const orderTotal = document.getElementById('orderTotal');
+      const codButton = document.getElementById('codButton');
+      
+      if (cart.length === 0) {
+        emptyCheckout.style.display = 'block';
+        checkoutContainer.style.display = 'none';
+        return;
+      }
+      
+      emptyCheckout.style.display = 'none';
+      checkoutContainer.style.display = 'grid';
+      
+      // Display order items
+      orderItems.innerHTML = cart.map(item => {
+        const quantity = item.quantity || 1;
+        const itemTotal = item.price * quantity;
+        return `
+          <div class="order-item">
+            <img src="${item.image}" alt="${item.name}" class="order-item-image">
+            <div class="order-item-details">
+              <div class="order-item-name">${item.name}</div>
+              <div class="order-item-price">€${item.price.toFixed(2)} × ${quantity} = €${itemTotal.toFixed(2)}</div>
+            </div>
+          </div>
+        `;
+      }).join('');
+      
+      // Calculate totals
+      const subtotal = cart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
+      const total = subtotal;
+      
+      orderSubtotal.textContent = `€${subtotal.toFixed(2)}`;
+      orderTotal.textContent = `€${total.toFixed(2)}`;
+      
+      // Show COD button if Bulgaria is selected
+      const countrySelect = document.getElementById('country');
+      if (countrySelect) {
+        countrySelect.addEventListener('change', function() {
+          codButton.style.display = this.value === 'BG' ? 'block' : 'none';
+        });
+        // Initial check
+        codButton.style.display = countrySelect.value === 'BG' ? 'block' : 'none';
+      }
+      
+      // Render PayPal buttons
+      renderPayPalButtons(total);
+    }
+    
+    function renderPayPalButtons(total) {
+      const container = document.getElementById('paypal-button-container');
+      if (!container || cart.length === 0) return;
+      
+      paypal.Buttons({
+        style: {
+          layout: 'vertical',
+          color: 'gold',
+          shape: 'rect',
+          label: 'paypal'
+        },
+        
+        createOrder: function(data, actions) {
+          return actions.order.create({
+            purchase_units: [{
+              description: 'Story Frames Order',
+              amount: {
+                currency_code: 'EUR',
+                value: total.toFixed(2),
+                breakdown: {
+                  item_total: {
+                    currency_code: 'EUR',
+                    value: total.toFixed(2)
+                  }
+                }
+              },
+              items: cart.map(item => ({
+                name: item.name,
+                unit_amount: {
+                  currency_code: 'EUR',
+                  value: item.price.toFixed(2)
+                },
+                quantity: String(item.quantity || 1)
+              }))
+            }]
+          });
+        },
+        
+        onApprove: function(data, actions) {
+          return actions.order.capture().then(function(details) {
+            // Get customer details
+            const customerInfo = getCustomerInfo();
+            
+            // Send confirmation email
+            sendOrderEmail(details, customerInfo);
+            
+            // Clear cart
+            localStorage.removeItem('storyframesCart');
+            
+            // Show success message
+            alert('Payment successful! Order ID: ' + details.id + '\n\nThank you, ' + details.payer.name.given_name + '!\n\nWe will send you an email confirmation shortly.');
+            
+            // Redirect to home
+            window.location.href = 'index.html';
+          });
+        },
+        
+        onError: function(err) {
+          console.error('PayPal error:', err);
+          alert('An error occurred during payment. Please try again.');
+        }
+      }).render('#paypal-button-container');
+    }
+    
+    function getCustomerInfo() {
+      return {
+        fullName: document.getElementById('fullName').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        address: document.getElementById('address').value,
+        city: document.getElementById('city').value,
+        postalCode: document.getElementById('postalCode').value,
+        country: document.getElementById('country').value,
+        notes: document.getElementById('notes').value
+      };
+    }
+    
+    function submitCODOrder() {
+      const form = document.getElementById('checkout-form');
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+      
+      const customerInfo = getCustomerInfo();
+      const itemsList = cart.map(item => `${item.name} × ${item.quantity || 1} - €${(item.price * (item.quantity || 1)).toFixed(2)}`).join('\n');
+      const total = cart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
+      
+      const subject = 'Story Frames COD Order';
+      const body = [
+        'New COD Order (Bulgaria)',
+        '',
+        'Customer Details:',
+        `Name: ${customerInfo.fullName}`,
+        `Email: ${customerInfo.email}`,
+        `Phone: ${customerInfo.phone}`,
+        `Address: ${customerInfo.address}`,
+        `City: ${customerInfo.city}`,
+        `Postal Code: ${customerInfo.postalCode}`,
+        '',
+        'Items Ordered:',
+        itemsList,
+        '',
+        `Total: €${total.toFixed(2)}`,
+        '',
+        'Order Notes:',
+        customerInfo.notes || 'None',
+        '',
+        'Please confirm delivery details.'
+      ].join('\n');
+      
+      window.location.href = `mailto:Sviievmla@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      
+      // Clear cart after sending
+      setTimeout(() => {
+        localStorage.removeItem('storyframesCart');
+        alert('Your COD order has been sent! We will contact you shortly to confirm delivery details.');
+        window.location.href = 'index.html';
+      }, 1000);
+    }
+    
+    function sendOrderEmail(details, customerInfo) {
+      const itemsList = cart.map(item => `${item.name} × ${item.quantity || 1} - €${(item.price * (item.quantity || 1)).toFixed(2)}`).join('\n');
+      const total = cart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
+      
+      const subject = 'Story Frames Order Confirmation - ' + details.id;
+      const body = [
+        'Order Confirmation',
+        '',
+        'Transaction ID: ' + details.id,
+        '',
+        'Customer Details:',
+        `Name: ${customerInfo.fullName}`,
+        `Email: ${customerInfo.email}`,
+        `Phone: ${customerInfo.phone}`,
+        `Address: ${customerInfo.address}, ${customerInfo.city}`,
+        `Postal Code: ${customerInfo.postalCode}`,
+        `Country: ${customerInfo.country}`,
+        '',
+        'Items Ordered:',
+        itemsList,
+        '',
+        `Total Paid: €${total.toFixed(2)}`,
+        '',
+        'Order Notes:',
+        customerInfo.notes || 'None',
+        '',
+        'Please send your photos to complete the order.'
+      ].join('\n');
+      
+      window.open(`mailto:Sviievmla@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`, '_blank');
+    }
+    
+    // Initialize checkout on page load
+    displayCheckout();
+  </script>
+</body>
+</html>
