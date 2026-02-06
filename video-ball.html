@@ -299,7 +299,30 @@
     }
 
     function showAddedNotification() {
-      alert('✓ Added to cart! Click the cart icon to checkout.');
+      showToast('✓ Added to cart! Click the cart icon to checkout.');
+    }
+
+    function showToast(message) {
+      // Remove existing toasts
+      const existingToast = document.querySelector('.toast');
+      if (existingToast) {
+        existingToast.remove();
+      }
+      
+      // Create toast
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = `<span class="toast-icon">✓</span><span>${message}</span>`;
+      document.body.appendChild(toast);
+      
+      // Show toast
+      setTimeout(() => toast.classList.add('show'), 10);
+      
+      // Hide and remove toast
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
     }
 
     // Render PayPal Smart Payment Buttons

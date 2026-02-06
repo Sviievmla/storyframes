@@ -463,6 +463,62 @@ footer a:hover{color:var(--text)}
   .gallery{grid-template-columns: 1fr}
   .two{grid-template-columns: 1fr}
 }
+
+/* Toast Notification */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: linear-gradient(180deg, rgba(40,180,99,.95), rgba(34,153,84,.95));
+  color: white;
+  padding: 14px 24px;
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.4);
+  font-weight: 700;
+  font-size: 15px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid rgba(255,255,255,.2);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+.toast-icon {
+  font-size: 20px;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .mobile-menu-toggle span {
+    transition: none;
+  }
+  
+  nav.topnav {
+    transition: none;
+  }
+  
+  .toast {
+    transition: opacity 0.1s;
+  }
+}
 /* ---- Full width presentation video ---- */
 .videoHero{
   margin-top: 18px;
