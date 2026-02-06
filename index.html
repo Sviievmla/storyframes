@@ -28,6 +28,11 @@
         <a href="#service" data-i18n="nav_service">Service</a>
         <a class="pill" href="https://facebook.com/Storyframesvarna/" target="_blank" rel="noopener noreferrer">Facebook</a>
 
+        <a class="cart-icon" onclick="toggleCart()" id="cartIcon">
+          🛒 <span data-i18n="cart">Cart</span>
+          <span class="cart-badge" id="cartBadge" style="display:none;">0</span>
+        </a>
+
         <div class="lang" aria-label="Language">
           <button class="langbtn" data-lang="en">EN</button>
           <button class="langbtn" data-lang="bg">BG</button>
@@ -73,6 +78,7 @@
           <div class="body">
             <h3 data-i18n="p1_title">Video Ball</h3>
             <p data-i18n="p1_desc">A modern spherical display with your animated memory inside.</p>
+            <button class="order-btn" onclick="event.preventDefault(); addToCart('Video Ball', 39, 'ball-1.jpg')" data-i18n="order_now">Order</button>
           </div>
           <div class="meta">
             <div>
@@ -90,6 +96,7 @@
           <div class="body">
             <h3 data-i18n="p2_title">Premium Frame</h3>
             <p data-i18n="p2_desc">A clean, premium digital frame for memories that deserve a spotlight.</p>
+            <button class="order-btn" onclick="event.preventDefault(); addToCart('Premium Frame', 49.99, 'frame-1.jpg')" data-i18n="order_now">Order</button>
           </div>
           <div class="meta">
             <div>
@@ -107,6 +114,7 @@
           <div class="body">
             <h3 data-i18n="p3_title">Digital Greeting Card</h3>
             <p data-i18n="p3_desc">A stylish digital card with your story and your music.</p>
+            <button class="order-btn" onclick="event.preventDefault(); addToCart('Digital Greeting Card', 29, 'card-1.jpg')" data-i18n="order_now">Order</button>
           </div>
           <div class="meta">
             <div>
@@ -175,8 +183,166 @@
     <img id="lightboxImg" alt="Expanded image" />
   </div>
 
+  <!-- Shopping Cart Modal -->
+  <div class="cart-modal" id="cartModal">
+    <div class="cart-content">
+      <div class="cart-header">
+        <h2 data-i18n="cart_title">Shopping Cart</h2>
+        <button class="close-cart" onclick="toggleCart()">✕</button>
+      </div>
+      
+      <div id="cartItemsContainer">
+        <!-- Cart items will be inserted here -->
+      </div>
+      
+      <div id="cartEmpty" class="empty-cart" style="display:none;">
+        <div class="empty-cart-icon">🛒</div>
+        <p data-i18n="cart_empty">Your cart is empty</p>
+      </div>
+      
+      <div id="cartSummary" style="display:none;">
+        <div class="cart-total">
+          <div class="cart-total-row">
+            <span data-i18n="total">Total:</span>
+            <span id="cartTotal">€0.00</span>
+          </div>
+        </div>
+        
+        <div class="cart-actions">
+          <button class="btn primary" onclick="checkoutCart()" style="flex:1" data-i18n="checkout">Checkout</button>
+          <button class="btn" onclick="clearCart()" data-i18n="clear_cart">Clear Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Shopping Cart Management
+    let cart = JSON.parse(localStorage.getItem('storyframesCart') || '[]');
+
+    function updateCartUI() {
+      const badge = document.getElementById('cartBadge');
+      const itemsContainer = document.getElementById('cartItemsContainer');
+      const emptyMessage = document.getElementById('cartEmpty');
+      const summary = document.getElementById('cartSummary');
+      const totalElement = document.getElementById('cartTotal');
+      
+      // Update badge
+      if (cart.length > 0) {
+        badge.style.display = 'flex';
+        badge.textContent = cart.length;
+      } else {
+        badge.style.display = 'none';
+      }
+      
+      // Update cart contents
+      if (cart.length === 0) {
+        itemsContainer.innerHTML = '';
+        emptyMessage.style.display = 'block';
+        summary.style.display = 'none';
+      } else {
+        emptyMessage.style.display = 'none';
+        summary.style.display = 'block';
+        
+        itemsContainer.innerHTML = '<ul class="cart-items">' +
+          cart.map((item, index) => `
+            <li class="cart-item">
+              <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+              <div class="cart-item-details">
+                <div class="cart-item-title">${item.name}</div>
+                <div class="cart-item-price">€${item.price.toFixed(2)}</div>
+              </div>
+              <button class="remove-item" onclick="removeFromCart(${index})" data-i18n="remove">Remove</button>
+            </li>
+          `).join('') +
+        '</ul>';
+        
+        const total = cart.reduce((sum, item) => sum + item.price, 0);
+        totalElement.textContent = `€${total.toFixed(2)}`;
+      }
+      
+      localStorage.setItem('storyframesCart', JSON.stringify(cart));
+    }
+
+    function addToCart(name, price, image) {
+      cart.push({ name, price, image });
+      updateCartUI();
+      
+      // Show a brief notification
+      const btn = event.target;
+      const originalText = btn.textContent;
+      btn.textContent = '✓ Added!';
+      btn.style.background = 'linear-gradient(180deg, rgba(40,180,99,.35), rgba(255,255,255,.05))';
+      setTimeout(() => {
+        btn.textContent = originalText;
+        btn.style.background = '';
+      }, 1500);
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      updateCartUI();
+    }
+
+    function clearCart() {
+      if (confirm('Are you sure you want to clear your cart?')) {
+        cart = [];
+        updateCartUI();
+      }
+    }
+
+    function toggleCart() {
+      const modal = document.getElementById('cartModal');
+      modal.classList.toggle('active');
+      if (modal.classList.contains('active')) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+      }
+    }
+
+    function checkoutCart() {
+      if (cart.length === 0) {
+        alert('Your cart is empty!');
+        return;
+      }
+      
+      const total = cart.reduce((sum, item) => sum + item.price, 0);
+      const itemsList = cart.map(item => `${item.name} - €${item.price.toFixed(2)}`).join('\n');
+      
+      const subject = 'Story Frames Order';
+      const body = [
+        'New Order:',
+        '',
+        itemsList,
+        '',
+        `Total: €${total.toFixed(2)}`,
+        '',
+        'Customer Details:',
+        'Name:',
+        'Phone:',
+        'Email:',
+        'City / Address:',
+        '',
+        'Photo links / notes (optional):',
+        '',
+        'Please reply to confirm delivery details.'
+      ].join('\n');
+      
+      window.location.href = `mailto:Sviievmla@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    }
+
+    // Close cart when clicking outside
+    document.getElementById('cartModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        toggleCart();
+      }
+    });
+
+    // Initialize cart UI
+    updateCartUI();
 
     function openLightbox(src){
       document.getElementById("lightboxImg").src = src;
