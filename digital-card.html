@@ -92,16 +92,7 @@
   }
   </script>
 
-  <style>
-    .wrap{display:grid; grid-template-columns: 1.1fr .9fr; gap:14px; align-items:start}
-    .box{border:1px solid var(--line); border-radius:24px; background: rgba(255,255,255,.04); box-shadow: var(--shadow); padding:18px}
-    .muted{color:var(--muted)}
-    .grid3{display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; margin-top:12px}
-    .thumb{border:1px solid var(--line); border-radius:16px; overflow:hidden; background: rgba(0,0,0,.18); cursor:pointer}
-    .thumb img{width:100%; height:170px; object-fit:cover; display:block}
-    .note{margin-top:12px; padding:12px; border-radius:16px; border:1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.18); color:var(--muted)}
-    @media (max-width: 920px){.wrap{grid-template-columns:1fr}.grid3{grid-template-columns:1fr}}
-  </style>
+
 </head>
 
 <body>
@@ -143,39 +134,101 @@
     </header>
 
     <main>
-    <div class="wrap">
-      <div class="box">
-        <h1 data-i18n="p3_title">Digital Greeting Card</h1>
-        <p class="muted" data-i18n="p3_desc">A stylish digital card with your story and your music.</p>
-
-        <div class="grid3">
-          <div class="thumb" onclick="openLightbox('card-1.jpg')"><img src="card-1.jpg" alt="Digital Greeting Card - Animated Video Card Design" loading="lazy"></div>
-          <div class="thumb" onclick="openLightbox('card-2.jpg')"><img src="card-2.jpg" alt="Digital Greeting Card - Personalized Message Example" loading="lazy"></div>
-          <div class="thumb" onclick="openLightbox('card-3.jpg')"><img src="card-3.jpg" alt="Digital Greeting Card - Birthday Card Template" loading="lazy"></div>
+    <div class="product-page">
+      <div class="product-hero">
+        <!-- Product Images -->
+        <div class="product-images">
+          <div class="main-image" onclick="openLightbox('card-1.jpg')">
+            <img src="card-1.jpg" alt="Digital Greeting Card - Animated Video Card Design" loading="eager">
+          </div>
+          <div class="thumbnail-grid">
+            <div class="thumbnail" onclick="openLightbox('card-1.jpg')">
+              <img src="card-1.jpg" alt="Digital Greeting Card - Animated Video Card Design" loading="lazy">
+            </div>
+            <div class="thumbnail" onclick="openLightbox('card-2.jpg')">
+              <img src="card-2.jpg" alt="Digital Greeting Card - Personalized Message Example" loading="lazy">
+            </div>
+            <div class="thumbnail" onclick="openLightbox('card-3.jpg')">
+              <img src="card-3.jpg" alt="Digital Greeting Card - Birthday Card Template" loading="lazy">
+            </div>
+          </div>
         </div>
 
-        <div class="note">
-          <span data-i18n="why_3">🎵 <b>Your personal soundtrack:</b> add the song that matters to you.</span>
-        </div>
+        <!-- Product Details -->
+        <div class="product-details">
+          <h1 data-i18n="p3_title">Digital Greeting Card</h1>
+          <p class="product-description" data-i18n="p3_desc">A stylish digital card with your story and your music.</p>
 
-        <div class="actions" style="margin-top:14px">
-          <a class="btn" href="index.html" data-i18n="back_home">Back to home</a>
+          <div class="product-price">€29</div>
+          <div class="product-payment-info" data-i18n="pay_digital">PayPal (card) • Instant delivery</div>
+
+          <div class="product-cta">
+            <!-- PayPal Smart Payment Buttons -->
+            <div id="paypal-button-container"></div>
+            <button class="btn primary" onclick="addToCart('Digital Greeting Card', 29, 'card-1.jpg'); showAddedNotification()">🛒 Add to Cart</button>
+          </div>
+
+          <div class="product-features">
+            <b data-i18n="what_you_get">What you get:</b>
+            <ul>
+              <li>Your photo becomes a short "magic" video story</li>
+              <li>🎵 Your personal soundtrack: add the song that matters to you</li>
+              <li>Perfect for birthdays, anniversaries, surprises</li>
+              <li>Instant digital delivery</li>
+            </ul>
+          </div>
+
+          <div class="product-contact">
+            <div class="product-contact-label">✉️ Questions? Contact us:</div>
+            <div class="product-contact-buttons">
+              <a class="btn" href="mailto:Sviievmla@gmail.com?subject=Story%20Frames%20Order%20-%20Digital%20Card">Email</a>
+              <a class="btn" href="https://facebook.com/Storyframesvarna/" target="_blank" rel="noopener noreferrer">Facebook</a>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="box" style="position:sticky;top:90px;">
-        <div class="price" style="font-size:32px;margin-bottom:8px;">€29</div>
-        <div class="tiny" data-i18n="pay_digital" style="margin-bottom:16px;">PayPal (card) • Instant delivery</div>
+      <!-- Related Products Section -->
+      <div class="related-products">
+        <h2>You might also like</h2>
+        <div class="products">
+          <a class="card" href="video-ball.html">
+            <div class="img">
+              <img src="ball-1.jpg" alt="Video Ball - Personalized spherical video display" loading="lazy">
+            </div>
+            <div class="body">
+              <h3 data-i18n="p1_title">Video Ball</h3>
+              <p data-i18n="p1_desc">A modern spherical display with your animated memory inside.</p>
+            </div>
+            <div class="meta">
+              <div>
+                <div class="price">€39</div>
+                <div class="tiny" data-i18n="pay_physical">PayPal (card) • Bulgaria COD</div>
+              </div>
+              <div class="tag" data-i18n="open_details">View →</div>
+            </div>
+          </a>
 
-        <!-- PayPal Smart Payment Buttons -->
-        <div id="paypal-button-container" style="margin-bottom:12px"></div>
-
-        <div style="margin-top:14px" class="muted" data-i18n="what_you_get"></div>
-
-        <div class="actions" style="margin-top:14px">
-          <div style="font-size:13px;font-weight:700;margin-bottom:10px;color:var(--text);text-align:center;">✉️ Questions? Contact us:</div>
-          <a class="btn" href="mailto:Sviievmla@gmail.com?subject=Story%20Frames%20Order%20-%20Digital%20Card" style="flex:1;font-size:13px;padding:10px;">Email</a>
-          <a class="btn" href="https://facebook.com/Storyframesvarna/" target="_blank" rel="noopener noreferrer" style="flex:1;font-size:13px;padding:10px;">Facebook</a>
+          <a class="card" href="premium-frame.html">
+            <div class="img">
+              <img src="frame-1.jpg" alt="Premium Frame - Digital photo frame for cherished memories" loading="lazy">
+            </div>
+            <div class="body">
+              <h3 data-i18n="p2_title">Premium Frame</h3>
+              <p data-i18n="p2_desc">A clean, premium digital frame for memories that deserve a spotlight.</p>
+            </div>
+            <div class="meta">
+              <div>
+                <div class="price">€49.99</div>
+                <div class="tiny" data-i18n="pay_physical">PayPal (card) • Bulgaria COD</div>
+              </div>
+              <div class="tag" data-i18n="open_details">View →</div>
+            </div>
+          </a>
+        </div>
+        
+        <div class="actions" style="margin-top:24px;justify-content:center;">
+          <a class="btn" href="index.html" data-i18n="back_home">← Back to home</a>
         </div>
       </div>
     </div>
@@ -227,14 +280,34 @@
     function updateCartBadge() {
       const cart = JSON.parse(localStorage.getItem('storyframesCart') || '[]');
       const badge = document.getElementById('cartBadge');
-      if (cart.length > 0) {
+      const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+      if (totalItems > 0) {
         badge.style.display = 'flex';
-        badge.textContent = cart.length;
+        badge.textContent = totalItems;
       } else {
         badge.style.display = 'none';
       }
     }
     updateCartBadge();
+
+    // Add to cart function
+    function addToCart(name, price, image) {
+      const cart = JSON.parse(localStorage.getItem('storyframesCart') || '[]');
+      const existingIndex = cart.findIndex(item => item.name === name);
+      
+      if (existingIndex >= 0) {
+        cart[existingIndex].quantity = (cart[existingIndex].quantity || 1) + 1;
+      } else {
+        cart.push({ name, price, image, quantity: 1 });
+      }
+      
+      localStorage.setItem('storyframesCart', JSON.stringify(cart));
+      updateCartBadge();
+    }
+
+    function showAddedNotification() {
+      alert('✓ Added to cart! Click the cart icon to checkout.');
+    }
 
     // Render PayPal Smart Payment Buttons
     const PRODUCT_NAME = 'Digital Greeting Card';
