@@ -8,6 +8,8 @@
 
   <link rel="stylesheet" href="styles.css">
   <script defer src="i18n.js"></script>
+  <!-- PayPal SDK - supports both PayPal and card payments -->
+  <script src="https://www.paypal.com/sdk/js?client-id=AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUed2TK-uhjVCt_b&currency=EUR&intent=capture"></script>
 
   <style>
     .wrap{display:grid; grid-template-columns: 1.1fr .9fr; gap:14px; align-items:start}
@@ -35,6 +37,11 @@
         <a href="index.html" data-i18n="nav_home">Home</a>
         <a href="index.html#products" data-i18n="nav_products">Products</a>
         <a class="pill" href="https://facebook.com/Storyframesvarna/" target="_blank" rel="noopener noreferrer">Facebook</a>
+        <a class="cart-icon" href="index.html#cart" id="cartIcon">
+          🛒 <span data-i18n="cart">Cart</span>
+          <span class="cart-badge" id="cartBadge" style="display:none;">0</span>
+        </a>
+
 
         <div class="lang" aria-label="Language">
           <button class="langbtn" data-lang="en">EN</button>
@@ -63,8 +70,10 @@
         <div class="price">€49.99</div>
         <div class="tiny" data-i18n="pay_physical">PayPal (card) • Bulgaria COD</div>
 
+        <!-- PayPal Smart Payment Buttons -->
+        <div id="paypal-button-container" style="margin-top:12px"></div>
+        
         <div class="actions" style="margin-top:12px">
-          <button class="btn primary" data-i18n="buy_paypal" onclick="payPalBuy('Premium Frame', 49.99)">Pay with PayPal</button>
           <button class="btn gold" data-i18n="buy_cod" onclick="codOrder('Premium Frame', 49.99)">Bulgaria COD</button>
         </div>
 
@@ -86,17 +95,75 @@
     const PAYPAL_EMAIL = "Sviievmla@gmail.com";
     const CONTACT_EMAIL = "Sviievmla@gmail.com";
 
-    function payPalBuy(item, amount){
-      const url =
-        "https://www.paypal.com/cgi-bin/webscr" +
-        "?cmd=_xclick" +
-        "&business=" + encodeURIComponent(PAYPAL_EMAIL) +
-        "&item_name=" + encodeURIComponent(item) +
-        "&amount=" + encodeURIComponent(Number(amount).toFixed(2)) +
-        "&currency_code=EUR" +
-        "&no_note=1";
-      window.open(url, "_blank", "noopener,noreferrer");
+    // Update cart badge on page load
+    function updateCartBadge() {
+      const cart = JSON.parse(localStorage.getItem('storyframesCart') || '[]');
+      const badge = document.getElementById('cartBadge');
+      if (cart.length > 0) {
+        badge.style.display = 'flex';
+        badge.textContent = cart.length;
+      } else {
+        badge.style.display = 'none';
+      }
     }
+    updateCartBadge();
+
+    // Render PayPal Smart Payment Buttons
+    const PRODUCT_NAME = 'Premium Frame';
+    const PRODUCT_PRICE = 49.99;
+    
+    paypal.Buttons({
+      style: {
+        layout: 'vertical',
+        color: 'gold',
+        shape: 'rect',
+        label: 'paypal'
+      },
+      
+      createOrder: function(data, actions) {
+        return actions.order.create({
+          purchase_units: [{
+            description: PRODUCT_NAME,
+            amount: {
+              currency_code: 'EUR',
+              value: PRODUCT_PRICE.toFixed(2)
+            }
+          }]
+        });
+      },
+      
+      onApprove: function(data, actions) {
+        return actions.order.capture().then(function(details) {
+          alert('Payment successful! Order ID: ' + details.id + '\n\nThank you, ' + details.payer.name.given_name + '!\n\nWe will send you an email confirmation shortly.');
+          
+          // Send order confirmation
+          const subject = 'Story Frames Order Confirmation - ' + details.id;
+          const body = [
+            'Order Confirmation',
+            '',
+            'Transaction ID: ' + details.id,
+            'Customer: ' + details.payer.name.given_name + ' ' + details.payer.name.surname,
+            'Email: ' + details.payer.email_address,
+            '',
+            'Product: ' + PRODUCT_NAME,
+            'Price: €' + PRODUCT_PRICE.toFixed(2),
+            '',
+            'Please send your photos to complete the order.'
+          ].join('\n');
+          
+          window.open(`mailto:Sviievmla@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`, '_blank');
+        });
+      },
+      
+      onError: function(err) {
+        console.error('PayPal error:', err);
+        alert('An error occurred during payment. Please try again.');
+      },
+      
+      onCancel: function(data) {
+        alert('Payment cancelled.');
+      }
+    }).render('#paypal-button-container');
 
     function codOrder(item, amount){
       const subject = `Story Frames COD Order — ${item}`;
