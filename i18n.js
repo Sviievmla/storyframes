@@ -63,10 +63,13 @@ const translations = {
     update_quantity: "Update",
     checkout_btn: "Proceed to Checkout",
     continue_shopping: "Continue Shopping",
+    card_payment_note: "💳 PayPal also accepts credit and debit cards",
+    cod_info_text: "Cash on Delivery available for Bulgaria orders only. We'll contact you to confirm delivery details.",
     
     // Product Details Pages
     back_home: "Back to home",
     buy_cod: "Bulgaria COD",
+    buy_cod_checkout: "ORDER NOW (Bulgaria COD)",
     what_you_get: '<b>What you get:</b><br>• Your photo becomes a short "magic" video story<br>• Personal, emotional, premium gift<br>• Perfect for birthdays, anniversaries, surprises',
     
     // Checkout Page
@@ -151,10 +154,13 @@ const translations = {
     update_quantity: "Актуализирай",
     checkout_btn: "Продължи към плащане",
     continue_shopping: "Продължи пазаруването",
+    card_payment_note: "💳 PayPal приема също кредитни и дебитни карти",
+    cod_info_text: "Наложен платеж е достъпен само за поръчки в България. Ще се свържем с вас за потвърждение на детайлите за доставка.",
     
     // Product Details Pages
     back_home: "Обратно към начало",
     buy_cod: "Наложен платеж в България",
+    buy_cod_checkout: "ПОРЪЧАЙ (Наложен платеж България)",
     what_you_get: '<b>Какво получавате:</b><br>• Вашата снимка става кратка „магическа" видео история<br>• Личен, емоционален, премиум подарък<br>• Перфектен за рождени дни, годишнини, изненади',
     
     // Checkout Page
