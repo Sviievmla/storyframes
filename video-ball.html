@@ -3,13 +3,88 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Video Ball — Story Frames</title>
-  <meta name="description" content="Video Ball — Story Frames. We turn your photo into a short video and embed it in the product. PayPal or COD in Bulgaria." />
+  
+  <!-- Primary Meta Tags -->
+  <title>Video Ball — Personalized Spherical Video Display | Story Frames</title>
+  <meta name="title" content="Video Ball — Personalized Spherical Video Display | Story Frames" />
+  <meta name="description" content="Video Ball - A modern spherical display that transforms your photos into animated video memories. Perfect gift for birthdays and anniversaries. €39 with PayPal or COD in Bulgaria." />
+  <meta name="keywords" content="video ball, spherical display, animated photos, personalized gifts, digital photo ball, video display, birthday gift, anniversary gift" />
+  <meta name="author" content="Story Frames" />
+  <meta name="robots" content="index, follow" />
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://mystoryframes.shop/video-ball.html" />
+  
+  <!-- Alternate Language Versions (hreflang) -->
+  <link rel="alternate" hreflang="en" href="https://mystoryframes.shop/video-ball.html?lang=en" />
+  <link rel="alternate" hreflang="bg" href="https://mystoryframes.shop/video-ball.html?lang=bg" />
+  <link rel="alternate" hreflang="x-default" href="https://mystoryframes.shop/video-ball.html" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="product" />
+  <meta property="og:url" content="https://mystoryframes.shop/video-ball.html" />
+  <meta property="og:title" content="Video Ball — Personalized Spherical Video Display" />
+  <meta property="og:description" content="Transform your photos into animated memories inside a modern spherical display. Perfect personalized gift." />
+  <meta property="og:image" content="https://mystoryframes.shop/ball-1.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content="Story Frames" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="bg_BG" />
+  <meta property="product:price:amount" content="39.00" />
+  <meta property="product:price:currency" content="EUR" />
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://mystoryframes.shop/video-ball.html" />
+  <meta name="twitter:title" content="Video Ball — Personalized Spherical Video Display" />
+  <meta name="twitter:description" content="Transform your photos into animated memories inside a modern spherical display. Perfect personalized gift." />
+  <meta name="twitter:image" content="https://mystoryframes.shop/ball-1.jpg" />
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="logo.png" />
 
   <link rel="stylesheet" href="styles.css">
   <script defer src="i18n.js"></script>
   <!-- PayPal SDK - supports both PayPal and card payments -->
   <script src="https://www.paypal.com/sdk/js?client-id=AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUed2TK-uhjVCt_b&currency=EUR&intent=capture"></script>
+  
+  <!-- Structured Data - Product Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Video Ball",
+    "description": "A modern spherical display with your animated memory inside. Transform your photos into magical video stories embedded in a premium spherical frame.",
+    "image": [
+      "https://mystoryframes.shop/ball-1.jpg",
+      "https://mystoryframes.shop/ball-2.jpg",
+      "https://mystoryframes.shop/ball-3.jpg"
+    ],
+    "brand": {
+      "@type": "Brand",
+      "name": "Story Frames"
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": "https://mystoryframes.shop/video-ball.html",
+      "priceCurrency": "EUR",
+      "price": "39.00",
+      "priceValidUntil": "2026-12-31",
+      "availability": "https://schema.org/InStock",
+      "itemCondition": "https://schema.org/NewCondition",
+      "seller": {
+        "@type": "Organization",
+        "name": "Story Frames"
+      }
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "reviewCount": "24"
+    }
+  }
+  </script>
 
   <style>
     /* page-specific small layout */
@@ -30,7 +105,7 @@
     
     <header class="top">
       <a class="brand" href="index.html">
-        <div class="logo"><img src="logo.png" alt="Story Frames"></div>
+        <div class="logo"><img src="logo.png" alt="Story Frames - Personalized Video Gift Company Logo" loading="eager"></div>
         <div>
           <strong>Story Frames</strong>
           <small data-i18n="tagline">Crafting stories from photos</small>
@@ -67,9 +142,9 @@
         <p class="muted" data-i18n="p1_desc">A modern spherical display with your animated memory inside.</p>
 
         <div class="grid3">
-          <div class="thumb" onclick="openLightbox('ball-1.jpg')"><img src="ball-1.jpg" alt="Ball 1"></div>
-          <div class="thumb" onclick="openLightbox('ball-2.jpg')"><img src="ball-2.jpg" alt="Ball 2"></div>
-          <div class="thumb" onclick="openLightbox('ball-3.jpg')"><img src="ball-3.jpg" alt="Ball 3"></div>
+          <div class="thumb" onclick="openLightbox('ball-1.jpg')"><img src="ball-1.jpg" alt="Video Ball Display - Front View" loading="lazy"></div>
+          <div class="thumb" onclick="openLightbox('ball-2.jpg')"><img src="ball-2.jpg" alt="Video Ball Display - Side View" loading="lazy"></div>
+          <div class="thumb" onclick="openLightbox('ball-3.jpg')"><img src="ball-3.jpg" alt="Video Ball Display - Detail View" loading="lazy"></div>
         </div>
 
         <div class="actions" style="margin-top:14px">

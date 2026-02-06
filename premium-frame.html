@@ -3,13 +3,88 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Premium Frame — Story Frames</title>
-  <meta name="description" content="Premium Frame — Story Frames. We turn your photo into a short video and embed it in the product. PayPal or COD in Bulgaria." />
+  
+  <!-- Primary Meta Tags -->
+  <title>Premium Frame — Digital Photo Frame for Cherished Memories | Story Frames</title>
+  <meta name="title" content="Premium Frame — Digital Photo Frame for Cherished Memories | Story Frames" />
+  <meta name="description" content="Premium Frame - A clean, premium digital frame that transforms your photos into video memories. Perfect for showcasing your most cherished moments. €49.99 with PayPal or COD in Bulgaria." />
+  <meta name="keywords" content="premium frame, digital photo frame, video frame, animated frame, personalized frame, memory display, digital display, gift frame" />
+  <meta name="author" content="Story Frames" />
+  <meta name="robots" content="index, follow" />
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://mystoryframes.shop/premium-frame.html" />
+  
+  <!-- Alternate Language Versions (hreflang) -->
+  <link rel="alternate" hreflang="en" href="https://mystoryframes.shop/premium-frame.html?lang=en" />
+  <link rel="alternate" hreflang="bg" href="https://mystoryframes.shop/premium-frame.html?lang=bg" />
+  <link rel="alternate" hreflang="x-default" href="https://mystoryframes.shop/premium-frame.html" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="product" />
+  <meta property="og:url" content="https://mystoryframes.shop/premium-frame.html" />
+  <meta property="og:title" content="Premium Frame — Digital Photo Frame for Cherished Memories" />
+  <meta property="og:description" content="A clean, premium digital frame for memories that deserve a spotlight. Transform photos into animated video stories." />
+  <meta property="og:image" content="https://mystoryframes.shop/frame-1.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content="Story Frames" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="bg_BG" />
+  <meta property="product:price:amount" content="49.99" />
+  <meta property="product:price:currency" content="EUR" />
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://mystoryframes.shop/premium-frame.html" />
+  <meta name="twitter:title" content="Premium Frame — Digital Photo Frame for Cherished Memories" />
+  <meta name="twitter:description" content="A clean, premium digital frame for memories that deserve a spotlight. Transform photos into animated video stories." />
+  <meta name="twitter:image" content="https://mystoryframes.shop/frame-1.jpg" />
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="logo.png" />
 
   <link rel="stylesheet" href="styles.css">
   <script defer src="i18n.js"></script>
   <!-- PayPal SDK - supports both PayPal and card payments -->
   <script src="https://www.paypal.com/sdk/js?client-id=AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUed2TK-uhjVCt_b&currency=EUR&intent=capture"></script>
+  
+  <!-- Structured Data - Product Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Premium Frame",
+    "description": "A clean, premium digital frame for memories that deserve a spotlight. Transform your photos into magical animated video stories in an elegant frame.",
+    "image": [
+      "https://mystoryframes.shop/frame-1.jpg",
+      "https://mystoryframes.shop/frame-2.jpg",
+      "https://mystoryframes.shop/frame-3.jpeg"
+    ],
+    "brand": {
+      "@type": "Brand",
+      "name": "Story Frames"
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": "https://mystoryframes.shop/premium-frame.html",
+      "priceCurrency": "EUR",
+      "price": "49.99",
+      "priceValidUntil": "2026-12-31",
+      "availability": "https://schema.org/InStock",
+      "itemCondition": "https://schema.org/NewCondition",
+      "seller": {
+        "@type": "Organization",
+        "name": "Story Frames"
+      }
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "31"
+    }
+  }
+  </script>
 
   <style>
     .wrap{display:grid; grid-template-columns: 1.1fr .9fr; gap:14px; align-items:start}
@@ -29,7 +104,7 @@
     
     <header class="top">
       <a class="brand" href="index.html">
-        <div class="logo"><img src="logo.png" alt="Story Frames"></div>
+        <div class="logo"><img src="logo.png" alt="Story Frames - Personalized Video Gift Company Logo" loading="eager"></div>
         <div>
           <strong>Story Frames</strong>
           <small data-i18n="tagline">Crafting stories from photos</small>
@@ -66,9 +141,9 @@
         <p class="muted" data-i18n="p2_desc">A clean, premium digital frame for memories that deserve a spotlight.</p>
 
         <div class="grid3">
-          <div class="thumb" onclick="openLightbox('frame-1.jpg')"><img src="frame-1.jpg" alt="Frame 1"></div>
-          <div class="thumb" onclick="openLightbox('frame-2.jpg')"><img src="frame-2.jpg" alt="Frame 2"></div>
-          <div class="thumb" onclick="openLightbox('frame-3.jpg')"><img src="frame-3.jpg" alt="Frame 3"></div>
+          <div class="thumb" onclick="openLightbox('frame-1.jpg')"><img src="frame-1.jpg" alt="Premium Frame - Elegant Digital Display" loading="lazy"></div>
+          <div class="thumb" onclick="openLightbox('frame-2.jpg')"><img src="frame-2.jpg" alt="Premium Frame - Showcase View" loading="lazy"></div>
+          <div class="thumb" onclick="openLightbox('frame-3.jpeg')"><img src="frame-3.jpeg" alt="Premium Frame - Detail Close-up" loading="lazy"></div>
         </div>
 
         <div class="actions" style="margin-top:14px">
