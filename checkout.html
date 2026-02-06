@@ -150,6 +150,9 @@
 
 <body>
   <div class="container">
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay" onclick="toggleMobileMenu()"></div>
+    
     <header class="top">
       <a class="brand" href="index.html">
         <div class="logo"><img src="logo.png" alt="Story Frames"></div>
@@ -159,7 +162,14 @@
         </div>
       </a>
 
-      <nav class="topnav">
+      <!-- Mobile Menu Toggle -->
+      <button class="mobile-menu-toggle" id="mobileMenuToggle" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="topnav" id="mobileNav">
         <a href="index.html" data-i18n="nav_home">Home</a>
         <a href="index.html#products" data-i18n="nav_products">Products</a>
         <a class="pill" href="https://facebook.com/Storyframesvarna/" target="_blank" rel="noopener noreferrer">Facebook</a>
@@ -278,6 +288,41 @@
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Mobile Menu Toggle
+    function toggleMobileMenu() {
+      const nav = document.getElementById('mobileNav');
+      const toggle = document.getElementById('mobileMenuToggle');
+      const overlay = document.getElementById('mobileMenuOverlay');
+      
+      nav.classList.toggle('active');
+      toggle.classList.toggle('active');
+      overlay.classList.toggle('active');
+      
+      if (nav.classList.contains('active')) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+      }
+    }
+    
+    // Close mobile menu when clicking on a link
+    document.querySelectorAll('#mobileNav a').forEach(link => {
+      link.addEventListener('click', function(e) {
+        // Don't close for cart icon since it opens a modal
+        if (!this.classList.contains('cart-icon')) {
+          const nav = document.getElementById('mobileNav');
+          const toggle = document.getElementById('mobileMenuToggle');
+          const overlay = document.getElementById('mobileMenuOverlay');
+          
+          nav.classList.remove('active');
+          toggle.classList.remove('active');
+          overlay.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+    });
+
     
     // Load cart from localStorage
     let cart = JSON.parse(localStorage.getItem('storyframesCart') || '[]');
