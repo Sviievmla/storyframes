@@ -1,2 +1,242 @@
-<!-- Favicon reference -->
-<link rel="icon" href="favicon.ico" type="image/x-icon">
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Story Frames — Personalized gifts that come to life</title>
+  <meta name="description" content="Story Frames: Send us a photo — we turn it into a short video and embed it in your chosen product. PayPal card payments, COD in Bulgaria." />
+
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="i18n.js"></script>
+</head>
+
+
+<body>
+  <div class="container">
+    <header class="top">
+      <a class="brand" href="index.html">
+        <div class="logo"><img src="logo.png" alt="Story Frames"></div>
+        <div>
+          <strong>Story Frames</strong>
+          <small data-i18n="tagline">Crafting stories from photos</small>
+        </div>
+      </a>
+
+      <nav class="topnav">
+        <a href="#products" data-i18n="nav_products">Products</a>
+        <a href="#gallery" data-i18n="nav_gallery">Gallery</a>
+        <a href="#service" data-i18n="nav_service">Service</a>
+        <a class="pill" href="https://facebook.com/Storyframesvarna/" target="_blank" rel="noopener noreferrer">Facebook</a>
+
+        <div class="lang" aria-label="Language">
+          <button class="langbtn" data-lang="en">EN</button>
+          <button class="langbtn" data-lang="bg">BG</button>
+        </div>
+      </nav>
+    </header>
+
+    <section class="hero" id="top">
+      <div>
+        <h1 data-i18n="hero_title">Personalized gifts that come to life.</h1>
+        <p data-i18n="hero_text">
+          Send us a photo — we transform it into a short video and embed it into your chosen product.
+          A moving memory that feels premium, personal, and unforgettable.
+        </p>
+
+        <div class="actions">
+          <a class="btn primary" href="#products" data-i18n="cta_products">View products</a>
+          <a class="btn gold" href="mailto:Sviievmla@gmail.com?subject=Story%20Frames%20Order%20Inquiry" data-i18n="cta_email">Order by email</a>
+          <a class="btn" href="https://facebook.com/Storyframesvarna/" target="_blank" rel="noopener noreferrer" data-i18n="cta_fb">Message on Facebook</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <b data-i18n="how_title">How ordering works</b>
+        <ul>
+          <li data-i18n="how_1">You send us your photo (even an old paper photo).</li>
+          <li data-i18n="how_2">We turn it into a short “magic” video story.</li>
+          <li data-i18n="how_3">We deliver it inside your selected product.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="presentation" class="videoHero">
+  <div class="videoHeroTop">
+    <h2 data-i18n="video_title">A quick look at how Story Frames works</h2>
+    <p data-i18n="video_subtitle" style="margin:0;color:var(--muted)">
+      One photo → short video story → premium gift.
+    </p>
+  </div>
+
+  <div class="videoShell">
+    <!-- Cover overlay to avoid YouTube look before playing -->
+    <button class="videoCover" id="videoCover" aria-label="Play video">
+      <span class="playBadge">▶</span>
+      <span class="videoLabel" data-i18n="video_cta">Play presentation</span>
+    </button>
+
+    <!-- YouTube embed (best effort: no cookie + minimal branding) -->
+    <iframe
+      id="presentationFrame"
+      class="videoFrame"
+      src=""
+      title="Story Frames presentation"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen>
+    </iframe>
+  </div>
+</section>
+
+
+    <section id="products">
+      <div class="section-title">
+        <h2 data-i18n="products_title">Products</h2>
+      </div>
+
+      <div class="products">
+        <a class="card" href="video-ball.html">
+          <div class="img">
+            <img src="ball-1.jpg" alt="Video Ball">
+          </div>
+          <div class="body">
+            <h3 data-i18n="p1_title">Video Ball</h3>
+            <p data-i18n="p1_desc">A modern spherical display with your animated memory inside.</p>
+          </div>
+          <div class="meta">
+            <div>
+              <div class="price">€39</div>
+              <div class="tiny" data-i18n="pay_physical">PayPal (card) • Bulgaria COD</div>
+            </div>
+            <div class="tag" data-i18n="open_details">Open details →</div>
+          </div>
+        </a>
+
+        <a class="card" href="premium-frame.html">
+          <div class="img">
+            <img src="frame-1.jpg" alt="Premium Frame">
+          </div>
+          <div class="body">
+            <h3 data-i18n="p2_title">Premium Frame</h3>
+            <p data-i18n="p2_desc">A clean, premium digital frame for memories that deserve a spotlight.</p>
+          </div>
+          <div class="meta">
+            <div>
+              <div class="price">€49.99</div>
+              <div class="tiny" data-i18n="pay_physical">PayPal (card) • Bulgaria COD</div>
+            </div>
+            <div class="tag" data-i18n="open_details">Open details →</div>
+          </div>
+        </a>
+
+        <a class="card" href="digital-card.html">
+          <div class="img">
+            <img src="card-1.jpg" alt="Digital Greeting Card">
+          </div>
+          <div class="body">
+            <h3 data-i18n="p3_title">Digital Greeting Card</h3>
+            <p data-i18n="p3_desc">A stylish digital card with your story and your music.</p>
+          </div>
+          <div class="meta">
+            <div>
+              <div class="price">€29</div>
+              <div class="tiny" data-i18n="pay_digital">PayPal (card) • Instant delivery</div>
+            </div>
+            <div class="tag" data-i18n="open_details">Open details →</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section id="gallery">
+      <div class="section-title">
+        <h2 data-i18n="gallery_title">Gallery</h2>
+        <p data-i18n="gallery_hint" style="margin:0;color:var(--muted)">Click any photo to view it bigger.</p>
+      </div>
+
+      <div class="gallery">
+        <div class="shot" onclick="openLightbox('gallery-1.jpeg')"><img src="gallery-1.jpeg" alt="Gallery 1"></div>
+        <div class="shot" onclick="openLightbox('gallery-2.jpg')"><img src="gallery-2.png" alt="Gallery 2"></div>
+        <div class="shot" onclick="openLightbox('gallery-3.jpg')"><img src="<iframe width="1087" height="480" src="https://www.youtube.com/embed/G2-sqT1wBGo" title="Memory Orb Ball" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>" alt="Gallery 3"></div>
+      </div>
+    </section>
+
+    <section id="service">
+      <div class="section-title">
+        <h2 data-i18n="service_title">Service</h2>
+      </div>
+
+      <div class="two">
+        <div class="panel">
+          <h3 data-i18n="about_title">STORY FRAMES — The most innovative gift</h3>
+          <p data-i18n="about_text">
+            Bring memories to life: every photo becomes a short video. We offer digital frames for your memories
+            and digital invitation / greeting cards. Warm someone’s heart with a moving memory. Message us to order. ✨
+          </p>
+        </div>
+
+        <div class="panel">
+          <h3 data-i18n="why_title">Why choose a digital card?</h3>
+          <ul>
+            <li data-i18n="why_1">✨ <b>Living memories:</b> we transform even an old paper photo into a short video story.</li>
+            <li data-i18n="why_2">🎁 <b>A gift that impresses:</b> perfect for birthdays, anniversaries, holidays — or “just because”.</li>
+            <li data-i18n="why_3">🎵 <b>Your personal soundtrack:</b> add the song that matters to you.</li>
+            <li data-i18n="why_4">📱 <b>Stylish & lasting:</b> compact, easy to keep, and brings a smile every time.</li>
+            <li data-i18n="why_5">💖 <b>Fully personalized:</b> designed for your unique story.</li>
+          </ul>
+          <p style="margin-top:12px;color:var(--muted)" data-i18n="quote">
+            “Flowers fade, chocolates get eaten — but the feeling you share stays forever.”
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div>© <span id="year"></span> Story Frames</div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <a href="mailto:Sviievmla@gmail.com">Sviievmla@gmail.com</a>
+        <a href="https://facebook.com/Storyframesvarna/" target="_blank" rel="noopener noreferrer">Facebook</a>
+      </div>
+    </footer>
+  </div>
+
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <img id="lightboxImg" alt="Expanded image" />
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    function openLightbox(src){
+      document.getElementById("lightboxImg").src = src;
+      document.getElementById("lightbox").style.display = "flex";
+      document.body.style.overflow = "hidden";
+    }
+    function closeLightbox(){
+      document.getElementById("lightbox").style.display = "none";
+      document.body.style.overflow = "";
+    }
+    <script>
+  // ---- Presentation video ----
+  // Replace this with your YouTube video ID:
+  const YT_ID = "https://www.youtube.com/watch?v=G2-sqT1wBGo";
+
+  const cover = document.getElementById("videoCover");
+  const frame = document.getElementById("presentationFrame");
+
+  if (cover && frame) {
+    cover.addEventListener("click", () => {
+      // Best effort minimal branding; still YouTube under the hood
+      const url =
+        "<iframe width="1087" height="480" src="https://www.youtube.com/embed/G2-sqT1wBGo" title="Memory Orb Ball" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>" + encodeURIComponent(YT_ID) +
+        "?autoplay=1&rel=0&modestbranding=1&controls=0&showinfo=0&iv_load_policy=3&playsinline=1&mute=0";
+
+      frame.src = url;
+      cover.style.display = "none";
+    });
+  }
+</script>
+
+  </script>
+</body>
+</html>
