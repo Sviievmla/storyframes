@@ -35,6 +35,11 @@
       <nav class="topnav">
         <a href="index.html" data-i18n="nav_home">Home</a>
         <a href="index.html#products" data-i18n="nav_products">Products</a>
+        <a class="cart-icon" href="index.html" id="cartIcon">
+          🛒 <span data-i18n="cart">Cart</span>
+          <span class="cart-badge" id="cartBadge" style="display:none;">0</span>
+        </a>
+
         <a class="pill" href="https://facebook.com/Storyframesvarna/" target="_blank" rel="noopener noreferrer">Facebook</a>
 
         <div class="lang" aria-label="Language">
@@ -88,6 +93,19 @@
 
   <script>
     const PAYPAL_EMAIL = "Sviievmla@gmail.com";
+
+    // Update cart badge on page load
+    function updateCartBadge() {
+      const cart = JSON.parse(localStorage.getItem('storyframesCart') || '[]');
+      const badge = document.getElementById('cartBadge');
+      if (cart.length > 0) {
+        badge.style.display = 'flex';
+        badge.textContent = cart.length;
+      } else {
+        badge.style.display = 'none';
+      }
+    }
+    updateCartBadge();
 
     function payPalBuy(item, amount){
       const url =
