@@ -1205,3 +1205,23 @@ footer a:hover{color:var(--text)}
 .btn-order-cta:active {
   transform: translateY(0);
 }
+
+/* Payment info note styling */
+.payment-info-note {
+  font-size: 13px;
+  color: var(--muted);
+  text-align: center;
+  margin: 8px 0;
+}
+
+/* Large primary button for product pages */
+.btn.primary.btn-large {
+  font-size: 18px;
+  padding: 16px 20px;
+}
+
+/* Full width CTA button variant */
+.btn-order-cta-full {
+  width: 100%;
+  margin-top: 16px;
+}
