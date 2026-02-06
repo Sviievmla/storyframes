@@ -294,14 +294,15 @@
         <div class="payment-buttons">
           <h3 style="font-size:18px;margin:0 0 12px;" data-i18n="payment_method">Payment Method</h3>
           
-          <!-- PayPal Buttons -->
+          <!-- PayPal Buttons (supports card payments) -->
           <div id="paypal-button-container"></div>
+          <p style="font-size:13px;color:var(--muted);text-align:center;margin:8px 0 0;" data-i18n="card_payment_note">💳 PayPal also accepts credit and debit cards</p>
           
-          <!-- COD Button for Bulgaria -->
+          <!-- COD Button for Bulgaria - Large and Prominent -->
           <div id="codButton" style="display:none;">
-            <button class="btn gold" style="width:100%;margin-top:12px;" onclick="submitCODOrder()" data-i18n="buy_cod">Bulgaria COD</button>
+            <button class="btn-order-cta" style="width:100%;margin-top:16px;" onclick="submitCODOrder()" data-i18n="buy_cod">ПОРЪЧАЙ (Наложен платеж България)</button>
             <div class="cod-info">
-              💡 Cash on Delivery available for Bulgaria orders only. We'll contact you to confirm delivery details.
+              💡 <span data-i18n="cod_info_text">Cash on Delivery available for Bulgaria orders only. We'll contact you to confirm delivery details.</span>
             </div>
           </div>
         </div>

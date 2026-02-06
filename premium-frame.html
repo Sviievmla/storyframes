@@ -159,8 +159,11 @@
           <div class="product-cta">
             <!-- PayPal Smart Payment Buttons -->
             <div id="paypal-button-container"></div>
+            <p style="font-size:13px;color:var(--muted);text-align:center;margin:8px 0;" data-i18n="card_payment_note">💳 PayPal also accepts credit and debit cards</p>
             <button class="btn gold" data-i18n="buy_cod" onclick="codOrder('Premium Frame', 49.99)">Bulgaria COD</button>
-            <button class="btn primary" onclick="addToCart('Premium Frame', 49.99, 'frame-1.jpg'); showAddedNotification()">🛒 Add to Cart</button>
+            <button class="btn primary" style="font-size:18px;padding:16px 20px;" onclick="addToCart('Premium Frame', 49.99, 'frame-1.jpg'); showAddedNotification()">
+              🛒 <span data-i18n="add_to_cart">Add to Cart</span>
+            </button>
           </div>
 
           <div class="product-features">

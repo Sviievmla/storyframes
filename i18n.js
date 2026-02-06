@@ -63,6 +63,8 @@ const translations = {
     update_quantity: "Update",
     checkout_btn: "Proceed to Checkout",
     continue_shopping: "Continue Shopping",
+    card_payment_note: "💳 PayPal also accepts credit and debit cards",
+    cod_info_text: "Cash on Delivery available for Bulgaria orders only. We'll contact you to confirm delivery details.",
     
     // Product Details Pages
     back_home: "Back to home",
@@ -151,6 +153,8 @@ const translations = {
     update_quantity: "Актуализирай",
     checkout_btn: "Продължи към плащане",
     continue_shopping: "Продължи пазаруването",
+    card_payment_note: "💳 PayPal приема също кредитни и дебитни карти",
+    cod_info_text: "Наложен платеж е достъпен само за поръчки в България. Ще се свържем с вас за потвърждение на детайлите за доставка.",
     
     // Product Details Pages
     back_home: "Обратно към начало",
