@@ -60,6 +60,35 @@
       </div>
     </section>
 
+    <section id="presentation" class="videoHero">
+  <div class="videoHeroTop">
+    <h2 data-i18n="video_title">A quick look at how Story Frames works</h2>
+    <p data-i18n="video_subtitle" style="margin:0;color:var(--muted)">
+      One photo → short video story → premium gift.
+    </p>
+  </div>
+
+  <div class="videoShell">
+    <!-- Cover overlay to avoid YouTube look before playing -->
+    <button class="videoCover" id="videoCover" aria-label="Play video">
+      <span class="playBadge">▶</span>
+      <span class="videoLabel" data-i18n="video_cta">Play presentation</span>
+    </button>
+
+    <!-- YouTube embed (best effort: no cookie + minimal branding) -->
+    <iframe
+      id="presentationFrame"
+      class="videoFrame"
+      src=""
+      title="Story Frames presentation"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen>
+    </iframe>
+  </div>
+</section>
+
+
     <section id="products">
       <div class="section-title">
         <h2 data-i18n="products_title">Products</h2>
@@ -126,9 +155,9 @@
       </div>
 
       <div class="gallery">
-        <div class="shot" onclick="openLightbox('gallery-1.jpg')"><img src="gallery-1.jpg" alt="Gallery 1"></div>
-        <div class="shot" onclick="openLightbox('gallery-2.jpg')"><img src="gallery-2.jpg" alt="Gallery 2"></div>
-        <div class="shot" onclick="openLightbox('gallery-3.jpg')"><img src="gallery-3.jpg" alt="Gallery 3"></div>
+        <div class="shot" onclick="openLightbox('gallery-1.jpeg')"><img src="gallery-1.jpeg" alt="Gallery 1"></div>
+        <div class="shot" onclick="openLightbox('gallery-2.jpg')"><img src="gallery-2.png" alt="Gallery 2"></div>
+        <div class="shot" onclick="openLightbox('gallery-3.jpg')"><img src="<iframe width="1087" height="480" src="https://www.youtube.com/embed/G2-sqT1wBGo" title="Memory Orb Ball" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>" alt="Gallery 3"></div>
       </div>
     </section>
 
@@ -187,6 +216,27 @@
       document.getElementById("lightbox").style.display = "none";
       document.body.style.overflow = "";
     }
+    <script>
+  // ---- Presentation video ----
+  // Replace this with your YouTube video ID:
+  const YT_ID = "https://www.youtube.com/watch?v=G2-sqT1wBGo";
+
+  const cover = document.getElementById("videoCover");
+  const frame = document.getElementById("presentationFrame");
+
+  if (cover && frame) {
+    cover.addEventListener("click", () => {
+      // Best effort minimal branding; still YouTube under the hood
+      const url =
+        "<iframe width="1087" height="480" src="https://www.youtube.com/embed/G2-sqT1wBGo" title="Memory Orb Ball" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>" + encodeURIComponent(YT_ID) +
+        "?autoplay=1&rel=0&modestbranding=1&controls=0&showinfo=0&iv_load_policy=3&playsinline=1&mute=0";
+
+      frame.src = url;
+      cover.style.display = "none";
+    });
+  }
+</script>
+
   </script>
 </body>
 </html>
