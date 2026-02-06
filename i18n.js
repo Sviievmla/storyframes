@@ -68,7 +68,8 @@ const translations = {
     
     // Product Details Pages
     back_home: "Back to home",
-    buy_cod: "ORDER NOW (Bulgaria COD)",
+    buy_cod: "Bulgaria COD",
+    buy_cod_checkout: "ORDER NOW (Bulgaria COD)",
     what_you_get: '<b>What you get:</b><br>• Your photo becomes a short "magic" video story<br>• Personal, emotional, premium gift<br>• Perfect for birthdays, anniversaries, surprises',
     
     // Checkout Page
@@ -158,7 +159,8 @@ const translations = {
     
     // Product Details Pages
     back_home: "Обратно към начало",
-    buy_cod: "ПОРЪЧАЙ (Наложен платеж България)",
+    buy_cod: "Наложен платеж в България",
+    buy_cod_checkout: "ПОРЪЧАЙ (Наложен платеж България)",
     what_you_get: '<b>Какво получавате:</b><br>• Вашата снимка става кратка „магическа" видео история<br>• Личен, емоционален, премиум подарък<br>• Перфектен за рождени дни, годишнини, изненади',
     
     // Checkout Page
