@@ -8,6 +8,8 @@
 
   <link rel="stylesheet" href="styles.css">
   <script defer src="i18n.js"></script>
+  <!-- PayPal SDK - supports both PayPal and card payments -->
+  <script src="https://www.paypal.com/sdk/js?client-id=AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUed2TK-uhjVCt_b&currency=EUR&intent=capture"></script>
 
   <style>
     /* page-specific small layout */
@@ -69,8 +71,10 @@
         <div class="price">€39</div>
         <div class="tiny" data-i18n="pay_physical">PayPal (card) • Bulgaria COD</div>
 
+        <!-- PayPal Smart Payment Buttons -->
+        <div id="paypal-button-container" style="margin-top:12px"></div>
+        
         <div class="actions" style="margin-top:12px">
-          <button class="btn primary" data-i18n="buy_paypal" onclick="payPalBuy('Video Ball', 39)">Pay with PayPal</button>
           <button class="btn gold" data-i18n="buy_cod" onclick="codOrder('Video Ball', 39)">Bulgaria COD</button>
         </div>
 
@@ -110,17 +114,62 @@
     }
     updateCartBadge();
 
-    function payPalBuy(item, amount){
-      const url =
-        "https://www.paypal.com/cgi-bin/webscr" +
-        "?cmd=_xclick" +
-        "&business=" + encodeURIComponent(PAYPAL_EMAIL) +
-        "&item_name=" + encodeURIComponent(item) +
-        "&amount=" + encodeURIComponent(amount.toFixed(2)) +
-        "&currency_code=EUR" +
-        "&no_note=1";
-      window.open(url, "_blank", "noopener,noreferrer");
-    }
+    // Render PayPal Smart Payment Buttons
+    const PRODUCT_NAME = 'Video Ball';
+    const PRODUCT_PRICE = 39;
+    
+    paypal.Buttons({
+      style: {
+        layout: 'vertical',
+        color: 'gold',
+        shape: 'rect',
+        label: 'paypal'
+      },
+      
+      createOrder: function(data, actions) {
+        return actions.order.create({
+          purchase_units: [{
+            description: PRODUCT_NAME,
+            amount: {
+              currency_code: 'EUR',
+              value: PRODUCT_PRICE.toFixed(2)
+            }
+          }]
+        });
+      },
+      
+      onApprove: function(data, actions) {
+        return actions.order.capture().then(function(details) {
+          alert('Payment successful! Order ID: ' + details.id + '\n\nThank you, ' + details.payer.name.given_name + '!\n\nWe will send you an email confirmation shortly.');
+          
+          // Send order confirmation
+          const subject = 'Story Frames Order Confirmation - ' + details.id;
+          const body = [
+            'Order Confirmation',
+            '',
+            'Transaction ID: ' + details.id,
+            'Customer: ' + details.payer.name.given_name + ' ' + details.payer.name.surname,
+            'Email: ' + details.payer.email_address,
+            '',
+            'Product: ' + PRODUCT_NAME,
+            'Price: €' + PRODUCT_PRICE.toFixed(2),
+            '',
+            'Please send your photos to complete the order.'
+          ].join('\n');
+          
+          window.open(`mailto:Sviievmla@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`, '_blank');
+        });
+      },
+      
+      onError: function(err) {
+        console.error('PayPal error:', err);
+        alert('An error occurred during payment. Please try again.');
+      },
+      
+      onCancel: function(data) {
+        alert('Payment cancelled.');
+      }
+    }).render('#paypal-button-container');
 
     function codOrder(item, amount){
       const subject = `Story Frames COD Order — ${item}`;
