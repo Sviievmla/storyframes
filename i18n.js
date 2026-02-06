@@ -19,7 +19,7 @@ const translations = {
     // How it Works
     how_title: "How ordering works",
     how_1: "You send us your photo (even an old paper photo).",
-    how_2: "We turn it into a short "magic" video story.",
+    how_2: 'We turn it into a short "magic" video story.',
     how_3: "We deliver it inside your selected product.",
     
     // Products Section
@@ -45,11 +45,11 @@ const translations = {
     about_text: "Bring memories to life: every photo becomes a short video. We offer digital frames for your memories and digital invitation / greeting cards. Warm someone's heart with a moving memory. Message us to order. ✨",
     why_title: "Why choose a digital card?",
     why_1: "✨ <b>Living memories:</b> we transform even an old paper photo into a short video story.",
-    why_2: "🎁 <b>A gift that impresses:</b> perfect for birthdays, anniversaries, holidays — or "just because".",
+    why_2: '🎁 <b>A gift that impresses:</b> perfect for birthdays, anniversaries, holidays — or "just because".',
     why_3: "🎵 <b>Your personal soundtrack:</b> add the song that matters to you.",
     why_4: "📱 <b>Stylish & lasting:</b> compact, easy to keep, and brings a smile every time.",
     why_5: "💖 <b>Fully personalized:</b> designed for your unique story.",
-    quote: ""Flowers fade, chocolates get eaten — but the feeling you share stays forever."",
+    quote: '"Flowers fade, chocolates get eaten — but the feeling you share stays forever."',
     
     // Cart
     cart_title: "Shopping Cart",
@@ -66,7 +66,7 @@ const translations = {
     // Product Details Pages
     back_home: "Back to home",
     buy_cod: "Bulgaria COD",
-    what_you_get: "<b>What you get:</b><br>• Your photo becomes a short "magic" video story<br>• Personal, emotional, premium gift<br>• Perfect for birthdays, anniversaries, surprises",
+    what_you_get: '<b>What you get:</b><br>• Your photo becomes a short "magic" video story<br>• Personal, emotional, premium gift<br>• Perfect for birthdays, anniversaries, surprises',
     
     // Checkout Page
     checkout_title: "Checkout",
@@ -106,7 +106,7 @@ const translations = {
     // How it Works
     how_title: "Как работи поръчването",
     how_1: "Изпращате ни вашата снимка (дори стара хартиена снимка).",
-    how_2: "Превръщаме я в кратка „магическа" видео история.",
+    how_2: 'Превръщаме я в кратка „магическа" видео история.',
     how_3: "Доставяме я вградена в избрания продукт.",
     
     // Products Section
@@ -132,11 +132,11 @@ const translations = {
     about_text: "Оживете спомените: всяка снимка става кратко видео. Предлагаме дигитални рамки за вашите спомени и дигитални покани / поздравителни картички. Затоплете нечие сърце с движеща се спомена. Пишете ни, за да поръчате. ✨",
     why_title: "Защо да изберете дигитална картичка?",
     why_1: "✨ <b>Живи спомени:</b> превръщаме дори стара хартиена снимка в кратка видео история.",
-    why_2: "🎁 <b>Подарък, който впечатлява:</b> перфектен за рождени дни, годишнини, празници — или „просто така".",
+    why_2: '🎁 <b>Подарък, който впечатлява:</b> перфектен за рождени дни, годишнини, празници — или „просто така".',
     why_3: "🎵 <b>Вашият личен саундтрак:</b> добавете песента, която има значение за вас.",
     why_4: "📱 <b>Стилен и траен:</b> компактен, лесен за съхранение и носи усмивка всеки път.",
     why_5: "💖 <b>Напълно персонализиран:</b> проектиран за вашата уникална история.",
-    quote: "„Цветята увяхват, шоколадите се изяждат — но чувството, което споделяте, остава завинаги."",
+    quote: '„Цветята увяхват, шоколадите се изяждат — но чувството, което споделяте, остава завинаги."',
     
     // Cart
     cart_title: "Количка за пазаруване",
@@ -153,7 +153,7 @@ const translations = {
     // Product Details Pages
     back_home: "Обратно към начало",
     buy_cod: "Наложен платеж в България",
-    what_you_get: "<b>Какво получавате:</b><br>• Вашата снимка става кратка „магическа" видео история<br>• Личен, емоционален, премиум подарък<br>• Перфектен за рождени дни, годишнини, изненади",
+    what_you_get: '<b>Какво получавате:</b><br>• Вашата снимка става кратка „магическа" видео история<br>• Личен, емоционален, премиум подарък<br>• Перфектен за рождени дни, годишнини, изненади',
     
     // Checkout Page
     checkout_title: "Плащане",
