@@ -3,13 +3,86 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Story Frames — Personalized gifts that come to life</title>
-  <meta name="description" content="Story Frames: Send us a photo — we turn it into a short video and embed it in your chosen product. PayPal card payments, COD in Bulgaria." />
-
+  
+  <!-- Primary Meta Tags -->
+  <title>Story Frames — Personalized gifts that come to life | Digital Photo Frames & Video Gifts</title>
+  <meta name="title" content="Story Frames — Personalized gifts that come to life | Digital Photo Frames & Video Gifts" />
+  <meta name="description" content="Transform your photos into magical video stories. Story Frames offers personalized digital frames, video balls, and greeting cards. Premium gifts for birthdays, anniversaries & special moments. PayPal & COD available." />
+  <meta name="keywords" content="digital photo frames, personalized gifts, video frames, animated photos, birthday gifts, anniversary gifts, digital greeting cards, photo to video, custom gifts, Bulgaria" />
+  <meta name="author" content="Story Frames" />
+  <meta name="robots" content="index, follow" />
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://mystoryframes.shop/" />
+  
+  <!-- Alternate Language Versions (hreflang) -->
+  <link rel="alternate" hreflang="en" href="https://mystoryframes.shop/?lang=en" />
+  <link rel="alternate" hreflang="bg" href="https://mystoryframes.shop/?lang=bg" />
+  <link rel="alternate" hreflang="x-default" href="https://mystoryframes.shop/" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mystoryframes.shop/" />
+  <meta property="og:title" content="Story Frames — Personalized gifts that come to life" />
+  <meta property="og:description" content="Transform your photos into magical video stories. Premium personalized digital frames and gifts for special moments." />
+  <meta property="og:image" content="https://mystoryframes.shop/logo.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content="Story Frames" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="bg_BG" />
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://mystoryframes.shop/" />
+  <meta name="twitter:title" content="Story Frames — Personalized gifts that come to life" />
+  <meta name="twitter:description" content="Transform your photos into magical video stories. Premium personalized digital frames and gifts for special moments." />
+  <meta name="twitter:image" content="https://mystoryframes.shop/logo.png" />
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="logo.png" />
+  
   <link rel="stylesheet" href="styles.css">
   <script defer src="i18n.js"></script>
   <!-- PayPal SDK - supports both PayPal and card payments -->
   <script src="https://www.paypal.com/sdk/js?client-id=AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUed2TK-uhjVCt_b&currency=EUR&intent=capture"></script>
+  
+  <!-- Structured Data - Organization Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Story Frames",
+    "url": "https://mystoryframes.shop",
+    "logo": "https://mystoryframes.shop/logo.png",
+    "description": "Story Frames transforms your photos into magical video stories embedded in premium personalized gifts.",
+    "email": "Sviievmla@gmail.com",
+    "sameAs": [
+      "https://facebook.com/Storyframesvarna/"
+    ],
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "BG"
+    }
+  }
+  </script>
+  
+  <!-- Structured Data - Website Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Story Frames",
+    "url": "https://mystoryframes.shop",
+    "description": "Personalized gifts that come to life - transform photos into video stories",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://mystoryframes.shop/?search={search_term_string}",
+      "query-input": "required name=search_term_string"
+    },
+    "inLanguage": ["en", "bg"]
+  }
+  </script>
 </head>
 
 
@@ -20,7 +93,7 @@
     
     <header class="top">
       <a class="brand" href="index.html">
-        <div class="logo"><img src="logo.png" alt="Story Frames"></div>
+        <div class="logo"><img src="logo.png" alt="Story Frames - Personalized Video Gift Company Logo" loading="eager"></div>
         <div>
           <strong>Story Frames</strong>
           <small data-i18n="tagline">Crafting stories from photos</small>
@@ -51,6 +124,8 @@
         </div>
       </nav>
     </header>
+
+    <main>
 
     <section class="hero" id="top">
       <div>
@@ -85,7 +160,7 @@
       <div class="products">
         <a class="card" href="video-ball.html">
           <div class="img">
-            <img src="ball-1.jpg" alt="Video Ball">
+            <img src="ball-1.jpg" alt="Video Ball - Personalized spherical display with animated memories" loading="lazy">
           </div>
           <div class="body">
             <h3 data-i18n="p1_title">Video Ball</h3>
@@ -103,7 +178,7 @@
 
         <a class="card" href="premium-frame.html">
           <div class="img">
-            <img src="frame-1.jpg" alt="Premium Frame">
+            <img src="frame-1.jpg" alt="Premium Frame - Digital photo frame for cherished memories" loading="lazy">
           </div>
           <div class="body">
             <h3 data-i18n="p2_title">Premium Frame</h3>
@@ -121,7 +196,7 @@
 
         <a class="card" href="digital-card.html">
           <div class="img">
-            <img src="card-1.jpg" alt="Digital Greeting Card">
+            <img src="card-1.jpg" alt="Digital Greeting Card - Personalized video card with your story and music" loading="lazy">
           </div>
           <div class="body">
             <h3 data-i18n="p3_title">Digital Greeting Card</h3>
@@ -146,9 +221,9 @@
       </div>
 
       <div class="gallery">
-        <div class="shot" onclick="openLightbox('gallery-1.jpg')"><img src="gallery-1.jpg" alt="Gallery 1"></div>
-        <div class="shot" onclick="openLightbox('gallery-2.jpg')"><img src="gallery-2.jpg" alt="Gallery 2"></div>
-        <div class="shot" onclick="openLightbox('gallery-3.jpg')"><img src="gallery-3.jpg" alt="Gallery 3"></div>
+        <div class="shot" onclick="openLightbox('gallery-1.jpeg')"><img src="gallery-1.jpeg" alt="Story Frames Gallery - Example of personalized video gift" loading="lazy"></div>
+        <div class="shot" onclick="openLightbox('gallery-2.png')"><img src="gallery-2.png" alt="Story Frames Gallery - Digital frame showcase" loading="lazy"></div>
+        <div class="shot" onclick="openLightbox('gallery-3.jpg')"><img src="gallery-3.jpg" alt="Story Frames Gallery - Customer testimonial example" loading="lazy"></div>
       </div>
     </section>
 
@@ -181,6 +256,8 @@
         </div>
       </div>
     </section>
+
+    </main>
 
     <footer>
       <div>© <span id="year"></span> Story Frames</div>

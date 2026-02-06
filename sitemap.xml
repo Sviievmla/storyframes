@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <!-- Homepage -->
+  <url>
+    <loc>https://mystoryframes.shop/</loc>
+    <lastmod>2026-02-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mystoryframes.shop/?lang=en" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://mystoryframes.shop/?lang=bg" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mystoryframes.shop/" />
+  </url>
+  
+  <!-- Product: Video Ball -->
+  <url>
+    <loc>https://mystoryframes.shop/video-ball.html</loc>
+    <lastmod>2026-02-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mystoryframes.shop/video-ball.html?lang=en" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://mystoryframes.shop/video-ball.html?lang=bg" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mystoryframes.shop/video-ball.html" />
+  </url>
+  
+  <!-- Product: Premium Frame -->
+  <url>
+    <loc>https://mystoryframes.shop/premium-frame.html</loc>
+    <lastmod>2026-02-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mystoryframes.shop/premium-frame.html?lang=en" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://mystoryframes.shop/premium-frame.html?lang=bg" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mystoryframes.shop/premium-frame.html" />
+  </url>
+  
+  <!-- Product: Digital Greeting Card -->
+  <url>
+    <loc>https://mystoryframes.shop/digital-card.html</loc>
+    <lastmod>2026-02-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mystoryframes.shop/digital-card.html?lang=en" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://mystoryframes.shop/digital-card.html?lang=bg" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mystoryframes.shop/digital-card.html" />
+  </url>
+  
+  <!-- Checkout Page -->
+  <url>
+    <loc>https://mystoryframes.shop/checkout.html</loc>
+    <lastmod>2026-02-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mystoryframes.shop/checkout.html?lang=en" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://mystoryframes.shop/checkout.html?lang=bg" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mystoryframes.shop/checkout.html" />
+  </url>
+  
+</urlset>

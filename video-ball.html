@@ -3,24 +3,88 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Video Ball — Story Frames</title>
-  <meta name="description" content="Video Ball — Story Frames. We turn your photo into a short video and embed it in the product. PayPal or COD in Bulgaria." />
+  
+  <!-- Primary Meta Tags -->
+  <title>Video Ball — Personalized Spherical Video Display | Story Frames</title>
+  <meta name="title" content="Video Ball — Personalized Spherical Video Display | Story Frames" />
+  <meta name="description" content="Video Ball - A modern spherical display that transforms your photos into animated video memories. Perfect gift for birthdays and anniversaries. €39 with PayPal or COD in Bulgaria." />
+  <meta name="keywords" content="video ball, spherical display, animated photos, personalized gifts, digital photo ball, video display, birthday gift, anniversary gift" />
+  <meta name="author" content="Story Frames" />
+  <meta name="robots" content="index, follow" />
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://mystoryframes.shop/video-ball.html" />
+  
+  <!-- Alternate Language Versions (hreflang) -->
+  <link rel="alternate" hreflang="en" href="https://mystoryframes.shop/video-ball.html?lang=en" />
+  <link rel="alternate" hreflang="bg" href="https://mystoryframes.shop/video-ball.html?lang=bg" />
+  <link rel="alternate" hreflang="x-default" href="https://mystoryframes.shop/video-ball.html" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="product" />
+  <meta property="og:url" content="https://mystoryframes.shop/video-ball.html" />
+  <meta property="og:title" content="Video Ball — Personalized Spherical Video Display" />
+  <meta property="og:description" content="Transform your photos into animated memories inside a modern spherical display. Perfect personalized gift." />
+  <meta property="og:image" content="https://mystoryframes.shop/ball-1.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content="Story Frames" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="bg_BG" />
+  <meta property="product:price:amount" content="39.00" />
+  <meta property="product:price:currency" content="EUR" />
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://mystoryframes.shop/video-ball.html" />
+  <meta name="twitter:title" content="Video Ball — Personalized Spherical Video Display" />
+  <meta name="twitter:description" content="Transform your photos into animated memories inside a modern spherical display. Perfect personalized gift." />
+  <meta name="twitter:image" content="https://mystoryframes.shop/ball-1.jpg" />
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="logo.png" />
 
   <link rel="stylesheet" href="styles.css">
   <script defer src="i18n.js"></script>
   <!-- PayPal SDK - supports both PayPal and card payments -->
   <script src="https://www.paypal.com/sdk/js?client-id=AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUed2TK-uhjVCt_b&currency=EUR&intent=capture"></script>
-
-  <style>
-    /* page-specific small layout */
-    .wrap{display:grid; grid-template-columns: 1.1fr .9fr; gap:14px; align-items:start}
-    .box{border:1px solid var(--line); border-radius:24px; background: rgba(255,255,255,.04); box-shadow: var(--shadow); padding:18px}
-    .muted{color:var(--muted)}
-    .grid3{display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; margin-top:12px}
-    .thumb{border:1px solid var(--line); border-radius:16px; overflow:hidden; background: rgba(0,0,0,.18); cursor:pointer}
-    .thumb img{width:100%; height:170px; object-fit:cover; display:block}
-    @media (max-width: 920px){.wrap{grid-template-columns:1fr}.grid3{grid-template-columns:1fr}}
-  </style>
+  
+  <!-- Structured Data - Product Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Video Ball",
+    "description": "A modern spherical display with your animated memory inside. Transform your photos into magical video stories embedded in a premium spherical frame.",
+    "image": [
+      "https://mystoryframes.shop/ball-1.jpg",
+      "https://mystoryframes.shop/ball-2.jpg",
+      "https://mystoryframes.shop/ball-3.jpg"
+    ],
+    "brand": {
+      "@type": "Brand",
+      "name": "Story Frames"
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": "https://mystoryframes.shop/video-ball.html",
+      "priceCurrency": "EUR",
+      "price": "39.00",
+      "priceValidUntil": "2026-12-31",
+      "availability": "https://schema.org/InStock",
+      "itemCondition": "https://schema.org/NewCondition",
+      "seller": {
+        "@type": "Organization",
+        "name": "Story Frames"
+      }
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "reviewCount": "24"
+    }
+  }
+  </script>
 </head>
 
 <body>
@@ -30,7 +94,7 @@
     
     <header class="top">
       <a class="brand" href="index.html">
-        <div class="logo"><img src="logo.png" alt="Story Frames"></div>
+        <div class="logo"><img src="logo.png" alt="Story Frames - Personalized Video Gift Company Logo" loading="eager"></div>
         <div>
           <strong>Story Frames</strong>
           <small data-i18n="tagline">Crafting stories from photos</small>
@@ -61,47 +125,107 @@
       </nav>
     </header>
 
-    <div class="wrap">
-      <div class="box">
-        <h1 data-i18n="p1_title">Video Ball</h1>
-        <p class="muted" data-i18n="p1_desc">A modern spherical display with your animated memory inside.</p>
-
-        <div class="grid3">
-          <div class="thumb" onclick="openLightbox('ball-1.jpg')"><img src="ball-1.jpg" alt="Ball 1"></div>
-          <div class="thumb" onclick="openLightbox('ball-2.jpg')"><img src="ball-2.jpg" alt="Ball 2"></div>
-          <div class="thumb" onclick="openLightbox('ball-3.jpg')"><img src="ball-3.jpg" alt="Ball 3"></div>
+    <main>
+    <div class="product-page">
+      <div class="product-hero">
+        <!-- Product Images -->
+        <div class="product-images">
+          <div class="main-image" onclick="openLightbox('ball-1.jpg')">
+            <img src="ball-1.jpg" alt="Video Ball Display - Front View" loading="eager">
+          </div>
+          <div class="thumbnail-grid">
+            <div class="thumbnail" onclick="openLightbox('ball-1.jpg')">
+              <img src="ball-1.jpg" alt="Video Ball Display - Front View" loading="lazy">
+            </div>
+            <div class="thumbnail" onclick="openLightbox('ball-2.jpg')">
+              <img src="ball-2.jpg" alt="Video Ball Display - Side View" loading="lazy">
+            </div>
+            <div class="thumbnail" onclick="openLightbox('ball-3.jpg')">
+              <img src="ball-3.jpg" alt="Video Ball Display - Detail View" loading="lazy">
+            </div>
+          </div>
         </div>
 
-        <div class="actions" style="margin-top:14px">
-          <a class="btn" href="index.html" data-i18n="back_home">Back to home</a>
+        <!-- Product Details -->
+        <div class="product-details">
+          <h1 data-i18n="p1_title">Video Ball</h1>
+          <p class="product-description" data-i18n="p1_desc">A modern spherical display with your animated memory inside.</p>
+
+          <div class="product-price">€39</div>
+          <div class="product-payment-info" data-i18n="pay_physical">PayPal (card) • Bulgaria COD</div>
+
+          <div class="product-cta">
+            <!-- PayPal Smart Payment Buttons -->
+            <div id="paypal-button-container"></div>
+            <button class="btn gold" data-i18n="buy_cod" onclick="codOrder('Video Ball', 39)">Bulgaria COD</button>
+            <button class="btn primary" onclick="addToCart('Video Ball', 39, 'ball-1.jpg'); showAddedNotification()">🛒 Add to Cart</button>
+          </div>
+
+          <div class="product-features">
+            <b data-i18n="what_you_get">What you get:</b>
+            <ul>
+              <li>Your photo becomes a short "magic" video story</li>
+              <li>Personal, emotional, premium gift</li>
+              <li>Perfect for birthdays, anniversaries, surprises</li>
+              <li>Modern spherical display design</li>
+            </ul>
+          </div>
+
+          <div class="product-contact">
+            <div class="product-contact-label">✉️ Questions? Contact us:</div>
+            <div class="product-contact-buttons">
+              <a class="btn" href="mailto:Sviievmla@gmail.com?subject=Story%20Frames%20Order%20-%20Video%20Ball">Email</a>
+              <a class="btn" href="https://facebook.com/Storyframesvarna/" target="_blank" rel="noopener noreferrer">Facebook</a>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="box" style="position:sticky;top:90px;">
-        <div class="price" style="font-size:32px;margin-bottom:8px;">€39</div>
-        <div class="tiny" data-i18n="pay_physical" style="margin-bottom:16px;">PayPal (card) • Bulgaria COD</div>
+      <!-- Related Products Section -->
+      <div class="related-products">
+        <h2>You might also like</h2>
+        <div class="products">
+          <a class="card" href="premium-frame.html">
+            <div class="img">
+              <img src="frame-1.jpg" alt="Premium Frame - Digital photo frame for cherished memories" loading="lazy">
+            </div>
+            <div class="body">
+              <h3 data-i18n="p2_title">Premium Frame</h3>
+              <p data-i18n="p2_desc">A clean, premium digital frame for memories that deserve a spotlight.</p>
+            </div>
+            <div class="meta">
+              <div>
+                <div class="price">€49.99</div>
+                <div class="tiny" data-i18n="pay_physical">PayPal (card) • Bulgaria COD</div>
+              </div>
+              <div class="tag" data-i18n="open_details">View →</div>
+            </div>
+          </a>
 
-        <!-- PayPal Smart Payment Buttons -->
-        <div id="paypal-button-container" style="margin-bottom:12px"></div>
+          <a class="card" href="digital-card.html">
+            <div class="img">
+              <img src="card-1.jpg" alt="Digital Greeting Card - Personalized video card with your story and music" loading="lazy">
+            </div>
+            <div class="body">
+              <h3 data-i18n="p3_title">Digital Greeting Card</h3>
+              <p data-i18n="p3_desc">A stylish digital card with your story and your music.</p>
+            </div>
+            <div class="meta">
+              <div>
+                <div class="price">€29</div>
+                <div class="tiny" data-i18n="pay_digital">PayPal (card) • Instant delivery</div>
+              </div>
+              <div class="tag" data-i18n="open_details">View →</div>
+            </div>
+          </a>
+        </div>
         
-        <div class="actions">
-          <button class="btn gold" data-i18n="buy_cod" onclick="codOrder('Video Ball', 39)" style="width:100%;">Bulgaria COD</button>
-        </div>
-
-        <div style="margin-top:14px" class="muted" data-i18n="what_you_get">
-          <b>What you get:</b><br>
-          • Your photo becomes a short “magic” video story<br>
-          • Personal, emotional, premium gift<br>
-          • Perfect for birthdays, anniversaries, surprises
-        </div>
-
-        <div class="actions" style="margin-top:14px">
-          <div style="font-size:13px;font-weight:700;margin-bottom:10px;color:var(--text);text-align:center;">✉️ Questions? Contact us:</div>
-          <a class="btn" href="mailto:Sviievmla@gmail.com?subject=Story%20Frames%20Order%20-%20Video%20Ball" style="flex:1;font-size:13px;padding:10px;">Email</a>
-          <a class="btn" href="https://facebook.com/Storyframesvarna/" target="_blank" rel="noopener noreferrer" style="flex:1;font-size:13px;padding:10px;">Facebook</a>
+        <div class="actions" style="margin-top:24px;justify-content:center;">
+          <a class="btn" href="index.html" data-i18n="back_home">← Back to home</a>
         </div>
       </div>
     </div>
+    </main>
   </div>
 
   <div class="lightbox" id="lightbox" onclick="closeLightbox()">
@@ -132,7 +256,6 @@
     // Close mobile menu when clicking on a link
     document.querySelectorAll('#mobileNav a').forEach(link => {
       link.addEventListener('click', function(e) {
-        // Don't close for cart icon since it opens a modal
         if (!this.classList.contains('cart-icon')) {
           const nav = document.getElementById('mobileNav');
           const toggle = document.getElementById('mobileMenuToggle');
@@ -150,14 +273,57 @@
     function updateCartBadge() {
       const cart = JSON.parse(localStorage.getItem('storyframesCart') || '[]');
       const badge = document.getElementById('cartBadge');
-      if (cart.length > 0) {
+      const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+      if (totalItems > 0) {
         badge.style.display = 'flex';
-        badge.textContent = cart.length;
+        badge.textContent = totalItems;
       } else {
         badge.style.display = 'none';
       }
     }
     updateCartBadge();
+
+    // Add to cart function
+    function addToCart(name, price, image) {
+      const cart = JSON.parse(localStorage.getItem('storyframesCart') || '[]');
+      const existingIndex = cart.findIndex(item => item.name === name);
+      
+      if (existingIndex >= 0) {
+        cart[existingIndex].quantity = (cart[existingIndex].quantity || 1) + 1;
+      } else {
+        cart.push({ name, price, image, quantity: 1 });
+      }
+      
+      localStorage.setItem('storyframesCart', JSON.stringify(cart));
+      updateCartBadge();
+    }
+
+    function showAddedNotification() {
+      showToast('✓ Added to cart! Click the cart icon to checkout.');
+    }
+
+    function showToast(message) {
+      // Remove existing toasts
+      const existingToast = document.querySelector('.toast');
+      if (existingToast) {
+        existingToast.remove();
+      }
+      
+      // Create toast
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = `<span class="toast-icon">✓</span><span>${message}</span>`;
+      document.body.appendChild(toast);
+      
+      // Show toast
+      setTimeout(() => toast.classList.add('show'), 10);
+      
+      // Hide and remove toast
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
 
     // Render PayPal Smart Payment Buttons
     const PRODUCT_NAME = 'Video Ball';

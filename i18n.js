@@ -31,6 +31,7 @@ const translations = {
     p3_title: "Digital Greeting Card",
     p3_desc: "A stylish digital card with your story and your music.",
     order_now: "Order",
+    add_to_cart: "Add to Cart",
     open_details: "Open details →",
     pay_physical: "PayPal (card) • Bulgaria COD",
     pay_digital: "PayPal (card) • Instant delivery",
@@ -118,6 +119,7 @@ const translations = {
     p3_title: "Дигитална поздравителна картичка",
     p3_desc: "Стилна дигитална картичка с вашата история и музика.",
     order_now: "Поръчай",
+    add_to_cart: "Добави в количката",
     open_details: "Отвори детайли →",
     pay_physical: "PayPal (карта) • Наложен платеж в България",
     pay_digital: "PayPal (карта) • Незабавна доставка",
@@ -210,6 +212,9 @@ const translations = {
     
     // Update HTML lang attribute
     document.documentElement.lang = lang;
+    
+    // Dispatch custom event for other scripts to listen to
+    window.dispatchEvent(new CustomEvent('languageChanged', { detail: { lang: lang } }));
   }
   
   // Initialize translations when DOM is ready
@@ -221,6 +226,7 @@ const translations = {
     document.querySelectorAll('.langbtn').forEach(btn => {
       btn.addEventListener('click', function(e) {
         e.preventDefault();
+        e.stopPropagation();
         const lang = this.getAttribute('data-lang');
         if (lang && (lang === 'en' || lang === 'bg')) {
           applyTranslations(lang);
