@@ -95,7 +95,14 @@ const translations = {
     card_desc: "Pay securely with your card via PayPal",
     cod_desc: "Pay when you receive your order",
     order_success: "Order Successful!",
-    order_success_message: "Thank you for your order. We've received your payment and will begin processing your order shortly."
+    order_success_message: "Thank you for your order. We've received your payment and will begin processing your order shortly.",
+    
+    // Trust badges
+    secure_checkout: "🔒 Secure Checkout",
+    trusted_by_customers: "Trusted by 500+ happy customers",
+    ssl_secure: "SSL Secure",
+    money_back: "Money Back",
+    fast_delivery: "Fast Delivery"
   },
   bg: {
     // Navigation
@@ -192,7 +199,14 @@ const translations = {
     card_desc: "Платете сигурно с карта чрез PayPal",
     cod_desc: "Платете при получаване на поръчката",
     order_success: "Поръчката е успешна!",
-    order_success_message: "Благодарим ви за поръчката. Получихме плащането ви и скоро ще започнем обработката на поръчката."
+    order_success_message: "Благодарим ви за поръчката. Получихме плащането ви и скоро ще започнем обработката на поръчката.",
+    
+    // Trust badges
+    secure_checkout: "🔒 Сигурно плащане",
+    trusted_by_customers: "Над 500+ доволни клиенти",
+    ssl_secure: "SSL Сигурност",
+    money_back: "Гаранция",
+    fast_delivery: "Бърза доставка"
   }
 };
 
