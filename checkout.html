@@ -600,6 +600,11 @@
     let selectedPaymentMethod = 'paypal';
     let isProcessing = false;
     
+    // Helper function to generate order IDs
+    function generateOrderId(prefix) {
+      return prefix + '-' + Date.now() + '-' + Math.random().toString(36).substring(2, 11).toUpperCase();
+    }
+    
     // Payment method selection
     function selectPaymentMethod(method) {
       if (isProcessing) return;
@@ -642,7 +647,7 @@
       
       // Validate email format
       const email = document.getElementById('email');
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
       if (email.value && !emailRegex.test(email.value)) {
         email.classList.add('error');
         isValid = false;
@@ -683,13 +688,25 @@
         isValid = false;
       }
       
-      // Validate expiry
+      // Validate expiry (format and future date)
       const expiry = document.getElementById('cardExpiry').value;
       const expiryRegex = /^(0[1-9]|1[0-2])\/\d{2}$/;
       if (!expiryRegex.test(expiry)) {
         document.getElementById('cardExpiry').classList.add('error');
         document.getElementById('cardExpiryError').style.display = 'block';
         isValid = false;
+      } else {
+        // Check if date is in the future (sliding window: assume 20xx for all 2-digit years)
+        const [month, year] = expiry.split('/');
+        const fullYear = 2000 + parseInt(year);
+        const expiryDate = new Date(fullYear, parseInt(month) - 1);
+        const now = new Date();
+        const currentDate = new Date(now.getFullYear(), now.getMonth());
+        if (expiryDate < currentDate) {
+          document.getElementById('cardExpiry').classList.add('error');
+          document.getElementById('cardExpiryError').style.display = 'block';
+          isValid = false;
+        }
       }
       
       // Validate CVC
@@ -749,14 +766,14 @@
       // Show loading overlay
       showLoading();
       
-      // Simulate payment processing (80% success rate)
+      // Simulate payment processing (approximately 80% success rate)
       setTimeout(() => {
-        const success = Math.random() > 0.2; // 80% success
+        const success = Math.random() > 0.2;
         
         hideLoading();
         
         if (success) {
-          const orderId = 'CARD-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+          const orderId = generateOrderId('CARD');
           const customerInfo = getCustomerInfo();
           
           // Send confirmation email
@@ -827,7 +844,7 @@
         // Clear cart and show success
         setTimeout(() => {
           localStorage.removeItem('storyframesCart');
-          const orderId = 'COD-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+          const orderId = generateOrderId('COD');
           showSuccessModal(orderId);
         }, 1000);
       }, 1500);
