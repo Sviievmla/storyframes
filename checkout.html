@@ -55,7 +55,7 @@
       max-width: 900px;
       margin: 20px auto;
       display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
+      grid-template-columns: 0.8fr 1.2fr;
       gap: 20px;
       align-items: start;
     }
@@ -66,6 +66,13 @@
       background: rgba(255,255,255,.04);
       box-shadow: var(--shadow);
       padding: 24px;
+    }
+    
+    .checkout-section.payment-summary {
+      position: sticky;
+      top: 20px;
+      border: 2px solid rgba(255,77,125,.35);
+      box-shadow: 0 4px 16px rgba(255,77,125,.15), var(--shadow);
     }
     
     .checkout-section h2 {
@@ -348,6 +355,12 @@
       .checkout-container {
         grid-template-columns: 1fr;
       }
+      
+      .checkout-section.payment-summary {
+        position: relative;
+        top: 0;
+        order: -1;
+      }
     }
   </style>
 </head>
@@ -400,57 +413,8 @@
     </div>
 
     <div id="checkoutContainer" class="checkout-container">
-      <!-- Customer Details Form -->
-      <div class="checkout-section">
-        <h2 data-i18n="customer_details">Customer Details</h2>
-        <form id="checkout-form">
-          <div class="form-group">
-            <label for="fullName" data-i18n="full_name">Full Name</label>
-            <input type="text" id="fullName" required>
-          </div>
-          
-          <div class="form-group">
-            <label for="email" data-i18n="email">Email Address</label>
-            <input type="email" id="email" required>
-          </div>
-          
-          <div class="form-group">
-            <label for="phone" data-i18n="phone">Phone Number</label>
-            <input type="tel" id="phone" required>
-          </div>
-          
-          <div class="form-group">
-            <label for="address" data-i18n="address">Shipping Address</label>
-            <input type="text" id="address" required>
-          </div>
-          
-          <div class="form-group">
-            <label for="city" data-i18n="city">City</label>
-            <input type="text" id="city" required>
-          </div>
-          
-          <div class="form-group">
-            <label for="postalCode" data-i18n="postal_code">Postal Code</label>
-            <input type="text" id="postalCode">
-          </div>
-          
-          <div class="form-group">
-            <label for="country" data-i18n="country">Country</label>
-            <select id="country" required>
-              <option value="BG">Bulgaria</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
-          
-          <div class="form-group">
-            <label for="notes" data-i18n="order_notes">Order Notes (Optional)</label>
-            <textarea id="notes" data-i18n="order_notes_placeholder" placeholder="Special instructions, delivery preferences, etc."></textarea>
-          </div>
-        </form>
-      </div>
-
       <!-- Order Summary -->
-      <div class="checkout-section">
+      <div class="checkout-section payment-summary">
         <h2 data-i18n="order_summary">Order Summary</h2>
         <div id="orderItems"></div>
         
@@ -520,6 +484,55 @@
             </div>
           </div>
         </div>
+      </div>
+
+      <!-- Customer Details Form -->
+      <div class="checkout-section">
+        <h2 data-i18n="customer_details">Customer Details</h2>
+        <form id="checkout-form">
+          <div class="form-group">
+            <label for="fullName" data-i18n="full_name">Full Name</label>
+            <input type="text" id="fullName" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="email" data-i18n="email">Email Address</label>
+            <input type="email" id="email" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="phone" data-i18n="phone">Phone Number</label>
+            <input type="tel" id="phone" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="address" data-i18n="address">Shipping Address</label>
+            <input type="text" id="address" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="city" data-i18n="city">City</label>
+            <input type="text" id="city" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="postalCode" data-i18n="postal_code">Postal Code</label>
+            <input type="text" id="postalCode">
+          </div>
+          
+          <div class="form-group">
+            <label for="country" data-i18n="country">Country</label>
+            <select id="country" required>
+              <option value="BG">Bulgaria</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="notes" data-i18n="order_notes">Order Notes (Optional)</label>
+            <textarea id="notes" data-i18n="order_notes_placeholder" placeholder="Special instructions, delivery preferences, etc."></textarea>
+          </div>
+        </form>
       </div>
     </div>
   </div>
@@ -591,6 +604,12 @@
         }
       });
     });
+    
+    // Backend configuration
+    // IMPORTANT: Update this URL before deploying to production!
+    // For local development: 'http://localhost:3000'
+    // For production: 'https://your-backend-domain.com' or 'https://api.mystoryframes.shop'
+    const BACKEND_URL = 'http://localhost:3000';
     
     // State management
     let cart = JSON.parse(localStorage.getItem('storyframesCart') || '[]');
@@ -881,52 +900,92 @@
       const buttonConfig = {
         fundingSource: fundingSource,
         style: style,
-        createOrder: function(data, actions) {
+        createOrder: async function(data, actions) {
           // Validate form before creating order
           if (!validateForm()) {
             return Promise.reject(new Error('Please fill in all required fields'));
           }
           
-          return actions.order.create({
-            purchase_units: [{
-              description: 'Story Frames Order',
-              amount: {
-                currency_code: 'EUR',
-                value: total.toFixed(2),
-                breakdown: {
-                  item_total: {
-                    currency_code: 'EUR',
-                    value: total.toFixed(2)
-                  }
-                }
+          try {
+            const customerInfo = getCustomerInfo();
+            const cartData = cart.map(item => ({
+              name: item.name,
+              price: item.price.toFixed(2),
+              quantity: item.quantity || 1,
+              description: item.description || item.name
+            }));
+            
+            const response = await fetch(`${BACKEND_URL}/api/create-order`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
               },
-              items: cart.map(item => ({
-                name: item.name,
-                unit_amount: {
-                  currency_code: 'EUR',
-                  value: item.price.toFixed(2)
-                },
-                quantity: String(item.quantity || 1)
-              }))
-            }]
-          });
+              body: JSON.stringify({
+                cart: cartData,
+                customer: {
+                  name: customerInfo.fullName,
+                  email: customerInfo.email,
+                  address: customerInfo.address,
+                  city: customerInfo.city,
+                  postalCode: customerInfo.postalCode,
+                  countryCode: customerInfo.country
+                }
+              })
+            });
+            
+            if (!response.ok) {
+              throw new Error('Failed to create order');
+            }
+            
+            const orderData = await response.json();
+            return orderData.orderID;
+          } catch (error) {
+            console.error('Error creating order:', error);
+            alert('Failed to create order. Please try again.');
+            throw error;
+          }
         },
         
-        onApprove: function(data, actions) {
+        onApprove: async function(data, actions) {
           showLoading();
           
-          return actions.order.capture().then(function(details) {
+          try {
+            const customerInfo = getCustomerInfo();
+            
+            const response = await fetch(`${BACKEND_URL}/api/capture-order`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                orderID: data.orderID,
+                customer: {
+                  name: customerInfo.fullName,
+                  email: customerInfo.email
+                }
+              })
+            });
+            
+            if (!response.ok) {
+              throw new Error('Failed to capture order');
+            }
+            
+            const captureData = await response.json();
             hideLoading();
             
-            const customerInfo = getCustomerInfo();
-            sendOrderEmail(details, customerInfo);
+            sendOrderEmail({ id: data.orderID }, customerInfo);
             
             // Clear cart
             localStorage.removeItem('storyframesCart');
             
             // Show success modal
-            showSuccessModal(details.id);
-          });
+            showSuccessModal(data.orderID);
+          } catch (error) {
+            hideLoading();
+            console.error('Error capturing order:', error);
+            alert('Payment processing failed. Please contact support.');
+            throw error;
+          }
         },
         
         onError: function(err) {
