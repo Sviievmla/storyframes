@@ -89,7 +89,12 @@ const translations = {
     payment_method: "Payment Method",
     place_order: "Place Order",
     required_field: "This field is required",
-    invalid_email: "Please enter a valid email address"
+    invalid_email: "Please enter a valid email address",
+    paypal_desc: "Secure payment via PayPal or credit/debit card",
+    card_desc: "Pay directly with your card (Demo Mode)",
+    cod_desc: "Pay when you receive your order",
+    order_success: "Order Successful!",
+    order_success_message: "Thank you for your order. We've received your payment and will begin processing your order shortly."
   },
   bg: {
     // Navigation
@@ -180,7 +185,12 @@ const translations = {
     payment_method: "Метод на плащане",
     place_order: "Направи поръчка",
     required_field: "Това поле е задължително",
-    invalid_email: "Моля, въведете валиден имейл адрес"
+    invalid_email: "Моля, въведете валиден имейл адрес",
+    paypal_desc: "Сигурно плащане чрез PayPal или кредитна/дебитна карта",
+    card_desc: "Платете директно с вашата карта (Демо режим)",
+    cod_desc: "Платете при получаване на поръчката",
+    order_success: "Поръчката е успешна!",
+    order_success_message: "Благодарим ви за поръчката. Получихме плащането ви и скоро ще започнем обработката на поръчката."
   }
 };
 
