@@ -57,9 +57,9 @@ Story Frames — Personalized gifts that come to life | Digital Photo Frames & V
 
 **Meta Description:**
 ```
-Transform your photos into magical video stories. Story Frames offers personalized digital frames, video balls, and greeting cards. Premium gifts for birthdays, anniversaries & special moments. PayPal & COD available.
+Transform photos into magical video stories. Story Frames creates personalized digital frames, video balls, and greeting cards—premium gifts with PayPal or COD.
 ```
-- 259 characters - within recommended 150-160 character limit
+- 160 characters - within recommended 150-160 character limit
 - Includes keywords naturally
 - Clear value proposition
 - Call-to-action elements

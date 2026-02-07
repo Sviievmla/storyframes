@@ -193,6 +193,7 @@ const translations = {
   function applyTranslations(lang) {
     currentLang = lang;
     localStorage.setItem('storyframes_lang', lang);
+    document.documentElement.setAttribute('lang', lang);
     
     // Update all elements with data-i18n attribute
     document.querySelectorAll('[data-i18n]').forEach(element => {
