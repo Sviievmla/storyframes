@@ -596,7 +596,7 @@
     let cart = JSON.parse(localStorage.getItem('storyframesCart') || '[]');
     let selectedPaymentMethod = 'paypal';
     let isProcessing = false;
-    let cartTotal = 0;
+    const PAYPAL_HIGHLIGHT_DURATION_MS = 2000;
     
     // Helper function to generate order IDs
     function generateOrderId(prefix) {
@@ -604,6 +604,23 @@
     }
     
     // Payment method selection
+    function getPaymentContainer(method) {
+      return document.getElementById(method === 'card' ? 'card-button-container' : 'paypal-button-container');
+    }
+
+    function calculateCartTotal() {
+      return cart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
+    }
+
+    function ensurePayPalButtonsRendered(method) {
+      if ((method === 'paypal' || method === 'card') && window.paypal) {
+        const targetContainer = getPaymentContainer(method);
+        if (targetContainer && targetContainer.children.length === 0) {
+          renderPayPalButtons(calculateCartTotal());
+        }
+      }
+    }
+
     function selectPaymentMethod(method) {
       if (isProcessing) return;
       
@@ -628,12 +645,7 @@
         payNowButton.style.display = method === 'cod' ? 'none' : 'block';
       }
 
-      if ((method === 'paypal' || method === 'card') && window.paypal) {
-        const targetContainer = document.getElementById(method === 'card' ? 'card-button-container' : 'paypal-button-container');
-        if (targetContainer && targetContainer.children.length === 0) {
-          renderPayPalButtons(cartTotal);
-        }
-      }
+      ensurePayPalButtonsRendered(method);
     }
 
     function handlePayNowClick() {
@@ -645,17 +657,14 @@
         return;
       }
 
-      const targetId = selectedPaymentMethod === 'card' ? 'card-button-container' : 'paypal-button-container';
-      const targetContainer = document.getElementById(targetId);
+      const targetContainer = getPaymentContainer(selectedPaymentMethod);
       if (!targetContainer) return;
 
-      if (window.paypal && targetContainer.children.length === 0) {
-        renderPayPalButtons(cartTotal);
-      }
+      ensurePayPalButtonsRendered(selectedPaymentMethod);
 
       targetContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
       targetContainer.classList.add('payment-highlight');
-      setTimeout(() => targetContainer.classList.remove('payment-highlight'), 2000);
+      setTimeout(() => targetContainer.classList.remove('payment-highlight'), PAYPAL_HIGHLIGHT_DURATION_MS);
     }
     
     // Form validation
@@ -805,9 +814,8 @@
       }).join('');
       
       // Calculate totals
-      const subtotal = cart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
+      const subtotal = calculateCartTotal();
       const total = subtotal;
-      cartTotal = total;
       
       orderSubtotal.textContent = `€${subtotal.toFixed(2)}`;
       orderTotal.textContent = `€${total.toFixed(2)}`;
