@@ -18,12 +18,11 @@ The checkout supports three payment methods:
 - **Test Mode**: Currently configured with sandbox credentials
 - **Production**: Replace client-id in the PayPal SDK script tag with production credentials
 
-#### Credit/Debit Card (Mock)
-- **Status**: Demo/Mock implementation
-- **Description**: Simulates card payment processing for demonstration purposes
-- **Success Rate**: 80% (configurable in code)
-- **Validation**: Card number (13-19 digits), Expiry (MM/YY format), CVC (3-4 digits)
-- **Note**: No real charges are made. This is for testing the UI/UX flow only
+#### Credit/Debit Card (PayPal)
+- **Status**: Fully functional
+- **Description**: Card payments processed by PayPal Smart Payment Buttons
+- **Supported**: Visa, Mastercard, Amex, and other cards supported by PayPal
+- **Note**: Uses the same PayPal client ID as the PayPal option
 
 #### Cash on Delivery (COD)
 - **Status**: Fully functional
@@ -50,7 +49,7 @@ The checkout supports three payment methods:
 - Visual error indicators (red border, error messages)
 - Email format validation using regex
 - Form submission prevention if validation fails
-- Card-specific validation (for mock card payment)
+- Card validation handled securely by PayPal
 
 ### 3. User Experience Enhancements
 
@@ -62,7 +61,7 @@ The checkout supports three payment methods:
 
 #### Success Confirmation
 - Modal popup with success icon
-- Order ID display (format: `PAYPAL-xxx`, `CARD-xxx`, or `COD-xxx`)
+- Order ID display (PayPal order ID or `COD-xxx`)
 - Success message with next steps
 - Continue shopping button redirects to homepage
 
@@ -101,7 +100,7 @@ The checkout supports three payment methods:
 
 **Current Configuration** (Sandbox):
 ```html
-<script src="https://www.paypal.com/sdk/js?client-id=AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUed2TK-uhjVCt_b&currency=EUR&intent=capture"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUed2TK-uhjVCt_b&currency=EUR&intent=capture&enable-funding=card"></script>
 ```
 
 **Production Setup**:
@@ -111,17 +110,9 @@ The checkout supports three payment methods:
 4. Replace the `client-id` parameter with your production client ID
 5. Test thoroughly before going live
 
-### Mock Card Payment Configuration
+### Card Funding Configuration
 
-Located in `submitCardPayment()` function:
-```javascript
-const success = Math.random() > 0.2; // 80% success rate
-```
-
-Adjust the success rate for testing:
-- `Math.random() > 0.2` = 80% success
-- `Math.random() > 0.5` = 50% success
-- `Math.random() > 0.8` = 20% success
+The card checkout button is powered by the PayPal SDK with `enable-funding=card`. Keep this parameter enabled in production to allow direct card payments.
 
 ### Email Configuration
 
@@ -133,11 +124,10 @@ To change the recipient email, search for `Sviievmla@gmail.com` in `checkout.htm
 
 ### Current Limitations
 
-1. **Mock Card Payment**
-   - No real payment processing
-   - For demonstration purposes only
-   - Shows the complete UI/UX flow
-   - Should be replaced with real payment gateway integration (Stripe, Square, etc.)
+1. **Live Payments Configuration**
+   - PayPal client ID must be swapped to live credentials
+   - Ensure `enable-funding=card` remains enabled
+   - Complete a live payment test before launch
 
 2. **Email-based Order Management**
    - Orders are sent via mailto: links
@@ -163,7 +153,7 @@ To change the recipient email, search for `Sviievmla@gmail.com` in `checkout.htm
 ### Security Considerations
 
 - All payments handled by PayPal (secure)
-- Mock card form doesn't transmit any data
+- Card data is collected by PayPal-hosted fields
 - No credit card data stored locally
 - Customer information stored only in localStorage until order completion
 
@@ -174,9 +164,9 @@ To change the recipient email, search for `Sviievmla@gmail.com` in `checkout.htm
 - Requires localStorage support
 - PayPal SDK works on all major browsers
 
-## Integration with Real Payment Gateway
+## Integration with Additional Payment Gateways
 
-To integrate a real card payment gateway (e.g., Stripe), replace the mock card payment section:
+To add another card payment gateway (e.g., Stripe) alongside PayPal, replace the card payment section:
 
 ### Example: Stripe Integration
 
@@ -185,15 +175,15 @@ To integrate a real card payment gateway (e.g., Stripe), replace the mock card p
 <script src="https://js.stripe.com/v3/"></script>
 ```
 
-2. Replace the mock card payment form with Stripe Elements
-3. Update `submitCardPayment()` to use Stripe's payment confirmation
+2. Replace the card payment section with Stripe Elements
+3. Update the checkout flow to use Stripe's payment confirmation
 4. Handle webhook for order confirmation
 
 ### Example: Square Integration
 
 1. Add Square SDK
 2. Use Square Payment Form
-3. Replace mock processing with Square API calls
+3. Replace the card payment section with Square API calls
 
 ## Testing
 
@@ -205,17 +195,13 @@ To integrate a real card payment gateway (e.g., Stripe), replace the mock card p
 5. Click PayPal button
 6. Use PayPal sandbox credentials to complete payment
 
-### Test Mock Card Payment
+### Test Card Payment (PayPal)
 1. Add items to cart
 2. Go to checkout
 3. Fill in customer details
-4. Select "Credit/Debit Card (Mock)"
-5. Enter test card details:
-   - Card Number: 4532 1234 5678 9010 (any valid format)
-   - Expiry: 12/25 (future date)
-   - CVC: 123
-6. Click "Complete Order"
-7. Watch for success/failure simulation (80/20 split)
+4. Select "Credit/Debit Card"
+5. Complete the PayPal card checkout flow
+6. Confirm order success
 
 ### Test COD
 1. Add items to cart
@@ -250,8 +236,8 @@ Recommended improvements for production:
    - Email confirmation system
    - Order status tracking
 
-2. **Real Card Payment Gateway**
-   - Stripe or Square integration
+2. **Additional Card Payment Gateway**
+   - Stripe or Square integration alongside PayPal
    - PCI compliance
    - 3D Secure authentication
    - Recurring billing support
@@ -285,13 +271,9 @@ For questions or issues:
 
 ## Version History
 
-- **v2.0** (February 2026)
-  - Added payment method selection UI
-  - Added mock card payment functionality
-  - Enhanced form validation
-  - Added loading states and success modal
-  - Improved error handling
-  - Updated internationalization
+- **v2.1** (February 2026)
+  - Replaced mock card checkout with PayPal card processing
+  - Updated payment descriptions and documentation
 
 - **v1.0** (Initial Release)
   - Basic checkout form

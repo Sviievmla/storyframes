@@ -48,7 +48,7 @@
   <link rel="stylesheet" href="styles.css">
   <script defer src="i18n.js"></script>
   <!-- PayPal SDK - supports both PayPal and card payments -->
-  <script src="https://www.paypal.com/sdk/js?client-id=AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUed2TK-uhjVCt_b&currency=EUR&intent=capture"></script>
+  <script src="https://www.paypal.com/sdk/js?client-id=AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUed2TK-uhjVCt_b&currency=EUR&intent=capture&enable-funding=card"></script>
   
   <style>
     .checkout-container {
@@ -471,8 +471,8 @@
             <div class="payment-option" onclick="selectPaymentMethod('card')" id="card-option">
               <input type="radio" name="payment" value="card">
               <div class="payment-option-content">
-                <div class="payment-option-title">💳 Credit / Debit Card (Mock)</div>
-                <div class="payment-option-desc" data-i18n="card_desc">Pay directly with your card (Demo Mode)</div>
+                <div class="payment-option-title">💳 Credit / Debit Card</div>
+                <div class="payment-option-desc" data-i18n="card_desc">Pay securely with your card via PayPal</div>
               </div>
             </div>
             
@@ -488,29 +488,10 @@
           <!-- PayPal Buttons Container -->
           <div id="paypal-button-container" style="display:block;"></div>
           
-          <!-- Card Payment Form (Mock) -->
+          <!-- Card Payment (PayPal) -->
           <div id="card-payment-form" style="display:none;">
-            <div class="form-group">
-              <label for="cardNumber">Card Number</label>
-              <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19">
-              <div class="form-error" id="cardNumberError">Please enter a valid card number</div>
-            </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-              <div class="form-group">
-                <label for="cardExpiry">Expiry Date</label>
-                <input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5">
-                <div class="form-error" id="cardExpiryError">Invalid expiry date</div>
-              </div>
-              <div class="form-group">
-                <label for="cardCVC">CVC</label>
-                <input type="text" id="cardCVC" placeholder="123" maxlength="4">
-                <div class="form-error" id="cardCVCError">Invalid CVC</div>
-              </div>
-            </div>
-            <button class="btn-order-cta btn-order-cta-full" onclick="submitCardPayment()" id="cardPayButton">
-              <span data-i18n="place_order">Complete Order</span>
-            </button>
-            <p class="payment-info-note" style="margin-top:12px;">🔒 This is a demo. No real charges will be made.</p>
+            <div id="card-button-container"></div>
+            <p class="payment-info-note" style="margin-top:12px;" data-i18n="card_payment_note">💳 PayPal also accepts credit and debit cards</p>
           </div>
           
           <!-- COD Button -->
@@ -660,140 +641,6 @@
       return isValid;
     }
     
-    // Card validation helpers
-    function formatCardNumber(value) {
-      return value.replace(/\s/g, '').replace(/(\d{4})/g, '$1 ').trim();
-    }
-    
-    function formatExpiry(value) {
-      const cleaned = value.replace(/\D/g, '');
-      if (cleaned.length >= 2) {
-        return cleaned.substring(0, 2) + '/' + cleaned.substring(2, 4);
-      }
-      return cleaned;
-    }
-    
-    function validateCardDetails() {
-      let isValid = true;
-      
-      // Clear previous errors
-      document.querySelectorAll('.form-error').forEach(err => err.style.display = 'none');
-      document.querySelectorAll('#card-payment-form .error').forEach(el => el.classList.remove('error'));
-      
-      // Validate card number (mock - just check length)
-      const cardNumber = document.getElementById('cardNumber').value.replace(/\s/g, '');
-      if (cardNumber.length < 13 || cardNumber.length > 19) {
-        document.getElementById('cardNumber').classList.add('error');
-        document.getElementById('cardNumberError').style.display = 'block';
-        isValid = false;
-      }
-      
-      // Validate expiry (format and future date)
-      const expiry = document.getElementById('cardExpiry').value;
-      const expiryRegex = /^(0[1-9]|1[0-2])\/\d{2}$/;
-      if (!expiryRegex.test(expiry)) {
-        document.getElementById('cardExpiry').classList.add('error');
-        document.getElementById('cardExpiryError').style.display = 'block';
-        isValid = false;
-      } else {
-        // Check if date is in the future (sliding window: assume 20xx for all 2-digit years)
-        const [month, year] = expiry.split('/');
-        const fullYear = 2000 + parseInt(year);
-        const expiryDate = new Date(fullYear, parseInt(month) - 1);
-        const now = new Date();
-        const currentDate = new Date(now.getFullYear(), now.getMonth());
-        if (expiryDate < currentDate) {
-          document.getElementById('cardExpiry').classList.add('error');
-          document.getElementById('cardExpiryError').style.display = 'block';
-          isValid = false;
-        }
-      }
-      
-      // Validate CVC
-      const cvc = document.getElementById('cardCVC').value;
-      if (cvc.length < 3 || cvc.length > 4) {
-        document.getElementById('cardCVC').classList.add('error');
-        document.getElementById('cardCVCError').style.display = 'block';
-        isValid = false;
-      }
-      
-      return isValid;
-    }
-    
-    // Setup card input formatting
-    function setupCardInputs() {
-      const cardNumber = document.getElementById('cardNumber');
-      const cardExpiry = document.getElementById('cardExpiry');
-      const cardCVC = document.getElementById('cardCVC');
-      
-      if (cardNumber) {
-        cardNumber.addEventListener('input', function(e) {
-          this.value = formatCardNumber(this.value.replace(/\D/g, ''));
-        });
-      }
-      
-      if (cardExpiry) {
-        cardExpiry.addEventListener('input', function(e) {
-          this.value = formatExpiry(this.value);
-        });
-      }
-      
-      if (cardCVC) {
-        cardCVC.addEventListener('input', function(e) {
-          this.value = this.value.replace(/\D/g, '');
-        });
-      }
-    }
-    
-    // Mock card payment processing
-    function submitCardPayment() {
-      if (isProcessing) return;
-      
-      // Validate form first
-      if (!validateForm()) return;
-      
-      // Validate card details
-      if (!validateCardDetails()) {
-        return;
-      }
-      
-      isProcessing = true;
-      const button = document.getElementById('cardPayButton');
-      button.disabled = true;
-      button.style.opacity = '0.6';
-      button.style.cursor = 'not-allowed';
-      
-      // Show loading overlay
-      showLoading();
-      
-      // Simulate payment processing (approximately 80% success rate)
-      setTimeout(() => {
-        const success = Math.random() > 0.2;
-        
-        hideLoading();
-        
-        if (success) {
-          const orderId = generateOrderId('CARD');
-          const customerInfo = getCustomerInfo();
-          
-          // Send confirmation email
-          sendOrderEmailMock(orderId, customerInfo);
-          
-          // Clear cart
-          localStorage.removeItem('storyframesCart');
-          
-          // Show success modal
-          showSuccessModal(orderId);
-        } else {
-          alert('Payment failed. Please check your card details and try again.\n\nError: Card declined by issuer (Mock)');
-          isProcessing = false;
-          button.disabled = false;
-          button.style.opacity = '1';
-          button.style.cursor = 'pointer';
-        }
-      }, 2500);
-    }
-    
     // COD Order submission
     function submitCODOrder() {
       if (isProcessing) return;
@@ -939,20 +786,41 @@
     }
     
     function renderPayPalButtons(total) {
-      const container = document.getElementById('paypal-button-container');
+      renderPayPalButton(total, 'paypal-button-container', paypal.FUNDING.PAYPAL, {
+        layout: 'vertical',
+        color: 'gold',
+        shape: 'rect',
+        label: 'paypal'
+      });
+      
+      const isCardFundingEligible = renderPayPalButton(total, 'card-button-container', paypal.FUNDING.CARD, {
+        layout: 'vertical',
+        color: 'black',
+        shape: 'rect',
+        label: 'pay'
+      });
+      
+      if (!isCardFundingEligible) {
+        const cardOption = document.getElementById('card-option');
+        if (cardOption) {
+          cardOption.style.display = 'none';
+          if (selectedPaymentMethod === 'card') {
+            selectPaymentMethod('paypal');
+          }
+        }
+      }
+    }
+    
+    function renderPayPalButton(total, containerId, fundingSource, style) {
+      const container = document.getElementById(containerId);
       if (!container || cart.length === 0) return;
       
       // Clear existing buttons
       container.innerHTML = '';
       
-      paypal.Buttons({
-        style: {
-          layout: 'vertical',
-          color: 'gold',
-          shape: 'rect',
-          label: 'paypal'
-        },
-        
+      const buttonConfig = {
+        fundingSource: fundingSource,
+        style: style,
         createOrder: function(data, actions) {
           // Validate form before creating order
           if (!validateForm()) {
@@ -1011,7 +879,16 @@
           hideLoading();
           alert('Payment cancelled. Your cart is still saved.');
         }
-      }).render('#paypal-button-container');
+      };
+      
+      const buttons = paypal.Buttons(buttonConfig);
+      if (buttons.isEligible()) {
+        buttons.render(`#${containerId}`);
+        return true;
+      }
+      
+      container.style.display = 'none';
+      return false;
     }
     
     function getCustomerInfo() {
@@ -1059,41 +936,8 @@
       window.open(`mailto:Sviievmla@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`, '_blank');
     }
     
-    function sendOrderEmailMock(orderId, customerInfo) {
-      const itemsList = cart.map(item => `${item.name} × ${item.quantity || 1} - €${(item.price * (item.quantity || 1)).toFixed(2)}`).join('\n');
-      const total = cart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
-      
-      const subject = 'Story Frames Order Confirmation - ' + orderId;
-      const body = [
-        'Order Confirmation (Card Payment)',
-        '',
-        'Order ID: ' + orderId,
-        '',
-        'Customer Details:',
-        `Name: ${customerInfo.fullName}`,
-        `Email: ${customerInfo.email}`,
-        `Phone: ${customerInfo.phone}`,
-        `Address: ${customerInfo.address}, ${customerInfo.city}`,
-        `Postal Code: ${customerInfo.postalCode}`,
-        `Country: ${customerInfo.country}`,
-        '',
-        'Items Ordered:',
-        itemsList,
-        '',
-        `Total Paid: €${total.toFixed(2)}`,
-        '',
-        'Order Notes:',
-        customerInfo.notes || 'None',
-        '',
-        'Please send your photos to complete the order.'
-      ].join('\n');
-      
-      window.open(`mailto:Sviievmla@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`, '_blank');
-    }
-    
     // Initialize
     displayCheckout();
-    setupCardInputs();
   </script>
 </body>
 </html>
