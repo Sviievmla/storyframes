@@ -14,7 +14,9 @@ const PAYPAL_API_BASE = process.env.PAYPAL_API_BASE || 'https://api-m.sandbox.pa
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use(express.static('.')); // Serve static files from the current directory
+// Serve static files from the current directory
+// Note: .gitignore excludes sensitive files like .env and node_modules
+app.use(express.static('.')); 
 
 // Validate PayPal credentials
 if (!PAYPAL_CLIENT_ID || !PAYPAL_CLIENT_SECRET) {
@@ -179,6 +181,9 @@ app.get('/api/health', (req, res) => {
 app.listen(PORT, () => {
   console.log(`\n🚀 Story Frames Checkout Server running on port ${PORT}`);
   console.log(`📍 http://localhost:${PORT}`);
-  console.log(`💳 PayPal API: ${PAYPAL_API_BASE}`);
-  console.log(`✅ PayPal credentials ${PAYPAL_CLIENT_ID && PAYPAL_CLIENT_SECRET ? 'configured' : 'NOT configured'}\n`);
+  if (process.env.NODE_ENV !== 'production') {
+    console.log(`💳 PayPal API: ${PAYPAL_API_BASE}`);
+    console.log(`✅ PayPal credentials ${PAYPAL_CLIENT_ID && PAYPAL_CLIENT_SECRET ? 'configured' : 'NOT configured'}`);
+  }
+  console.log();
 });

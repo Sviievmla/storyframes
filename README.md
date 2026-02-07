@@ -250,6 +250,20 @@ Order confirmations are sent via `mailto:` links, which opens the user's email c
 - No credit card data is ever stored or handled by your application
 - PayPal handles all PCI compliance requirements
 - CORS is enabled but can be restricted to specific domains in production
+- The `.env` file is excluded from version control via `.gitignore`
+- Sensitive files (`.env`, `node_modules`) are not served due to `.gitignore` and static file serving configuration
+
+### Production Security Recommendations
+
+1. **HTTPS Only**: Deploy with HTTPS enabled (most hosting platforms provide this automatically)
+2. **Restrict CORS**: Update CORS configuration to whitelist only your production domain:
+   ```javascript
+   app.use(cors({
+     origin: 'https://yourdomain.com'
+   }));
+   ```
+3. **Rate Limiting**: Consider adding rate limiting to API endpoints to prevent abuse
+4. **Environment Variables**: Never commit `.env` file or expose credentials in logs
 
 ## 🧪 Testing
 
