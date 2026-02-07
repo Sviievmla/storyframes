@@ -91,7 +91,7 @@ const translations = {
     required_field: "This field is required",
     invalid_email: "Please enter a valid email address",
     paypal_desc: "Secure payment via PayPal or credit/debit card",
-    card_desc: "Pay directly with your card (Demo Mode)",
+    card_desc: "Pay securely with your card via PayPal",
     cod_desc: "Pay when you receive your order",
     order_success: "Order Successful!",
     order_success_message: "Thank you for your order. We've received your payment and will begin processing your order shortly."
@@ -187,7 +187,7 @@ const translations = {
     required_field: "Това поле е задължително",
     invalid_email: "Моля, въведете валиден имейл адрес",
     paypal_desc: "Сигурно плащане чрез PayPal или кредитна/дебитна карта",
-    card_desc: "Платете директно с вашата карта (Демо режим)",
+    card_desc: "Платете сигурно с карта чрез PayPal",
     cod_desc: "Платете при получаване на поръчката",
     order_success: "Поръчката е успешна!",
     order_success_message: "Благодарим ви за поръчката. Получихме плащането ви и скоро ще започнем обработката на поръчката."
