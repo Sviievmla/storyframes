@@ -168,6 +168,16 @@
     .payment-buttons {
       margin-top: 20px;
     }
+
+    .payment-action {
+      margin-top: 12px;
+    }
+
+    .payment-highlight {
+      border-radius: 14px;
+      box-shadow: 0 0 0 2px rgba(255,77,125,.65), 0 8px 20px rgba(255,77,125,.25);
+      transition: box-shadow 0.2s ease;
+    }
     
     .cod-info {
       margin-top: 16px;
@@ -484,6 +494,12 @@
               </div>
             </div>
           </div>
+
+          <div class="payment-action" id="paymentAction">
+            <button class="btn-order-cta btn-order-cta-full" onclick="handlePayNowClick()" id="payNowButton">
+              <span data-i18n="pay_now">Pay Now</span>
+            </button>
+          </div>
           
           <!-- PayPal Buttons Container -->
           <div id="paypal-button-container" style="display:block;"></div>
@@ -580,6 +596,7 @@
     let cart = JSON.parse(localStorage.getItem('storyframesCart') || '[]');
     let selectedPaymentMethod = 'paypal';
     let isProcessing = false;
+    const PAYPAL_HIGHLIGHT_DURATION_MS = 2000;
     
     // Helper function to generate order IDs
     function generateOrderId(prefix) {
@@ -587,6 +604,23 @@
     }
     
     // Payment method selection
+    function getPaymentContainer(method) {
+      return document.getElementById(method === 'card' ? 'card-button-container' : 'paypal-button-container');
+    }
+
+    function calculateCartTotal() {
+      return cart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
+    }
+
+    function ensurePayPalButtonsRendered(method) {
+      if ((method === 'paypal' || method === 'card') && window.paypal) {
+        const targetContainer = getPaymentContainer(method);
+        if (targetContainer && targetContainer.children.length === 0) {
+          renderPayPalButtons(calculateCartTotal());
+        }
+      }
+    }
+
     function selectPaymentMethod(method) {
       if (isProcessing) return;
       
@@ -605,6 +639,32 @@
       document.getElementById('paypal-button-container').style.display = method === 'paypal' ? 'block' : 'none';
       document.getElementById('card-payment-form').style.display = method === 'card' ? 'block' : 'none';
       document.getElementById('cod-payment-section').style.display = method === 'cod' ? 'block' : 'none';
+
+      const payNowButton = document.getElementById('payNowButton');
+      if (payNowButton) {
+        payNowButton.style.display = method === 'cod' ? 'none' : 'block';
+      }
+
+      ensurePayPalButtonsRendered(method);
+    }
+
+    function handlePayNowClick() {
+      if (isProcessing) return;
+      if (!validateForm()) return;
+
+      if (selectedPaymentMethod === 'cod') {
+        submitCODOrder();
+        return;
+      }
+
+      const targetContainer = getPaymentContainer(selectedPaymentMethod);
+      if (!targetContainer) return;
+
+      ensurePayPalButtonsRendered(selectedPaymentMethod);
+
+      targetContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      targetContainer.classList.add('payment-highlight');
+      setTimeout(() => targetContainer.classList.remove('payment-highlight'), PAYPAL_HIGHLIGHT_DURATION_MS);
     }
     
     // Form validation
@@ -754,7 +814,7 @@
       }).join('');
       
       // Calculate totals
-      const subtotal = cart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
+      const subtotal = calculateCartTotal();
       const total = subtotal;
       
       orderSubtotal.textContent = `€${subtotal.toFixed(2)}`;
