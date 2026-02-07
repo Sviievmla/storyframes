@@ -793,14 +793,14 @@
         label: 'paypal'
       });
       
-      const cardEligible = renderPayPalButton(total, 'card-button-container', paypal.FUNDING.CARD, {
+      const isCardFundingEligible = renderPayPalButton(total, 'card-button-container', paypal.FUNDING.CARD, {
         layout: 'vertical',
         color: 'black',
         shape: 'rect',
         label: 'pay'
       });
       
-      if (!cardEligible) {
+      if (!isCardFundingEligible) {
         const cardOption = document.getElementById('card-option');
         if (cardOption) {
           cardOption.style.display = 'none';
