@@ -1,13 +1,54 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const API_BASE = "https://storyframes-backend-1.onrender.com";
 
-export default function PayPalCheckout({ productId = 1, clientId = "YOUR_CLIENT_ID" }) {
+export default function PayPalCheckout({
+  productId = 1,
+  clientId = "YOUR_CLIENT_ID",
+  apiBase = API_BASE,
+  onSuccess,
+  onError
+}) {
   const [loaded, setLoaded] = useState(false);
 
+  const handleError = useCallback(
+    (message) => {
+      if (onError) {
+        onError(message);
+        return;
+      }
+      alert(message);
+    },
+    [onError]
+  );
+
+  const handleSuccess = useCallback(
+    (status) => {
+      if (onSuccess) {
+        onSuccess(status);
+        return;
+      }
+      alert("Payment status: " + status);
+    },
+    [onSuccess]
+  );
+
   useEffect(() => {
+    if (!clientId || clientId === "YOUR_CLIENT_ID") {
+      handleError("PayPal client ID is missing.");
+      return;
+    }
     setLoaded(false);
+    const existingScript = document.querySelector(
+      `script[data-paypal-sdk="true"][data-client-id="${clientId}"]`
+    );
+    if (existingScript) {
+      setLoaded(true);
+      return;
+    }
     const script = document.createElement("script");
+    script.dataset.paypalSdk = "true";
+    script.dataset.clientId = clientId;
     script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}&currency=USD`;
     script.onload = () => setLoaded(true);
     document.body.appendChild(script);
@@ -17,16 +58,19 @@ export default function PayPalCheckout({ productId = 1, clientId = "YOUR_CLIENT_
         document.body.removeChild(script);
       }
     };
-  }, [clientId]);
+  }, [clientId, handleError]);
 
   useEffect(() => {
     if (!loaded || !window.paypal) return;
+    const container = document.querySelector("#paypal-button-container");
+    if (!container) return;
 
+    container.innerHTML = "";
     window.paypal
       .Buttons({
         createOrder: async () => {
           try {
-            const res = await fetch(`${API_BASE}/pay/paypal?product_id=${productId}`, {
+            const res = await fetch(`${apiBase}/pay/paypal?product_id=${productId}`, {
               method: "POST"
             });
             if (!res.ok) {
@@ -41,13 +85,13 @@ export default function PayPalCheckout({ productId = 1, clientId = "YOUR_CLIENT_
           } catch (error) {
             const message =
               error instanceof Error ? error.message : "Failed to create PayPal order.";
-            alert(message);
+            handleError(message);
             throw error;
           }
         },
         onApprove: async (data) => {
           try {
-            const res = await fetch(`${API_BASE}/pay/paypal/capture?order_id=${data.orderID}`, {
+            const res = await fetch(`${apiBase}/pay/paypal/capture?order_id=${data.orderID}`, {
               method: "POST"
             });
             if (!res.ok) {
@@ -55,16 +99,20 @@ export default function PayPalCheckout({ productId = 1, clientId = "YOUR_CLIENT_
               throw new Error(message || "Failed to capture PayPal order.");
             }
             const capture = await res.json();
-            alert("Payment status: " + capture.status);
+            handleSuccess(capture.status);
           } catch (error) {
             const message =
               error instanceof Error ? error.message : "Failed to capture PayPal order.";
-            alert(message);
+            handleError(message);
           }
         }
       })
-      .render("#paypal-button-container");
-  }, [loaded, productId]);
+      .render(container);
+
+    return () => {
+      container.innerHTML = "";
+    };
+  }, [apiBase, handleError, handleSuccess, loaded, productId]);
 
   return <div id="paypal-button-container"></div>;
 }
