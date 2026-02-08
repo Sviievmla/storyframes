@@ -16,7 +16,7 @@ A modern e-commerce platform for personalized photo gifts with integrated PayPal
 
 ### Prerequisites
 
-- Node.js (v14.0.0 or higher)
+- Node.js (v18.17.0 or higher)
 - npm or yarn
 - PayPal Business Account (for payment processing)
 
@@ -54,6 +54,13 @@ A modern e-commerce platform for personalized photo gifts with integrated PayPal
    ```
    
    The server will start on http://localhost:3000
+
+5. **Optional: run the Next.js app router checkout page**
+   ```bash
+   npm run dev:next
+   ```
+   
+   The Next.js app will start on http://localhost:3000
 
 5. **Open the website**
    
