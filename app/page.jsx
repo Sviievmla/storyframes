@@ -29,7 +29,9 @@ export default function Page() {
 
     return () => {
       isMounted = false;
-      script.remove();
+      if (script.parentNode) {
+        script.parentNode.removeChild(script);
+      }
     };
   }, []);
 
@@ -61,7 +63,8 @@ export default function Page() {
             alert("Payment status: " + capture.status);
           } catch (error) {
             console.error("Capture error:", error);
-            alert("Payment error. Please try again.");
+            const message = error instanceof Error ? error.message : "Payment error. Please try again.";
+            alert(message);
           }
         }
       })
