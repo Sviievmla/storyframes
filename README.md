@@ -52,12 +52,20 @@ A modern e-commerce platform for personalized photo gifts with integrated PayPal
    ```bash
    npm start
    ```
-   
+    
    The server will start on http://localhost:3000
 
 5. **Open the website**
-   
+    
    Open http://localhost:3000 in your browser
+
+### FastAPI Backend (Python)
+
+Install the Python dependencies and start the FastAPI server:
+```bash
+python -m pip install -r requirements.txt
+uvicorn main:app --reload
+```
 
 ## 🔑 PayPal Configuration
 
