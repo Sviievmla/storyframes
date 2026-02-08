@@ -62,7 +62,7 @@ A modern e-commerce platform for personalized photo gifts with integrated PayPal
    
    The Next.js app will start on http://localhost:3000
 
-5. **Open the website**
+6. **Open the website**
    
    Open http://localhost:3000 in your browser
 
