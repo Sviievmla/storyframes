@@ -52,10 +52,10 @@
   
   <style>
     .checkout-container {
-      max-width: 900px;
+      max-width: 1000px;
       margin: 20px auto;
       display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
+      grid-template-columns: 0.9fr 1.1fr;
       gap: 20px;
       align-items: start;
     }
@@ -344,9 +344,67 @@
       word-break: break-all;
     }
     
+    /* Sticky payment section */
+    .payment-sidebar {
+      position: sticky;
+      top: 20px;
+      max-height: calc(100vh - 40px);
+      overflow-y: auto;
+    }
+    
+    /* Trust badges */
+    .trust-badges {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+      padding: 16px;
+      background: rgba(76, 175, 80, 0.08);
+      border: 1px solid rgba(76, 175, 80, 0.3);
+      border-radius: 14px;
+      font-size: 13px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    .trust-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text);
+      font-weight: 600;
+    }
+    
+    .payment-cta-hero {
+      background: linear-gradient(135deg, rgba(255,77,125,.15) 0%, rgba(255,77,125,.05) 100%);
+      border: 2px solid rgba(255,77,125,.4);
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+    
+    .payment-cta-hero h3 {
+      margin: 0 0 8px;
+      font-size: 20px;
+      color: var(--rose);
+    }
+    
+    .payment-cta-hero p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    
     @media (max-width: 920px) {
       .checkout-container {
         grid-template-columns: 1fr;
+      }
+      
+      .payment-sidebar {
+        position: relative;
+        top: 0;
+        max-height: none;
+        order: -1; /* Show payment section first on mobile */
       }
     }
   </style>
@@ -400,57 +458,14 @@
     </div>
 
     <div id="checkoutContainer" class="checkout-container">
-      <!-- Customer Details Form -->
-      <div class="checkout-section">
-        <h2 data-i18n="customer_details">Customer Details</h2>
-        <form id="checkout-form">
-          <div class="form-group">
-            <label for="fullName" data-i18n="full_name">Full Name</label>
-            <input type="text" id="fullName" required>
-          </div>
-          
-          <div class="form-group">
-            <label for="email" data-i18n="email">Email Address</label>
-            <input type="email" id="email" required>
-          </div>
-          
-          <div class="form-group">
-            <label for="phone" data-i18n="phone">Phone Number</label>
-            <input type="tel" id="phone" required>
-          </div>
-          
-          <div class="form-group">
-            <label for="address" data-i18n="address">Shipping Address</label>
-            <input type="text" id="address" required>
-          </div>
-          
-          <div class="form-group">
-            <label for="city" data-i18n="city">City</label>
-            <input type="text" id="city" required>
-          </div>
-          
-          <div class="form-group">
-            <label for="postalCode" data-i18n="postal_code">Postal Code</label>
-            <input type="text" id="postalCode">
-          </div>
-          
-          <div class="form-group">
-            <label for="country" data-i18n="country">Country</label>
-            <select id="country" required>
-              <option value="BG">Bulgaria</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
-          
-          <div class="form-group">
-            <label for="notes" data-i18n="order_notes">Order Notes (Optional)</label>
-            <textarea id="notes" data-i18n="order_notes_placeholder" placeholder="Special instructions, delivery preferences, etc."></textarea>
-          </div>
-        </form>
-      </div>
-
-      <!-- Order Summary -->
-      <div class="checkout-section">
+      <!-- Payment Sidebar - Now First/Right Column -->
+      <div class="checkout-section payment-sidebar">
+        <!-- CTA Hero Section -->
+        <div class="payment-cta-hero">
+          <h3 data-i18n="secure_checkout">🔒 Сигурно плащане</h3>
+          <p data-i18n="trusted_by_customers">Над 500+ доволни клиенти</p>
+        </div>
+        
         <h2 data-i18n="order_summary">Order Summary</h2>
         <div id="orderItems"></div>
         
@@ -465,8 +480,24 @@
           </div>
         </div>
         
+        <!-- Trust Badges -->
+        <div class="trust-badges">
+          <div class="trust-badge">
+            <span>🔒</span>
+            <span data-i18n="ssl_secure">SSL Сигурност</span>
+          </div>
+          <div class="trust-badge">
+            <span>✅</span>
+            <span data-i18n="money_back">Гаранция</span>
+          </div>
+          <div class="trust-badge">
+            <span>⚡</span>
+            <span data-i18n="fast_delivery">Бърза доставка</span>
+          </div>
+        </div>
+        
         <div class="payment-buttons">
-          <h3 style="font-size:18px;margin:0 0 16px;" data-i18n="payment_method">Payment Method</h3>
+          <h3 style="font-size:18px;margin:20px 0 16px;" data-i18n="payment_method">Payment Method</h3>
           
           <!-- Payment Method Selector -->
           <div class="payment-method-selector">
@@ -520,6 +551,55 @@
             </div>
           </div>
         </div>
+      </div>
+
+      <!-- Customer Details Form - Now Second/Left Column -->
+      <div class="checkout-section">
+        <h2 data-i18n="customer_details">Customer Details</h2>
+        <form id="checkout-form">
+          <div class="form-group">
+            <label for="fullName" data-i18n="full_name">Full Name</label>
+            <input type="text" id="fullName" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="email" data-i18n="email">Email Address</label>
+            <input type="email" id="email" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="phone" data-i18n="phone">Phone Number</label>
+            <input type="tel" id="phone" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="address" data-i18n="address">Shipping Address</label>
+            <input type="text" id="address" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="city" data-i18n="city">City</label>
+            <input type="text" id="city" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="postalCode" data-i18n="postal_code">Postal Code</label>
+            <input type="text" id="postalCode">
+          </div>
+          
+          <div class="form-group">
+            <label for="country" data-i18n="country">Country</label>
+            <select id="country" required>
+              <option value="BG">Bulgaria</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="notes" data-i18n="order_notes">Order Notes (Optional)</label>
+            <textarea id="notes" data-i18n="order_notes_placeholder" placeholder="Special instructions, delivery preferences, etc."></textarea>
+          </div>
+        </form>
       </div>
     </div>
   </div>
@@ -881,41 +961,60 @@
       const buttonConfig = {
         fundingSource: fundingSource,
         style: style,
-        createOrder: function(data, actions) {
+        createOrder: async function(data, actions) {
           // Validate form before creating order
           if (!validateForm()) {
             return Promise.reject(new Error('Please fill in all required fields'));
           }
           
-          return actions.order.create({
-            purchase_units: [{
-              description: 'Story Frames Order',
-              amount: {
-                currency_code: 'EUR',
-                value: total.toFixed(2),
-                breakdown: {
-                  item_total: {
-                    currency_code: 'EUR',
-                    value: total.toFixed(2)
-                  }
-                }
+          // Call backend API to create order
+          try {
+            const response = await fetch('/api/paypal/create-order', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
               },
-              items: cart.map(item => ({
-                name: item.name,
-                unit_amount: {
-                  currency_code: 'EUR',
-                  value: item.price.toFixed(2)
-                },
-                quantity: String(item.quantity || 1)
-              }))
-            }]
-          });
+              body: JSON.stringify({
+                cart: cart,
+                total: total
+              })
+            });
+            
+            if (!response.ok) {
+              const error = await response.json();
+              throw new Error(error.error || 'Failed to create order');
+            }
+            
+            const orderData = await response.json();
+            return orderData.orderID;
+          } catch (error) {
+            console.error('Create order error:', error);
+            alert('Failed to create order. Please try again or contact support.');
+            throw error;
+          }
         },
         
-        onApprove: function(data, actions) {
+        onApprove: async function(data, actions) {
           showLoading();
           
-          return actions.order.capture().then(function(details) {
+          try {
+            // Call backend API to capture order
+            const response = await fetch('/api/paypal/capture-order', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                orderID: data.orderID
+              })
+            });
+            
+            if (!response.ok) {
+              const error = await response.json();
+              throw new Error(error.error || 'Failed to capture payment');
+            }
+            
+            const details = await response.json();
             hideLoading();
             
             const customerInfo = getCustomerInfo();
@@ -926,7 +1025,11 @@
             
             // Show success modal
             showSuccessModal(details.id);
-          });
+          } catch (error) {
+            hideLoading();
+            console.error('Capture order error:', error);
+            alert('Payment capture failed. Please contact support with order ID: ' + data.orderID);
+          }
         },
         
         onError: function(err) {
