@@ -42,7 +42,7 @@ A modern e-commerce platform for personalized photo gifts with integrated PayPal
    
    Edit `.env` and add your PayPal credentials:
    ```env
-   PAYPAL_CLIENT_ID=your_sandbox_client_id_here
+   PAYPAL_CLIENT_ID=AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUed2TK-uhjVCt_b
    PAYPAL_CLIENT_SECRET=your_sandbox_client_secret_here
    PAYPAL_API_BASE=https://api-m.sandbox.paypal.com
    PORT=3000
