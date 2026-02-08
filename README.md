@@ -16,7 +16,7 @@ A modern e-commerce platform for personalized photo gifts with integrated PayPal
 
 ### Prerequisites
 
-- Node.js (v14.0.0 or higher)
+- Node.js (v18.17.0 or higher)
 - npm or yarn
 - PayPal Business Account (for payment processing)
 
