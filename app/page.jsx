@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 
 const API_BASE = "https://storyframes-backend-1.onrender.com";
 const PAYPAL_CLIENT_ID = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID;
+const PAYPAL_CURRENCY = process.env.NEXT_PUBLIC_PAYPAL_CURRENCY || "USD";
+const PAYPAL_PRODUCT_ID = process.env.NEXT_PUBLIC_PAYPAL_PRODUCT_ID || "1";
 
 export default function Page() {
   const [loaded, setLoaded] = useState(false);
@@ -14,7 +16,7 @@ export default function Page() {
       return;
     }
     const script = document.createElement("script");
-    script.src = `https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}&currency=USD`;
+    script.src = `https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}&currency=${PAYPAL_CURRENCY}`;
     script.onload = () => setLoaded(true);
     document.body.appendChild(script);
   }, []);
@@ -26,7 +28,7 @@ export default function Page() {
       .Buttons({
         createOrder: async () => {
           try {
-            const res = await fetch(`${API_BASE}/pay/paypal?product_id=1`, { method: "POST" });
+            const res = await fetch(`${API_BASE}/pay/paypal?product_id=${PAYPAL_PRODUCT_ID}`, { method: "POST" });
             if (!res.ok) {
               throw new Error("Failed to create PayPal order");
             }

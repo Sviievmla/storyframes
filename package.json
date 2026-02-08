@@ -6,9 +6,9 @@
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js",
-    "dev:next": "next dev",
+    "dev:next": "next dev -p 3001",
     "build:next": "next build",
-    "start:next": "next start"
+    "start:next": "next start -p 3001"
   },
   "keywords": ["paypal", "checkout", "express"],
   "author": "Story Frames",
