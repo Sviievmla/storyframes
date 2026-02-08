@@ -1,10 +1,13 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
-const API_BASE = "https://storyframes-backend-1.onrender.com";
+const API_BASE =
+  process.env.REACT_APP_API_BASE || "https://storyframes-backend-1.onrender.com";
+const DEFAULT_CLIENT_ID =
+  process.env.REACT_APP_PAYPAL_CLIENT_ID || "YOUR_CLIENT_ID";
 
 export default function PayPalCheckout({
   productId = 1,
-  clientId = "YOUR_CLIENT_ID",
+  clientId = DEFAULT_CLIENT_ID,
   apiBase = API_BASE,
   onSuccess,
   onError
