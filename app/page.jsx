@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-const API_BASE = "https://storyframes-backend-1.onrender.com";
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://storyframes-backend-1.onrender.com";
 const PAYPAL_CLIENT_ID = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID;
 const PAYPAL_CURRENCY = process.env.NEXT_PUBLIC_PAYPAL_CURRENCY || "USD";
 const PAYPAL_PRODUCT_ID = process.env.NEXT_PUBLIC_PAYPAL_PRODUCT_ID || "1";
@@ -19,6 +19,10 @@ export default function Page() {
     script.src = `https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}&currency=${PAYPAL_CURRENCY}`;
     script.onload = () => setLoaded(true);
     document.body.appendChild(script);
+
+    return () => {
+      script.remove();
+    };
   }, []);
 
   useEffect(() => {

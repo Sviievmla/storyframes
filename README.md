@@ -64,6 +64,7 @@ A modern e-commerce platform for personalized photo gifts with integrated PayPal
 
    Optional environment variables for the Next.js checkout page:
    ```env
+   NEXT_PUBLIC_API_BASE=https://storyframes-backend-1.onrender.com
    NEXT_PUBLIC_PAYPAL_CLIENT_ID=your_client_id
    NEXT_PUBLIC_PAYPAL_CURRENCY=USD
    NEXT_PUBLIC_PAYPAL_PRODUCT_ID=1
