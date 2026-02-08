@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "name": "Video Ball",
+    "price": 39.0
+  },
+  {
+    "id": 2,
+    "name": "Premium Frame",
+    "price": 49.99
+  },
+  {
+    "id": 3,
+    "name": "Digital Card",
+    "price": 29.0
+  }
+]
