@@ -15,12 +15,20 @@ export default function Page() {
       console.warn("Missing NEXT_PUBLIC_PAYPAL_CLIENT_ID");
       return;
     }
+    let isMounted = true;
     const script = document.createElement("script");
-    script.src = `https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}&currency=${PAYPAL_CURRENCY}`;
-    script.onload = () => setLoaded(true);
+    script.src = `https://www.paypal.com/sdk/js?client-id=${encodeURIComponent(
+      PAYPAL_CLIENT_ID
+    )}&currency=${encodeURIComponent(PAYPAL_CURRENCY)}`;
+    script.onload = () => {
+      if (isMounted) {
+        setLoaded(true);
+      }
+    };
     document.body.appendChild(script);
 
     return () => {
+      isMounted = false;
       script.remove();
     };
   }, []);
