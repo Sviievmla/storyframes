@@ -1,36 +1,32 @@
-try:
-    from fastapi import Body, FastAPI, HTTPException
-except ModuleNotFoundError:
-    def Body(default=..., **_kwargs):
-        return None if default is ... else default
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
 
-    class HTTPException(Exception):
-        def __init__(self, status_code: int, detail: str):
-            super().__init__(detail)
-            self.status_code = status_code
-            self.detail = detail
-
-    class FastAPI:
-        def __init__(self):
-            self.routes = {}
-
-        def post(self, path):
-            def decorator(func):
-                self.routes[path] = func
-                return func
-
-            return decorator
-
+from paypal_pay import capture_paypal_order, create_paypal_order
 
 app = FastAPI()
 
 
-def capture_paypal_order(order_id: str):
-    if not order_id or not order_id.strip():
-        raise HTTPException(status_code=400, detail="Order ID is required")
-    return {"order_id": order_id}
+class CreateOrderRequest(BaseModel):
+    product_id: int
 
 
-@app.post("/pay/paypal/capture")
-def paypal_capture(order_id: str = Body(..., embed=True)):
-    return capture_paypal_order(order_id)
+class CaptureOrderRequest(BaseModel):
+    order_id: str
+
+
+@app.post("/api/paypal/create-order")
+def create_order(payload: CreateOrderRequest):
+    try:
+        return create_paypal_order(payload.product_id)
+    except StopIteration as exc:
+        raise HTTPException(status_code=404, detail="Product not found") from exc
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
+
+
+@app.post("/api/paypal/capture-order")
+def capture_order(payload: CaptureOrderRequest):
+    try:
+        return capture_paypal_order(payload.order_id)
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
