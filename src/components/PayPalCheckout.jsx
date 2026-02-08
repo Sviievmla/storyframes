@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const API_BASE = "https://storyframes-backend-1.onrender.com";
 
@@ -10,6 +10,7 @@ export default function PayPalCheckout({
   onError
 }) {
   const [loaded, setLoaded] = useState(false);
+  const containerRef = useRef(null);
 
   const handleError = useCallback(
     (message) => {
@@ -35,7 +36,7 @@ export default function PayPalCheckout({
 
   useEffect(() => {
     if (!clientId || clientId === "YOUR_CLIENT_ID") {
-      handleError("PayPal client ID is missing.");
+      handleError("PayPal client ID is missing or invalid.");
       return;
     }
     setLoaded(false);
@@ -62,7 +63,7 @@ export default function PayPalCheckout({
 
   useEffect(() => {
     if (!loaded || !window.paypal) return;
-    const container = document.querySelector("#paypal-button-container");
+    const container = containerRef.current;
     if (!container) return;
 
     container.innerHTML = "";
@@ -70,7 +71,8 @@ export default function PayPalCheckout({
       .Buttons({
         createOrder: async () => {
           try {
-            const res = await fetch(`${apiBase}/pay/paypal?product_id=${productId}`, {
+            const orderParams = new URLSearchParams({ product_id: String(productId) });
+            const res = await fetch(`${apiBase}/pay/paypal?${orderParams.toString()}`, {
               method: "POST"
             });
             if (!res.ok) {
@@ -91,7 +93,8 @@ export default function PayPalCheckout({
         },
         onApprove: async (data) => {
           try {
-            const res = await fetch(`${apiBase}/pay/paypal/capture?order_id=${data.orderID}`, {
+            const captureParams = new URLSearchParams({ order_id: String(data.orderID) });
+            const res = await fetch(`${apiBase}/pay/paypal/capture?${captureParams.toString()}`, {
               method: "POST"
             });
             if (!res.ok) {
@@ -114,5 +117,5 @@ export default function PayPalCheckout({
     };
   }, [apiBase, handleError, handleSuccess, loaded, productId]);
 
-  return <div id="paypal-button-container"></div>;
+  return <div ref={containerRef}></div>;
 }
