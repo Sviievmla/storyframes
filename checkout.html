@@ -678,6 +678,13 @@
     let isProcessing = false;
     const PAYPAL_HIGHLIGHT_DURATION_MS = 2000;
     
+    // Backend API URL configuration
+    // For local development: const API_BASE_URL = 'http://localhost:3000';
+    // For production: Set window.BACKEND_URL in a script tag before this script
+    // or update this line directly with your Render backend URL
+    // Example: const API_BASE_URL = 'https://storyframes-backend.onrender.com';
+    const API_BASE_URL = window.BACKEND_URL || '';
+    
     // Helper function to generate order IDs
     function generateOrderId(prefix) {
       return prefix + '-' + Date.now() + '-' + Math.random().toString(36).substring(2, 11).toUpperCase();
@@ -969,7 +976,7 @@
           
           // Call backend API to create order
           try {
-            const response = await fetch('/api/paypal/create-order', {
+            const response = await fetch(`${API_BASE_URL}/api/paypal/create-order`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'
@@ -999,7 +1006,7 @@
           
           try {
             // Call backend API to capture order
-            const response = await fetch('/api/paypal/capture-order', {
+            const response = await fetch(`${API_BASE_URL}/api/paypal/capture-order`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'
