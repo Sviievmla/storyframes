@@ -1101,6 +1101,10 @@
     
     // Initialize
     displayCheckout();
+    // Initialize payment method visibility
+    if (cart.length > 0) {
+      selectPaymentMethod('paypal');
+    }
   </script>
 </body>
 </html>
