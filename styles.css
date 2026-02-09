@@ -626,21 +626,25 @@ footer a:hover{color:var(--text)}
 .cart-icon {
   position: relative;
   cursor: pointer;
-  padding: 8px 12px;
-  border-radius: 12px;
-  border: 1px solid var(--line);
-  background: rgba(255,255,255,.04);
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,77,125,.4);
+  background: linear-gradient(180deg, rgba(255,77,125,.18), rgba(255,255,255,.05));
+  box-shadow: 0 6px 16px rgba(255,77,125,.2);
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   font-weight: 900;
   text-decoration: none;
   color: var(--text);
+  transition: all 0.2s ease;
 }
 
 .cart-icon:hover {
-  background: rgba(255,255,255,.08);
-  border-color: rgba(255,77,125,.35);
+  background: linear-gradient(180deg, rgba(255,77,125,.28), rgba(255,255,255,.08));
+  border-color: rgba(255,77,125,.6);
+  box-shadow: 0 10px 22px rgba(255,77,125,.28);
+  transform: translateY(-1px);
 }
 
 .cart-badge {
