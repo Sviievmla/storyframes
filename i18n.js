@@ -6,13 +6,12 @@ const translations = {
     nav_products: "Products",
     nav_gallery: "Gallery",
     nav_service: "Service",
-    nav_about: "About us",
     cart: "Cart",
     tagline: "Crafting stories from photos",
     
     // Hero Section
-    hero_title: "Gifts that tell a story.",
-    hero_text: "Digital frames and cards with photos, video, and music—created for memories that last.",
+    hero_title: "Personalized gifts that come to life.",
+    hero_text: "Send us a photo — we transform it into a short video and embed it into your chosen product. A moving memory that feels premium, personal, and unforgettable.",
     cta_products: "View products",
     cta_email: "Order by email",
     cta_fb: "Message on Facebook",
@@ -25,7 +24,6 @@ const translations = {
     
     // Products Section
     products_title: "Products",
-    featured_title: "Popular products",
     p1_title: "Video Ball",
     p1_desc: "A modern spherical display with your animated memory inside.",
     p2_title: "Premium Frame",
@@ -112,13 +110,12 @@ const translations = {
     nav_products: "Продукти",
     nav_gallery: "Галерия",
     nav_service: "Услуги",
-    nav_about: "За нас",
     cart: "Количка",
     tagline: "Създаваме истории от снимки",
     
     // Hero Section
-    hero_title: "Подаръци, които разказват история.",
-    hero_text: "Дигитални рамки и картички със снимки, видео и музика — създадени за спомени, които остават.",
+    hero_title: "Персонализирани подаръци, които оживяват.",
+    hero_text: "Изпратете ни снимка — ние я превръщаме в кратко видео и я вграждаме в избрания от вас продукт. Движеща се спомена, която е премиум, лична и незабравима.",
     cta_products: "Виж продуктите",
     cta_email: "Поръчай по имейл",
     cta_fb: "Съобщение във Facebook",
@@ -131,7 +128,6 @@ const translations = {
     
     // Products Section
     products_title: "Продукти",
-    featured_title: "Най-популярни продукти",
     p1_title: "Видео топка",
     p1_desc: "Модерен сферичен дисплей с вашата анимирана спомена вътре.",
     p2_title: "Премиум рамка",
@@ -172,4 +168,124 @@ const translations = {
     checkout_btn: "Продължи към плащане",
     continue_shopping: "Продължи пазаруването",
     card_payment_note: "💳 PayPal приема също кредитни и дебитни карти",
-    cod_info_text: "Наложен платеж е достъпен само за поръчки в България. Ще се свържем с вас за потвърд...
+    cod_info_text: "Наложен платеж е достъпен само за поръчки в България. Ще се свържем с вас за потвърждение на детайлите за доставка.",
+    
+    // Product Details Pages
+    back_home: "Обратно към начало",
+    buy_cod: "Наложен платеж в България",
+    buy_cod_checkout: "ПОРЪЧАЙ (Наложен платеж България)",
+    what_you_get: '<b>Какво получавате:</b><br>• Вашата снимка става кратка „магическа" видео история<br>• Личен, емоционален, премиум подарък<br>• Перфектен за рождени дни, годишнини, изненади',
+    
+    // Checkout Page
+    checkout_title: "Плащане",
+    checkout_subtitle: "Завършете поръчката си",
+    customer_details: "Данни на клиента",
+    full_name: "Пълно име",
+    email: "Имейл адрес",
+    phone: "Телефонен номер",
+    address: "Адрес за доставка",
+    city: "Град",
+    postal_code: "Пощенски код",
+    country: "Държава",
+    order_summary: "Обобщение на поръчката",
+    order_notes: "Бележки към поръчката (по избор)",
+    order_notes_placeholder: "Специални инструкции, предпочитания за доставка и др.",
+    payment_method: "Метод на плащане",
+    pay_now: "Плати",
+    place_order: "Направи поръчка",
+    required_field: "Това поле е задължително",
+    invalid_email: "Моля, въведете валиден имейл адрес",
+    paypal_desc: "Сигурно плащане чрез PayPal или кредитна/дебитна карта",
+    card_desc: "Платете сигурно с карта чрез PayPal",
+    cod_desc: "Платете при получаване на поръчката",
+    order_success: "Поръчката е успешна!",
+    order_success_message: "Благодарим ви за поръчката. Получихме плащането ви и скоро ще започнем обработката на поръчката.",
+    
+    // Trust badges
+    secure_checkout: "🔒 Сигурно плащане",
+    trusted_by_customers: "Над 500+ доволни клиенти",
+    ssl_secure: "SSL Сигурност",
+    money_back: "Гаранция",
+    fast_delivery: "Бърза доставка"
+  }
+};
+
+// Initialize i18n system
+(function() {
+  // Get saved language or default to English
+  let currentLang = localStorage.getItem('storyframes_lang') || 'en';
+  
+  // Function to apply translations
+  function applyTranslations(lang) {
+    currentLang = lang;
+    localStorage.setItem('storyframes_lang', lang);
+    document.documentElement.setAttribute('lang', lang);
+    
+    // Update all elements with data-i18n attribute
+    document.querySelectorAll('[data-i18n]').forEach(element => {
+      const key = element.getAttribute('data-i18n');
+      if (translations[lang] && translations[lang][key]) {
+        // Check if element has placeholder attribute
+        if (element.hasAttribute('placeholder')) {
+          element.setAttribute('placeholder', translations[lang][key]);
+        } else {
+          element.innerHTML = translations[lang][key];
+        }
+      }
+    });
+    
+    // Update active language button
+    document.querySelectorAll('.langbtn').forEach(btn => {
+      if (btn.getAttribute('data-lang') === lang) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+    
+    // Update HTML lang attribute
+    document.documentElement.lang = lang;
+    
+    // Dispatch custom event for other scripts to listen to
+    window.dispatchEvent(new CustomEvent('languageChanged', { detail: { lang: lang } }));
+  }
+  
+  // Initialize translations when DOM is ready
+  function initTranslations() {
+    // Apply saved language
+    applyTranslations(currentLang);
+    
+    // Add click handlers to language buttons
+    document.querySelectorAll('.langbtn').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const lang = this.getAttribute('data-lang');
+        if (lang && (lang === 'en' || lang === 'bg')) {
+          applyTranslations(lang);
+        }
+      });
+    });
+  }
+  
+  // Run initialization - ensure it runs after DOM is fully loaded
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTranslations);
+  } else {
+    // DOM already loaded, run immediately
+    initTranslations();
+  }
+  
+  // Export for use in other scripts
+  window.i18n = {
+    t: function(key) {
+      return translations[currentLang][key] || key;
+    },
+    getCurrentLang: function() {
+      return currentLang;
+    },
+    setLang: function(lang) {
+      applyTranslations(lang);
+    }
+  };
+})();
