@@ -27,7 +27,16 @@ const PAYPAL_WEBHOOK_ID = process.env.PAYPAL_WEBHOOK_ID;
 
 // Security: Helmet middleware
 app.use(helmet({
-  contentSecurityPolicy: false, // Allow PayPal SDK
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "https://www.paypal.com"],
+      frameSrc: ["'self'", "https://www.paypal.com"],
+      connectSrc: ["'self'", "https://www.paypal.com", "https://api-m.paypal.com"],
+      imgSrc: ["'self'", "data:", "https:"],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+    }
+  },
   crossOriginEmbedderPolicy: false
 }));
 
@@ -82,8 +91,12 @@ const strictLimiter = rateLimit({
 app.use('/api/', limiter);
 
 // Serve static files only in development
+// SECURITY: This is disabled in production (NODE_ENV=production) to prevent exposure of sensitive files
+// CodeQL Alert: Acknowledged - Static file serving is intentionally limited to development only
+// Production deployment on Render will have NODE_ENV=production, disabling this feature
 if (!IS_PRODUCTION) {
   app.use(express.static('.'));
+  logger.warn('Static file serving enabled (development mode only)');
 }
 
 // Request logging
