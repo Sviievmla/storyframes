@@ -1,5 +1,4 @@
 const nodemailer = require('nodemailer');
-const logger = require('./logger');
 
 // Email configuration
 const EMAIL_CONFIG = {
@@ -17,36 +16,48 @@ const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'Sviievmla@gmail.com';
 
 let transporter = null;
 let isConfiguredFlag = false;
+let initAttempted = false;
 
 /**
- * Initialize email transporter
+ * Initialize email transporter (lazy initialization)
  */
 function initializeTransporter() {
+  if (initAttempted) return;
+  initAttempted = true;
+
   if (!EMAIL_CONFIG.host || !EMAIL_CONFIG.auth.user || !EMAIL_CONFIG.auth.pass) {
-    logger.warn('Email service not configured - missing SMTP credentials');
+    console.log('Email service not configured - missing SMTP credentials');
     isConfiguredFlag = false;
     return;
   }
 
   try {
-    transporter = nodemailer.createTransporter(EMAIL_CONFIG);
+    transporter = nodemailer.createTransport(EMAIL_CONFIG);
     isConfiguredFlag = true;
-    logger.info('Email service configured successfully');
+    console.log('Email service configured successfully');
   } catch (error) {
-    logger.error('Failed to configure email service', { error: error.message });
+    console.error('Failed to configure email service', error.message);
     isConfiguredFlag = false;
   }
 }
 
-// Initialize on load
-initializeTransporter();
+/**
+ * Ensure transporter is initialized
+ */
+function ensureInitialized() {
+  if (!initAttempted) {
+    initializeTransporter();
+  }
+}
 
 /**
  * Send order confirmation email to customer
  */
 async function sendOrderConfirmation(orderData) {
+  ensureInitialized();
+  
   if (!isConfiguredFlag) {
-    logger.warn('Email service not configured, skipping order confirmation');
+    console.log('Email service not configured, skipping order confirmation');
     return false;
   }
 
@@ -125,16 +136,10 @@ Thank you for shopping with Story Frames!
 
   try {
     await transporter.sendMail(mailOptions);
-    logger.info('Order confirmation email sent', { 
-      orderId, 
-      email: customerInfo.email 
-    });
+    console.log('Order confirmation email sent', orderId);
     return true;
   } catch (error) {
-    logger.error('Failed to send order confirmation email', { 
-      orderId, 
-      error: error.message 
-    });
+    console.error('Failed to send order confirmation email', orderId, error.message);
     return false;
   }
 }
@@ -143,8 +148,10 @@ Thank you for shopping with Story Frames!
  * Send admin notification email
  */
 async function sendAdminNotification(orderData) {
+  ensureInitialized();
+  
   if (!isConfiguredFlag) {
-    logger.warn('Email service not configured, skipping admin notification');
+    console.log('Email service not configured, skipping admin notification');
     return false;
   }
 
@@ -203,13 +210,10 @@ async function sendAdminNotification(orderData) {
 
   try {
     await transporter.sendMail(mailOptions);
-    logger.info('Admin notification email sent', { orderId });
+    console.log('Admin notification email sent', orderId);
     return true;
   } catch (error) {
-    logger.error('Failed to send admin notification email', { 
-      orderId, 
-      error: error.message 
-    });
+    console.error('Failed to send admin notification email', orderId, error.message);
     return false;
   }
 }
@@ -218,6 +222,8 @@ async function sendAdminNotification(orderData) {
  * Send payment failed notification
  */
 async function sendPaymentFailedNotification(data) {
+  ensureInitialized();
+  
   if (!isConfiguredFlag) {
     return false;
   }
@@ -238,13 +244,10 @@ async function sendPaymentFailedNotification(data) {
 
   try {
     await transporter.sendMail(mailOptions);
-    logger.info('Payment failed notification sent', { orderId });
+    console.log('Payment failed notification sent', orderId);
     return true;
   } catch (error) {
-    logger.error('Failed to send payment failed notification', { 
-      orderId, 
-      error: error.message 
-    });
+    console.error('Failed to send payment failed notification', orderId, error.message);
     return false;
   }
 }
@@ -253,6 +256,7 @@ async function sendPaymentFailedNotification(data) {
  * Check if email service is configured
  */
 function isConfigured() {
+  ensureInitialized();
   return isConfiguredFlag;
 }
 
