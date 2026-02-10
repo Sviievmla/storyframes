@@ -47,8 +47,29 @@
   
   <link rel="stylesheet" href="styles.css">
   <script defer src="i18n.js"></script>
-  <!-- PayPal SDK - supports both PayPal and card payments -->
-  <script src="https://www.paypal.com/sdk/js?client-id=AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUed2TK-uhjVCt_b&currency=EUR&intent=capture&enable-funding=card"></script>
+  
+  <!-- Backend Configuration -->
+  <script>
+    // Production Backend URL for Render deployment
+    // Update this with your actual Render backend URL or custom domain
+    // Examples:
+    // - Render default: https://storyframes-backend.onrender.com
+    // - Custom domain: https://api.mystoryframes.shop
+    // - Local development: http://localhost:10000
+    window.BACKEND_URL = 'https://storyframes-backend.onrender.com';
+    
+    // Note: Update this URL after deploying backend to Render
+    // See RENDER-DEPLOYMENT.md for deployment instructions
+  </script>
+  
+  <!-- PayPal SDK - PRODUCTION Configuration -->
+  <!-- IMPORTANT: Replace client-id with your LIVE PayPal Client ID -->
+  <!-- Get your LIVE credentials from: https://developer.paypal.com/dashboard/ -->
+  <!-- See PAYPAL-LIVE-SETUP.md for detailed instructions -->
+  <script src="https://www.paypal.com/sdk/js?client-id=YOUR_LIVE_PAYPAL_CLIENT_ID&currency=EUR&intent=capture&enable-funding=card"></script>
+  
+  <!-- For testing/sandbox (comment out for production): -->
+  <!-- <script src="https://www.paypal.com/sdk/js?client-id=AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUed2TK-uhjVCt_b&currency=EUR&intent=capture&enable-funding=card"></script> -->
   
   <style>
     .checkout-container {
@@ -679,11 +700,9 @@
     const PAYPAL_HIGHLIGHT_DURATION_MS = 2000;
     
     // Backend API URL configuration
-    // For local development: const API_BASE_URL = 'http://localhost:3000';
-    // For production: Set window.BACKEND_URL in a script tag before this script
-    // or update this line directly with your Render backend URL
-    // Example: const API_BASE_URL = 'https://storyframes-backend.onrender.com';
-    const API_BASE_URL = window.BACKEND_URL || '';
+    // This is set in the <head> section via window.BACKEND_URL
+    // Fallback to localhost for local development if not set
+    const API_BASE_URL = window.BACKEND_URL || 'http://localhost:10000';
     
     // Helper function to generate order IDs
     function generateOrderId(prefix) {
