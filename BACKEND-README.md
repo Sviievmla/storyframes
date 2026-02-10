@@ -155,8 +155,8 @@ EMAIL_PORT=587
 EMAIL_SECURE=false
 EMAIL_USER=your-email@gmail.com
 EMAIL_PASSWORD=your-app-password
-EMAIL_FROM=Story Frames <noreply@storyframes.com>
-EMAIL_TO=Sviievmla@gmail.com
+EMAIL_FROM=Story Frames <noreply@yourdomain.com>
+EMAIL_TO=orders@yourdomain.com
 ```
 
 ### Getting PayPal Credentials
