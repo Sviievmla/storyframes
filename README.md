@@ -59,13 +59,21 @@ A modern e-commerce platform for personalized photo gifts with integrated PayPal
     
    Open http://localhost:3000 in your browser
 
-### FastAPI Backend (Python)
+## 📧 Email Configuration (Optional)
 
-Install the Python dependencies and start the FastAPI server:
-```bash
-python -m pip install -r requirements.txt
-uvicorn main:app --reload
+For automated email notifications, add email settings to your `.env` file:
+
+```env
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_SECURE=false
+EMAIL_USER=your-email@gmail.com
+EMAIL_PASSWORD=your-app-password
+EMAIL_FROM=Story Frames <noreply@yourdomain.com>
+EMAIL_TO=orders@yourdomain.com
 ```
+
+See [BACKEND-README.md](./BACKEND-README.md) for detailed email configuration instructions.
 
 ## 🔑 PayPal Configuration
 
@@ -146,12 +154,29 @@ Creates a PayPal order for the cart items.
 
 ### POST `/api/paypal/capture-order`
 
-Captures (completes) a PayPal order after buyer approval.
+Captures (completes) a PayPal order after buyer approval and sends email notification.
 
 **Request Body:**
 ```json
 {
-  "orderID": "7XX123456Y7891234"
+  "orderID": "7XX123456Y7891234",
+  "customerInfo": {
+    "fullName": "John Doe",
+    "email": "john@example.com",
+    "phone": "+359123456789",
+    "address": "123 Main Street",
+    "city": "Sofia",
+    "postalCode": "1000",
+    "country": "Bulgaria",
+    "notes": "Please handle with care"
+  },
+  "cart": [
+    {
+      "name": "Video Ball",
+      "price": 59.99,
+      "quantity": 1
+    }
+  ]
 }
 ```
 
@@ -160,6 +185,7 @@ Captures (completes) a PayPal order after buyer approval.
 {
   "id": "7XX123456Y7891234",
   "status": "COMPLETED",
+  "emailSent": true,
   ...
 }
 ```
@@ -245,11 +271,29 @@ railway up
 
 ## 📧 Email Notifications
 
-Order confirmations are sent via `mailto:` links, which opens the user's email client with pre-filled order details. For production, consider integrating:
-- SendGrid
-- Mailgun
-- AWS SES
-- NodeMailer with SMTP
+Order confirmations are automatically sent via server-side email when properly configured. The backend uses NodeMailer to send:
+
+- Order confirmation to the store owner
+- Copy to the customer
+- Detailed transaction information
+
+### Configuration
+
+To enable email notifications, configure the email settings in your `.env` file:
+
+```env
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_SECURE=false
+EMAIL_USER=your-email@gmail.com
+EMAIL_PASSWORD=your-app-password
+EMAIL_FROM=Story Frames <noreply@yourdomain.com>
+EMAIL_TO=orders@yourdomain.com
+```
+
+For detailed setup instructions, see [BACKEND-README.md](./BACKEND-README.md).
+
+**Note**: Email configuration is optional. The checkout will work without it, but no automated emails will be sent.
 
 ## 🔒 Security Notes
 
@@ -331,9 +375,15 @@ For questions or support:
 
 - Database integration for order management
 - Admin dashboard for order tracking
-- Automated email notifications
-- Inventory management
+- Advanced inventory management
 - Discount codes and coupons
 - Multiple shipping options
 - Advanced analytics
 - Customer accounts
+
+---
+
+## 📚 Additional Documentation
+
+- [BACKEND-README.md](./BACKEND-README.md) - Detailed backend server documentation
+- [CHECKOUT-README.md](./CHECKOUT-README.md) - Checkout flow and payment integration details
