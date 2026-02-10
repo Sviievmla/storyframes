@@ -19,7 +19,7 @@ const EMAIL_SECURE = process.env.EMAIL_SECURE === 'true';
 const EMAIL_USER = process.env.EMAIL_USER;
 const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD;
 const EMAIL_FROM = process.env.EMAIL_FROM || 'Story Frames <noreply@storyframes.com>';
-const EMAIL_TO = process.env.EMAIL_TO || 'Sviievmla@gmail.com';
+const EMAIL_TO = process.env.EMAIL_TO;
 
 // Middleware
 app.use(cors());
@@ -35,7 +35,7 @@ if (!PAYPAL_CLIENT_ID || !PAYPAL_CLIENT_SECRET) {
 
 // Create email transporter (configured but may not be required for all deployments)
 let emailTransporter = null;
-if (EMAIL_HOST && EMAIL_USER && EMAIL_PASSWORD) {
+if (EMAIL_HOST && EMAIL_USER && EMAIL_PASSWORD && EMAIL_TO) {
   emailTransporter = nodemailer.createTransport({
     host: EMAIL_HOST,
     port: EMAIL_PORT,
@@ -48,6 +48,9 @@ if (EMAIL_HOST && EMAIL_USER && EMAIL_PASSWORD) {
   console.log('Email notifications enabled');
 } else {
   console.warn('WARNING: Email configuration incomplete. Email notifications will be disabled.');
+  if (EMAIL_HOST || EMAIL_USER || EMAIL_PASSWORD) {
+    console.warn('Note: All email settings (EMAIL_HOST, EMAIL_USER, EMAIL_PASSWORD, EMAIL_TO) must be configured.');
+  }
 }
 
 /**
@@ -241,8 +244,8 @@ app.post('/api/paypal/capture-order', async (req, res) => {
         });
       }
 
-      // Validate email format
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      // Validate email format (comprehensive RFC-compliant pattern)
+      const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
       if (!emailRegex.test(customerInfo.email)) {
         return res.status(400).json({ error: 'Invalid email address' });
       }
