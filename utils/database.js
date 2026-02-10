@@ -5,7 +5,7 @@ const logger = require('./logger');
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
-  max: 20, // Maximum pool size
+  max: parseInt(process.env.DB_POOL_SIZE) || 10, // Connection pool size (configurable)
   idleTimeoutMillis: 30000,
   connectionTimeoutMillis: 2000,
 });

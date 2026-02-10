@@ -13,7 +13,7 @@ const database = require('./utils/database');
 const emailService = require('./utils/emailService');
 
 const app = express();
-const PORT = process.env.PORT || 10000; // Render's default port
+const PORT = process.env.PORT || 10000; // Default for local development, Render sets PORT via env
 
 // Environment configuration
 const NODE_ENV = process.env.NODE_ENV || 'development';
@@ -139,11 +139,18 @@ async function generateAccessToken() {
 
 /**
  * Verify PayPal webhook signature for security
+ * 
+ * SECURITY NOTE: This is a basic implementation that should be enhanced for production.
+ * For full webhook security, implement PayPal signature verification using their SDK
+ * or manually verify the signature against PayPal's certificate.
+ * 
+ * See: https://developer.paypal.com/docs/api-basics/notifications/webhooks/notification-messages/#link-verifysignature
  */
 function verifyWebhookSignature(req) {
   if (!PAYPAL_WEBHOOK_ID) {
     logger.warn('Webhook verification skipped - PAYPAL_WEBHOOK_ID not configured');
-    return true; // Skip verification if not configured
+    logger.warn('SECURITY WARNING: Webhook requests are not being verified');
+    return true; // Skip verification if not configured (NOT RECOMMENDED for production)
   }
 
   const transmissionId = req.headers['paypal-transmission-id'];
@@ -153,12 +160,18 @@ function verifyWebhookSignature(req) {
   const authAlgo = req.headers['paypal-auth-algo'];
   
   if (!transmissionId || !transmissionTime || !transmissionSig) {
+    logger.warn('Webhook missing required signature headers');
     return false;
   }
 
-  // In production, implement full webhook signature verification
-  // For now, basic check
-  return true;
+  // TODO: Implement full signature verification
+  // For production, use PayPal SDK or verify signature manually:
+  // 1. Get cert from certUrl
+  // 2. Build verification string (webhook_id|transmission_time|transmission_id|crc32(body))
+  // 3. Verify signature using public key from cert
+  
+  logger.warn('SECURITY WARNING: Webhook signature verification not fully implemented');
+  return true; // TEMPORARY - implement proper verification before production use
 }
 
 /**

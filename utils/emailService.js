@@ -11,8 +11,8 @@ const EMAIL_CONFIG = {
   }
 };
 
-const FROM_EMAIL = process.env.EMAIL_FROM || 'noreply@mystoryframes.shop';
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'Sviievmla@gmail.com';
+const FROM_EMAIL = process.env.EMAIL_FROM;
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
 
 let transporter = null;
 let isConfiguredFlag = false;
@@ -25,8 +25,15 @@ function initializeTransporter() {
   if (initAttempted) return;
   initAttempted = true;
 
+  // Require all email configuration
   if (!EMAIL_CONFIG.host || !EMAIL_CONFIG.auth.user || !EMAIL_CONFIG.auth.pass) {
     console.log('Email service not configured - missing SMTP credentials');
+    isConfiguredFlag = false;
+    return;
+  }
+
+  if (!FROM_EMAIL || !ADMIN_EMAIL) {
+    console.log('Email service not configured - missing EMAIL_FROM or ADMIN_EMAIL');
     isConfiguredFlag = false;
     return;
   }
