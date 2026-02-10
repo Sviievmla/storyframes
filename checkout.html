@@ -1005,6 +1005,9 @@
           showLoading();
           
           try {
+            // Get customer info before capture
+            const customerInfo = getCustomerInfo();
+            
             // Call backend API to capture order
             const response = await fetch(`${API_BASE_URL}/api/paypal/capture-order`, {
               method: 'POST',
@@ -1012,7 +1015,9 @@
                 'Content-Type': 'application/json'
               },
               body: JSON.stringify({
-                orderID: data.orderID
+                orderID: data.orderID,
+                customerInfo: customerInfo,
+                cart: cart
               })
             });
             
@@ -1024,8 +1029,8 @@
             const details = await response.json();
             hideLoading();
             
-            const customerInfo = getCustomerInfo();
-            sendOrderEmail(details, customerInfo);
+            // Email is now sent by backend
+            // sendOrderEmail(details, customerInfo);
             
             // Clear cart
             localStorage.removeItem('storyframesCart');
