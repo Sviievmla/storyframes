@@ -53,9 +53,6 @@
   
   <link rel="stylesheet" href="styles.css">
   <script defer src="i18n.js"></script>
-  <!-- PayPal SDK - supports both PayPal and card payments -->
-  <script src="https://www.paypal.com/sdk/js?client-id=AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUed2TK-uhjVCt_b&currency=EUR&intent=capture"></script>
-  
   <!-- Structured Data - Organization Schema -->
   <script type="application/ld+json">
   {
@@ -282,7 +279,7 @@
   </div>
 
   <!-- Shopping Cart Modal -->
-  <div class="cart-modal" id="cartModal">
+  <div class="cart-modal" id="cartModal" hidden aria-hidden="true">
     <div class="cart-content">
       <div class="cart-header">
         <h2 data-i18n="cart_title">Shopping Cart</h2>
@@ -311,9 +308,6 @@
         </div>
         
         <a href="checkout.html" class="checkout-button" data-i18n="checkout_btn">Proceed to Checkout</a>
-        
-        <!-- PayPal Smart Payment Buttons Container -->
-        <div id="paypal-button-container" style="margin-top: 8px;"></div>
         
         <div class="cart-actions" style="margin-top: 12px;">
           <button class="btn" onclick="clearCart()" data-i18n="clear_cart">Clear Cart</button>
@@ -602,8 +596,10 @@
 
     function toggleCart() {
       const modal = document.getElementById('cartModal');
-      modal.classList.toggle('active');
-      if (modal.classList.contains('active')) {
+      const isActive = modal.classList.toggle('active');
+      modal.hidden = !isActive;
+      modal.setAttribute('aria-hidden', String(!isActive));
+      if (isActive) {
         document.body.style.overflow = 'hidden';
       } else {
         document.body.style.overflow = '';
